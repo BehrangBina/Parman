@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 add_filter( 'imp_m_links', function ( $links ) {
 	return $links + array(
+		'membership_form'     => imp_m_page_url( 'membership-form' ), // Fluent Forms page (Figma Form-Hamvandi)
 		'donorbox_membership' => 'https://donorbox.org/membership-930550',
 		'donorbox_donation'   => 'https://donorbox.org/donation-930545',
 	);
@@ -35,7 +36,7 @@ function imp_m_render_donate() {
 				<?php echo esc_html_x( 'درباره هزینه هموندی', 'donate', 'imp-mobile' ); ?>
 			</button>
 
-			<a class="imp-m-btn imp-m-btn--gold" href="<?php echo esc_url( $links['donorbox_membership'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html_x( 'تکمیل فرم', 'donate', 'imp-mobile' ); ?></a>
+			<a class="imp-m-btn imp-m-btn--gold" href="<?php echo esc_url( $links['membership_form'] ); ?>"><?php echo esc_html_x( 'تکمیل فرم', 'donate', 'imp-mobile' ); ?></a>
 		</section>
 
 		<section class="imp-m-block imp-m-block--spaced">

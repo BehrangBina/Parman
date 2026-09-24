@@ -21,7 +21,8 @@ Figma: `IMP-Website-2026`, page **Mobile-HiFi-Farsi** (node `697:927`). Frames a
 | Bayanie (list) | 1009:3003 | category archive `statements` → `inc/statements.php` | ✅ done (from screenshot) |
 | Bayanie dated statements (single) | 1011:3758, 1014:4757, 1014:4874, 1014:4958 | single post in `statements` | todo |
 | Hamyari (donate) | 697:2603, 1023:2782 | page `donate` → `inc/donate.php` | ✅ done (fee popup uses page `membership-fee`; design 966:3055 not yet read) |
-| Form-Hamvandi, Overlay-MembershipFee | 740:2198, 966:3055 | page `membership-form` | todo |
+| Form-Hamvandi | 740:2198 | page `membership-form` (live: Fluent Forms Pro form 3) → restyled in `css/mobile.css` | ✅ styled (from screenshot; re-check with real form after import) |
+| Overlay-MembershipFee | 966:3055 | fee popup on donate page | todo (needs design) |
 | Contact | 820:11317 | page `bcd31-contact-us` → `imp_m_render_contact` in `inc/contact.php` | ✅ done (built from screenshot; Figma MCP limit) |
 | Nashriye (magazine) | 820:9504 | Irangera magazine page (dFlip) | todo |
 | Prince | 790:5679 | TBD — ask designer | todo |

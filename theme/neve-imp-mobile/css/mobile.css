@@ -623,6 +623,97 @@
 	.imp-m-newslist { display: flex; flex-direction: column; align-items: center; gap: 24px; margin-block-start: 30px; }
 	.imp-m-newslist .imp-m-card { flex: none; width: min(342px, 100%); text-align: start; box-shadow: var(--imp-shadow); }
 
+	/* ---------- Fluent Forms (membership form page, Figma Form-Hamvandi 740:2198) ----------
+	   The live form is Fluent Forms Pro; we only restyle its output so admins keep managing it there. */
+	.imp-m-enabled .neve-main .nv-single-page-wrap,
+	.imp-m-enabled .neve-main .nv-content-wrap { padding-inline: 25px; }
+	.imp-m-enabled .neve-main .nv-content-wrap > p:has(+ .fluentform),
+	.imp-m-enabled .neve-main .nv-content-wrap > p:first-child:not(:only-child) {
+		margin: 12px 0 24px;
+		text-align: center;
+		font: 700 15px/1.6 var(--imp-font);
+		color: var(--imp-blue);
+	}
+	.imp-m-enabled .fluentform { font-family: var(--imp-font); color: var(--imp-blue); }
+	.imp-m-enabled .fluentform .ff-el-group { margin-block-end: 16px; }
+	.imp-m-enabled .fluentform .ff-t-container { gap: 11px; }
+	.imp-m-enabled .fluentform .ff-t-cell { padding: 0 !important; }
+	.imp-m-enabled .fluentform .ff-el-input--label { margin-block-end: 4px; }
+	.imp-m-enabled .fluentform .ff-el-input--label label {
+		font: 700 13px/1.4 var(--imp-font);
+		color: var(--imp-blue);
+	}
+	.imp-m-enabled .fluentform .ff-el-form-control {
+		height: 40px;
+		padding-block: 0;
+		padding-inline: 34px 12px; /* room for the icon on the start side */
+		border: 1px solid var(--imp-form-line);
+		border-radius: 6px;
+		background: var(--imp-white) no-repeat;
+		background-position: right 11px center; /* start side in RTL */
+		background-size: 14px;
+		box-shadow: none;
+		font: 400 16px/1.3 var(--imp-font); /* 16px stops iOS zoom-on-focus */
+		color: var(--imp-ink);
+	}
+	.imp-m-enabled .fluentform .ff-el-form-control:focus { border-color: var(--imp-blue); outline: none; box-shadow: 0 0 0 2px rgba(36, 63, 136, .12); }
+	.imp-m-enabled .fluentform .ff-el-form-control::placeholder { color: var(--imp-form-icon); font-size: 13px; }
+	.imp-m-enabled .fluentform textarea.ff-el-form-control { height: auto; min-height: 96px; padding-block: 10px; padding-inline: 12px; }
+	.imp-m-enabled .fluentform select.ff-el-form-control { padding-inline: 34px 12px; background-image: url("../assets/icons/chevron.svg"); background-position: left 6px center; background-size: 22px; appearance: none; }
+	/* Field icons (same set as the contact form) */
+	.imp-m-enabled .fluentform input[name$="[first_name]"],
+	.imp-m-enabled .fluentform input[name$="[last_name]"] { background-image: url("../assets/icons/user.svg"); }
+	.imp-m-enabled .fluentform input[type="email"] { background-image: url("../assets/icons/mail.svg"); }
+	.imp-m-enabled .fluentform .ff-el-datepicker { background-image: url("../assets/icons/calendar.svg"); background-size: 16px; }
+	.imp-m-enabled .fluentform input[name^="input_text"] { background-image: url("../assets/icons/map-pin.svg"); }
+	.imp-m-enabled .fluentform input[name="input_text_7"],
+	.imp-m-enabled .fluentform input[type="tel"] { background-image: none; padding-inline-start: 12px; }
+	:root:not([dir="rtl"]) .imp-m-enabled .fluentform .ff-el-form-control { background-position: left 11px center; }
+
+	/* Radios & checkboxes */
+	.imp-m-enabled .fluentform .ff-el-form-check { margin-block-end: 6px; }
+	.imp-m-enabled .fluentform .ff-el-form-check-label {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		font: 500 14px/1.5 var(--imp-font);
+		color: var(--imp-ink);
+	}
+	.imp-m-enabled .fluentform .ff-el-form-check-input {
+		flex: none;
+		width: 18px;
+		height: 18px;
+		margin: 2px 0 0;
+		accent-color: var(--imp-blue);
+	}
+	.imp-m-enabled .fluentform .ff-el-tc { font: 500 13px/1.6 var(--imp-font); color: var(--imp-ink); }
+
+	/* Errors */
+	.imp-m-enabled .fluentform .ff-el-is-error .ff-el-form-control { border-color: var(--imp-error); }
+	.imp-m-enabled .fluentform .error.text-danger { font: 500 12px/1.4 var(--imp-font); color: var(--imp-error); margin-block-start: 4px; }
+
+	/* Submit: gold like the Figma "ارسال" (overrides the colour set in Fluent's settings) */
+	.imp-m-enabled .fluentform .ff_submit_btn_wrapper { margin-block-start: 24px; text-align: center; }
+	.imp-m-enabled .fluentform .ff-btn-submit {
+		min-width: 124px;
+		padding: 8px 24px !important;
+		border: 0 !important;
+		border-radius: var(--imp-radius) !important;
+		background: var(--imp-gold) !important;
+		color: var(--imp-blue) !important;
+		box-shadow: 0 2px 2px rgba(0, 0, 0, .15) !important;
+		font: 700 16px/1.5 var(--imp-font) !important;
+		opacity: 1 !important;
+	}
+	.imp-m-enabled .fluentform .ff-message-success {
+		border: 0;
+		border-radius: var(--imp-radius);
+		background: var(--imp-white);
+		box-shadow: var(--imp-shadow);
+		font: 700 15px/1.6 var(--imp-font);
+		color: var(--imp-blue);
+	}
+
 	/* ---------- Dialog ---------- */
 	.imp-m-dialog {
 		width: min(374px, 100% - 20px);
