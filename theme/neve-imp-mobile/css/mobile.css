@@ -96,12 +96,12 @@
 		white-space: nowrap;
 	}
 
-	/* ---------- Search (round button under the header, scrolls with the page) ---------- */
+	/* ---------- Search (round button under the header, pinned like the header) ---------- */
 	.imp-m-search {
-		position: absolute;
-		inset-block-start: 176px;
+		position: fixed;
+		inset-block-start: calc(176px + var(--wp-admin--admin-bar--height, 0px));
 		inset-inline-start: 21px;
-		z-index: 3;
+		z-index: 20; /* above page content (inside .imp-m-top, which sits above <main>) */
 		display: flex;
 		align-items: center;
 		height: 37px;
