@@ -76,14 +76,20 @@
 		});
 	}
 
-	// Back: use browser history when we came from this site, otherwise follow the link.
+	// Back: go to the previous page in history. If the browser can't go back (new tab,
+	// first entry, history.back() is a no-op), fall back to the link's href
+	// (the server-side referrer, or the home page).
 	var back = document.querySelector('[data-imp-back]');
 	if (back) {
 		back.addEventListener('click', function (e) {
-			if (history.length > 1 && document.referrer.indexOf(location.origin) === 0) {
-				e.preventDefault();
-				history.back();
-			}
+			if (history.length <= 1) return; // nothing to go back to: follow href
+			e.preventDefault();
+			var left = false;
+			window.addEventListener('pagehide', function () { left = true; }, { once: true });
+			history.back();
+			setTimeout(function () {
+				if (!left) location.href = back.href;
+			}, 500);
 		});
 	}
 
