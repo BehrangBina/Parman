@@ -32,6 +32,20 @@
 
 	.imp-m-icon { display: block; width: 100%; height: 100%; }
 
+	/* No blue tap-highlight box or Neve hover fill on our controls; keyboard focus keeps an outline. */
+	.imp-m, .imp-m * { -webkit-tap-highlight-color: transparent; }
+	.imp-m button,
+	.imp-m button:hover,
+	.imp-m button:focus,
+	.imp-m button:active { background: none; box-shadow: none; outline: none; }
+	.imp-m .imp-m-btn--solid,
+	.imp-m .imp-m-btn--solid:hover,
+	.imp-m .imp-m-btn--solid:focus,
+	.imp-m .imp-m-btn--solid:active { background: var(--imp-blue); box-shadow: var(--imp-shadow); }
+	.imp-m .imp-m-search__toggle { background: none; }
+	.imp-m :is(button, a):focus-visible { outline: 2px solid var(--imp-gold); outline-offset: 2px; border-radius: 6px; }
+	.imp-m-menu__list a, .imp-m-menu button { user-select: none; -webkit-user-select: none; }
+
 	/* ---------- Header ---------- */
 	/* Header is fixed; .imp-m-top keeps its 123px slot in the page flow. */
 	.imp-m-top { position: relative; z-index: 50; padding-block-start: var(--imp-header-h); }
@@ -130,11 +144,14 @@
 		background: var(--imp-bg);
 		overflow-y: auto;
 		overflow-x: hidden;
-		opacity: 0;
-		transition: opacity .2s ease;
+		/* Slides in from the burger's side (right in RTL, left in LTR). */
+		transform: translateX(-100%);
+		transition: transform .35s cubic-bezier(.22, .61, .36, 1);
+		box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
 	}
+	[dir="rtl"] .imp-m-menu { transform: translateX(100%); }
 	.imp-m-menu[hidden] { display: none; }
-	.imp-m-menu.is-open { opacity: 1; }
+	.imp-m-menu.is-open { transform: none; }
 	.admin-bar .imp-m-menu { inset-block-start: 46px; }
 
 	.imp-m-menu__close {
@@ -404,7 +421,8 @@
 		color: var(--imp-form-icon);
 	}
 	.imp-m-field__control:focus-within { border-color: var(--imp-blue); }
-	.imp-m-field__control .imp-m-icon { flex: none; width: 13px; height: 13px; }
+	/* Icon on the start side: right in Farsi, left in LTR languages. */
+	.imp-m-field__control .imp-m-icon { flex: none; order: -1; width: 13px; height: 13px; }
 	.imp-m-field__control--area { height: auto; align-items: flex-start; padding-block: 8px; }
 	.imp-m-field input,
 	.imp-m-field textarea {
@@ -442,5 +460,5 @@
 
 /* ---------- Motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-	.imp-m-search, .imp-m-menu, .imp-m-sub-toggle { transition: none; }
+	.imp-m-search, .imp-m-menu, .imp-m-sub-toggle { transition: none !important; }
 }

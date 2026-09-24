@@ -5,26 +5,34 @@
 	var burger = document.querySelector('.imp-m-header__burger');
 	var menu = document.getElementById('imp-m-menu');
 
+	var hideTimer;
+
 	function openMenu() {
+		clearTimeout(hideTimer);
 		menu.hidden = false;
-		requestAnimationFrame(function () { menu.classList.add('is-open'); });
+		void menu.offsetWidth; // apply the off-screen position first so the slide animates
+		menu.classList.add('is-open');
 		document.body.classList.add('imp-m-menu-open');
 		burger.setAttribute('aria-expanded', 'true');
 		var close = menu.querySelector('.imp-m-menu__close');
-		if (close) close.focus();
+		if (close) close.focus({ preventScroll: true });
 	}
 
-	function closeMenu() {
+	function closeMenu(restoreFocus) {
 		menu.classList.remove('is-open');
 		document.body.classList.remove('imp-m-menu-open');
 		burger.setAttribute('aria-expanded', 'false');
-		setTimeout(function () { menu.hidden = true; }, 200);
-		burger.focus();
+		hideTimer = setTimeout(function () { menu.hidden = true; }, 400); // after the slide-out
+		if (restoreFocus !== false) burger.focus({ preventScroll: true });
 	}
 
 	if (burger && menu) {
 		burger.addEventListener('click', openMenu);
 		menu.querySelector('.imp-m-menu__close').addEventListener('click', closeMenu);
+		// Tapping any menu link closes the panel (also covers same-page #anchors).
+		menu.addEventListener('click', function (e) {
+			if (e.target.closest('a[href]')) closeMenu(false);
+		});
 		document.addEventListener('keydown', function (e) {
 			if (e.key === 'Escape' && !menu.hidden) closeMenu();
 		});
