@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Map Pin">
+<path d="M11 11H0V0H11V11Z" stroke="#9CA3AF"/>
+<path id="Vector" d="M9.16666 4.5833C9.16666 6.87175 6.62795 9.25509 5.77545 9.99117C5.69604 10.0509 5.59936 10.0832 5.5 10.0832C5.40063 10.0832 5.30396 10.0509 5.22454 9.99117C4.37204 9.25509 1.83333 6.87175 1.83333 4.5833C1.83333 3.61083 2.21964 2.6782 2.90727 1.99057C3.5949 1.30294 4.52753 0.916629 5.5 0.916629C6.47246 0.916629 7.40509 1.30294 8.09272 1.99057C8.78035 2.6782 9.16666 3.61083 9.16666 4.5833Z" stroke="#9CA3AF" stroke-width="0.916667" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M5.5 5.95837C6.25939 5.95837 6.875 5.34276 6.875 4.58337C6.875 3.82398 6.25939 3.20837 5.5 3.20837C4.74061 3.20837 4.125 3.82398 4.125 4.58337C4.125 5.34276 4.74061 5.95837 5.5 5.95837Z" stroke="#9CA3AF" stroke-width="0.916667" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

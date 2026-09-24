@@ -1,0 +1,30 @@
+/* Design tokens from the Figma style guide (Colors / Effects / Typography). */
+:root {
+	--imp-blue: #243f88;          /* Primary-Blue-IMP */
+	--imp-blue-hover: #203a7a;
+	--imp-blue-active: #1d326d;
+	--imp-blue-dark: #1b2f66;
+	--imp-blue-darker: #0d1630;
+	--imp-ink: #101c3d;           /* Dark-Black */
+	--imp-gold: #d5af30;          /* Secondary-Yellow */
+	--imp-blue-grey: #bbc3da;
+	--imp-bg: #e9ecf3;            /* Blue/Light */
+	--imp-bg-hover: #dee2ed;
+	--imp-white: #fff;
+	--imp-error: #be2b28;
+	--imp-form-line: #d1d5db;
+	--imp-form-label: #374151;
+	--imp-form-icon: #9ca3af;
+
+	--imp-gold-gradient: linear-gradient(90deg, #7a5d25 0%, #977729 6%, #b28f2e 13%, #c5a131 20%, #d1ab33 27%, #d5af34 35%, #e2c350 45%, #f0d96f 58%, #f6e27b 65%, #f4e079 66%, #c8a042 89%, #b7872d 100%);
+
+	--imp-shadow: 0 2px 2px rgba(0, 0, 0, .2);          /* Drop Shadow */
+	--imp-shadow-logo: 0 1px 1px rgba(0, 0, 0, .5);     /* Logo Drop Shadow */
+	--imp-shadow-inner: inset 1px 1px 5px rgba(0, 0, 0, .25);
+
+	--imp-radius: 10px;
+	--imp-font: "Vazirmatn", "Roboto", system-ui, sans-serif;
+	--imp-font-slab: "Roboto Slab", "Vazirmatn", serif;
+
+	--imp-header-h: 123px;
+}

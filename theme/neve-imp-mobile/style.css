@@ -1,0 +1,12 @@
+/*
+Theme Name:   IMP Mobile (Neve child)
+Theme URI:    https://iranianmonarchy.info/
+Description:  Mobile redesign of the Iranian Monarchy Party site. Desktop keeps the Neve layout; below 960px the header, menu, home page and footer follow the IMP Website 2026 Figma design.
+Author:       Behrang Bina
+Template:     neve
+Version:      0.1.0
+Requires PHP: 7.4
+Text Domain:  imp-mobile
+*/
+
+/* Styles live in css/tokens.css and css/mobile.css (enqueued from functions.php). */

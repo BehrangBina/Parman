@@ -1,0 +1,446 @@
+/*
+ * IMP mobile layout. Everything here only applies below 960px (Neve's mobile
+ * breakpoint); on desktop the .imp-m blocks are hidden and Neve renders as before.
+ * Logical properties (inline-start/end) are used so the layout mirrors for LTR languages.
+ * Measurements follow the 393px Figma frames 1:1 (header 123px, logo frame 169px).
+ */
+
+.imp-m { display: none; }
+
+@media (max-width: 959.98px) {
+
+	/* ---------- Swap Neve chrome for ours ---------- */
+	.imp-m { display: block; }
+	.imp-m-enabled .header,
+	.imp-m-enabled .site-footer { display: none !important; }
+	.home.imp-m-enabled .neve-main { display: none; }
+	.home.imp-m-enabled .wrapper { min-height: 0; } /* Neve sets 100vh; it's empty on our home */
+
+	body.imp-m-enabled {
+		background: var(--imp-bg);
+		font-family: var(--imp-font);
+		color: var(--imp-ink);
+	}
+	body.imp-m-menu-open { overflow: hidden; }
+
+	.imp-m-enabled .neve-main {
+		background: var(--imp-bg);
+		font-family: var(--imp-font);
+		padding-block-start: 70px; /* logo overhangs the 123px bar by 46px */
+	}
+	.imp-m-enabled .neve-main :is(h1, h2, h3, h4, h5, h6, p, li, a, span) { font-family: var(--imp-font); }
+
+	.imp-m-icon { display: block; width: 100%; height: 100%; }
+
+	/* ---------- Header ---------- */
+	/* Header is fixed; .imp-m-top keeps its 123px slot in the page flow. */
+	.imp-m-top { position: relative; z-index: 50; padding-block-start: var(--imp-header-h); }
+	.imp-m-header {
+		position: fixed;
+		inset-block-start: var(--wp-admin--admin-bar--height, 0px);
+		inset-inline: 0;
+		z-index: 10;
+		height: var(--imp-header-h);
+		background: var(--imp-blue);
+		box-shadow: var(--imp-shadow);
+	}
+	.imp-m-header__logo {
+		position: absolute;
+		inset-block-start: 61px; /* logo bottom = 169px, the Figma header frame */
+		left: 50%;
+		translate: -50% 0;
+		width: 152px;
+		z-index: 2;
+	}
+	.imp-m-header__logo img { display: block; width: 152px; height: auto; }
+
+	.imp-m-header__burger {
+		position: absolute;
+		inset-block-start: 91.42px;
+		inset-inline-start: 24px;
+		width: 36px;
+		height: 20px;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+	}
+	.imp-m-header__date {
+		position: absolute;
+		inset-block-start: 78px;
+		inset-inline-end: 16px;
+		width: 68px;
+		padding: 8px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font: 700 12px/14px var(--imp-font);
+		background: var(--imp-gold-gradient);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		white-space: nowrap;
+	}
+
+	/* ---------- Search (round button under the header, scrolls with the page) ---------- */
+	.imp-m-search {
+		position: absolute;
+		inset-block-start: 176px;
+		inset-inline-start: 21px;
+		z-index: 3;
+		display: flex;
+		align-items: center;
+		height: 37px;
+		width: 30px;
+		border-radius: 45px;
+		background: var(--imp-white);
+		box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+		overflow: hidden;
+		transition: width .25s ease;
+	}
+	.imp-m-search[data-state="open"] { width: calc(100vw - 42px); }
+	.imp-m-search__form { flex: 1; min-width: 0; margin: 0; }
+	.imp-m-search__input {
+		width: 100%;
+		border: 0 !important;
+		background: transparent !important;
+		box-shadow: none !important;
+		padding-inline: 12px 4px !important;
+		font: 400 16px var(--imp-font);
+		color: var(--imp-ink);
+		outline: none;
+	}
+	.imp-m-search__toggle {
+		flex: none;
+		width: 30px;
+		height: 37px;
+		padding: 10px 7px 10px 6px;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		order: -1;
+	}
+	.imp-m-search[data-state="closed"] .imp-m-search__form { visibility: hidden; }
+
+	/* ---------- Full-screen menu ---------- */
+	.imp-m-menu {
+		position: fixed;
+		inset: 0;
+		z-index: 100000;
+		background: var(--imp-bg);
+		overflow-y: auto;
+		overflow-x: hidden;
+		opacity: 0;
+		transition: opacity .2s ease;
+	}
+	.imp-m-menu[hidden] { display: none; }
+	.imp-m-menu.is-open { opacity: 1; }
+	.admin-bar .imp-m-menu { inset-block-start: 46px; }
+
+	.imp-m-menu__close {
+		position: absolute;
+		inset-block-start: 76px;
+		inset-inline-start: 23px;
+		width: 46px;
+		height: 46px;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		z-index: 2;
+	}
+	.imp-m-menu__lion {
+		position: absolute;
+		inset-block-start: 234px;
+		inset-inline-end: -175px;
+		width: 350.48px;
+		height: 342.17px;
+		pointer-events: none;
+	}
+	.imp-m-menu__list,
+	.imp-m-menu__list ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.imp-m-menu__list {
+		position: relative;
+		z-index: 1;
+		margin-block: 272px 64px;
+		margin-inline-start: 53px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+		max-width: 60%;
+	}
+	/* Figma row: [chevron 30px] 4px [label]; rows without a submenu keep the empty
+	   30px slot so every label lines up on the same edge. */
+	.imp-m-menu__list li { position: relative; }
+	.imp-m-menu__list > li { display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; }
+	.imp-m-menu__list > li:not(.menu-item-has-children):not(.page_item_has_children) { padding-inline-start: 34px; }
+	.imp-m-menu__list a {
+		display: flex;
+		align-items: center;
+		height: 30px;
+		padding-inline-end: 8px;
+		font: 700 18px/1 var(--imp-font);
+		color: var(--imp-blue);
+		text-decoration: none;
+	}
+	.imp-m-menu__list .current-menu-item > a { color: var(--imp-gold); }
+	.imp-m-sub-toggle {
+		order: -1;
+		width: 30px;
+		height: 30px;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		transition: rotate .2s ease;
+	}
+	.imp-m-sub-toggle[aria-expanded="true"] { rotate: 180deg; }
+	.imp-m-menu__list .sub-menu {
+		flex-basis: 100%;
+		display: none;
+		padding-inline-start: 34px;
+	}
+	.imp-m-menu__list .sub-menu.is-open { display: block; }
+	.imp-m-menu__list .sub-menu a { height: 28px; font-size: 16px; font-weight: 500; }
+
+	/* ---------- Donate tab (fixed on the inline-end edge) ---------- */
+	.imp-m-donate {
+		/* Physical offsets: logical ones follow the vertical writing-mode. */
+		position: fixed;
+		left: 0;
+		top: 62vh;
+		z-index: 40;
+		writing-mode: vertical-rl;
+		rotate: 180deg;
+		width: 49px;
+		padding: 12px 0;
+		min-height: 98px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--imp-gold);
+		color: var(--imp-blue);
+		font: 900 16px/1 var(--imp-font);
+		text-decoration: none;
+		border-radius: 6px 0 0 6px; /* ends up on the visible side after the 180° turn */
+		filter: drop-shadow(0 2px 1px rgba(0, 0, 0, .2));
+	}
+	:root:not([dir="rtl"]) .imp-m-donate { left: auto; right: 0; rotate: 0deg; }
+
+	/* ---------- Buttons ---------- */
+	.imp-m-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 8px 24px;
+		border-radius: var(--imp-radius);
+		font: 700 16px/1.5 var(--imp-font);
+		text-decoration: none;
+		cursor: pointer;
+	}
+	.imp-m-btn--gold-outline {
+		height: 41px;
+		padding-inline: 11px;
+		border: 2.3px solid var(--imp-gold);
+		color: var(--imp-gold);
+		font-size: 15.6px;
+	}
+	.imp-m-btn--blue-outline {
+		border: 2px solid var(--imp-blue);
+		color: var(--imp-blue);
+		box-shadow: var(--imp-shadow);
+	}
+	.imp-m-btn--solid {
+		border: 0;
+		background: var(--imp-blue);
+		color: var(--imp-gold);
+		font-size: 14px;
+		box-shadow: var(--imp-shadow);
+	}
+	.imp-m-btn:hover, .imp-m-btn:focus-visible { filter: brightness(1.1); }
+
+	/* ---------- Home ---------- */
+	.imp-m-home { position: relative; z-index: 1; padding-block-end: 40px; }
+	.imp-m-hero {
+		margin-block-start: -22px;
+		min-height: 535px;
+		padding: 171px 53px 224px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 35px;
+		/* Photo is the bottom (people) strip of src/Hero/Hero-Photo.jpg; the colour matches its backdrop. */
+		background: #214289 var(--imp-hero) center bottom / 100% auto no-repeat;
+		text-align: center;
+	}
+	.imp-m-hero__title {
+		max-width: 216px;
+		margin: 0;
+		font: 900 24px/1.1 var(--imp-font);
+		color: var(--imp-white);
+	}
+	.imp-m-hero__buttons { display: flex; gap: 18px; }
+
+	.imp-m-docs {
+		margin: 44px auto 0;
+		width: min(242px, 100% - 64px);
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.imp-m-section-title {
+		margin: 0 0 16px;
+		text-align: center;
+		font: 700 16px/1.3 var(--imp-font);
+		color: var(--imp-blue);
+	}
+	.imp-m-section-title--slab { font-family: var(--imp-font-slab); }
+
+	.imp-m-news { margin-block-start: 45px; }
+	.imp-m-news__track {
+		display: flex;
+		gap: 16px;
+		padding-inline: 25px;
+		scroll-padding-inline: 25px;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		scrollbar-width: none;
+		overscroll-behavior-x: contain;
+	}
+	.imp-m-news__track::-webkit-scrollbar { display: none; }
+	.imp-m-card {
+		flex: 0 0 min(342px, 100% - 10px);
+		scroll-snap-align: start;
+		display: flex;
+		flex-direction: column;
+		gap: 7px;
+		padding: 18px 18px 23px;
+		border-radius: var(--imp-radius);
+		background: var(--imp-white);
+		color: var(--imp-ink);
+		text-decoration: none;
+	}
+	.imp-m-card__media { display: block; height: 193px; border-radius: var(--imp-radius); overflow: hidden; }
+	.imp-m-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+	.imp-m-card__date { font: 500 10px var(--imp-font); }
+	.imp-m-card__title {
+		min-height: 52px;
+		font: 800 18px/1.4 var(--imp-font);
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.imp-m-card__excerpt {
+		font: 500 12px/1.3 var(--imp-font);
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.imp-m-news__nav {
+		direction: ltr; /* arrows are physical: left button scrolls left */
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 16px auto 0;
+		width: min(342px, 100% - 50px);
+		padding-inline: 60px;
+	}
+	.imp-m-news__arrow {
+		width: 35px;
+		height: 35px;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		color: var(--imp-blue);
+	}
+	.imp-m-news__arrow--right .imp-m-icon { scale: -1 1; }
+	.imp-m-news__all {
+		direction: rtl;
+		padding: 8px;
+		font: 700 16px var(--imp-font);
+		color: var(--imp-blue);
+		text-decoration: none;
+	}
+
+	/* Contact / membership */
+	.imp-m-contact { margin-block-start: 56px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+	.imp-m-contact .imp-m-section-title { margin: 0; }
+	.imp-m-contact__card {
+		width: min(327px, 100% - 32px);
+		padding: 13px 32px 24px;
+		border-radius: var(--imp-radius);
+		background: var(--imp-white);
+		filter: drop-shadow(0 2px 1px rgba(0, 0, 0, .2));
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.imp-m-contact__heading { margin: 0; text-align: center; font: 700 18px/1.4 var(--imp-font); color: var(--imp-blue); }
+	.imp-m-contact__sub { margin: -10px 0 8px; text-align: center; font: 400 14px/1.4 var(--imp-font); color: var(--imp-blue); }
+	.imp-m-contact__notice { margin: 0; padding: 8px 12px; border-radius: 6px; background: var(--imp-bg); font-size: 14px; color: var(--imp-blue); }
+	.imp-m-contact__notice--error { color: var(--imp-error); }
+	.imp-m-contact__row { display: flex; gap: 11px; }
+	.imp-m-contact__row .imp-m-field { flex: 1; min-width: 0; }
+	.imp-m-field { display: flex; flex-direction: column; gap: 4px; margin: 0; }
+	.imp-m-field__label { font: 500 12px/1.2 var(--imp-font); color: var(--imp-form-label); }
+	.imp-m-field__control {
+		display: flex;
+		align-items: center;
+		gap: 7px;
+		height: 36px;
+		padding-inline: 10px;
+		border: 1px solid var(--imp-form-line);
+		border-radius: 6px;
+		background: var(--imp-white);
+		color: var(--imp-form-icon);
+	}
+	.imp-m-field__control:focus-within { border-color: var(--imp-blue); }
+	.imp-m-field__control .imp-m-icon { flex: none; width: 13px; height: 13px; }
+	.imp-m-field__control--area { height: auto; align-items: flex-start; padding-block: 8px; }
+	.imp-m-field input,
+	.imp-m-field textarea {
+		flex: 1;
+		min-width: 0;
+		width: 100%;
+		margin: 0;
+		padding: 0 !important;
+		border: 0 !important;
+		background: transparent !important;
+		box-shadow: none !important;
+		outline: none;
+		font: 400 16px/1.3 var(--imp-font); /* 16px stops iOS zoom-on-focus */
+		color: var(--imp-ink);
+	}
+	.imp-m-field textarea { min-height: 72px; resize: vertical; }
+	.imp-m-field ::placeholder { color: var(--imp-form-icon); font-size: 13px; }
+	.imp-m-contact__card .imp-m-btn--solid { align-self: center; margin-block-start: 4px; }
+	.imp-m-contact__note { max-width: 272px; margin: 0; text-align: center; font: 400 10px/1.6 var(--imp-font-slab); color: var(--imp-blue); }
+	.imp-m-hp { position: absolute !important; inset-inline-start: -9999px; }
+
+	/* ---------- Footer ---------- */
+	.imp-m-footer {
+		padding: 40px 16px 32px;
+		background: var(--imp-bg);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 35px;
+	}
+	.imp-m-social { display: flex; justify-content: center; gap: 17px; margin: 0; padding: 0; list-style: none; }
+	.imp-m-social a { display: block; width: 42px; height: 42px; }
+	.imp-m-footer__copy { margin: 0; font: 700 8px var(--imp-font-slab); color: var(--imp-blue); text-align: center; direction: ltr; }
+}
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+	.imp-m-search, .imp-m-menu, .imp-m-sub-toggle { transition: none; }
+}

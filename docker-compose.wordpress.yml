@@ -1,0 +1,40 @@
+name: local-wordpress-703
+
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress_local_password
+      MARIADB_ROOT_PASSWORD: wordpress_root_password
+    volumes:
+      - wordpress_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh --connect --innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress_local_password
+      WORDPRESS_DEBUG: "1"
+    volumes:
+      - D:/wordpress-7.0.3/wordpress:/var/www/html
+      # Child theme lives in this repo; mounted so edits show up instantly.
+      - ./theme/neve-imp-mobile:/var/www/html/wp-content/themes/neve-imp-mobile
+
+volumes:
+  wordpress_db:
