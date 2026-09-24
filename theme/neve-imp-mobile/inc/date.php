@@ -52,6 +52,21 @@ function imp_m_jalali_parts( $date = null, $imperial = false ) {
 	);
 }
 
+/**
+ * Gregorian date with Persian month names and digits, e.g. ["۱۷ آگوست", "۲۰۲۶"] (Bayanie cards).
+ */
+function imp_m_post_date_gregorian_fa( $post = null ) {
+	$date = get_post_datetime( $post );
+	if ( ! $date ) {
+		return array( '', '' );
+	}
+	$months = array( 1 => 'ژانویه', 'فوریه', 'مارس', 'آوریل', 'می', 'ژوئن', 'جولای', 'آگوست', 'سپتامبر', 'اکتبر', 'نوامبر', 'دسامبر' );
+	return array(
+		imp_m_fa_digits( $date->format( 'j' ) ) . ' ' . $months[ (int) $date->format( 'n' ) ],
+		imp_m_fa_digits( $date->format( 'Y' ) ),
+	);
+}
+
 /** "۲۵ مرداد ۱۴۰۵" for a post. */
 function imp_m_post_date( $post = null ) {
 	$date = get_post_datetime( $post );

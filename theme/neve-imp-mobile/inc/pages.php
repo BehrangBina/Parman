@@ -3,7 +3,7 @@
  * Pages with a dedicated mobile layout. On these pages Neve's <main> is hidden
  * below 960px and the registered renderer prints the Figma layout instead.
  *
- * Keys are page slugs, plus "front" for the front page.
+ * Keys are page slugs, "front" for the front page, or "category:<slug>" for a category archive.
  * Filter `imp_m_custom_pages` to add or remove pages.
  */
 
@@ -11,26 +11,26 @@ defined( 'ABSPATH' ) || exit;
 
 function imp_m_custom_pages() {
 	return apply_filters( 'imp_m_custom_pages', array(
-		'front'  => 'imp_m_render_home',
-		'donate'           => 'imp_m_render_donate',
-		'bcd31-contact-us' => 'imp_m_render_contact', // live slug
-		'contact-us'       => 'imp_m_render_contact',
+		'front'               => 'imp_m_render_home',
+		'donate'              => 'imp_m_render_donate',
+		'bcd31-contact-us'    => 'imp_m_render_contact', // live slug
+		'contact-us'          => 'imp_m_render_contact',
+		'category:statements' => 'imp_m_render_statements',
 	) );
 }
 
 /** Renderer for the current request, or null. */
 function imp_m_current_renderer() {
 	$pages = imp_m_custom_pages();
+	$key   = null;
 	if ( is_front_page() ) {
-		return isset( $pages['front'] ) ? $pages['front'] : null;
+		$key = 'front';
+	} elseif ( is_page() ) {
+		$key = get_post_field( 'post_name', get_queried_object_id() );
+	} elseif ( is_category() ) {
+		$key = 'category:' . get_queried_object()->slug;
 	}
-	if ( is_page() ) {
-		$slug = get_post_field( 'post_name', get_queried_object_id() );
-		if ( isset( $pages[ $slug ] ) ) {
-			return $pages[ $slug ];
-		}
-	}
-	return null;
+	return ( $key && isset( $pages[ $key ] ) ) ? $pages[ $key ] : null;
 }
 
 add_filter( 'body_class', function ( $classes ) {
@@ -39,6 +39,14 @@ add_filter( 'body_class', function ( $classes ) {
 	}
 	return $classes;
 } );
+
+/** Title for the current page or archive. */
+function imp_m_current_title() {
+	if ( is_category() || is_tag() || is_tax() ) {
+		return single_term_title( '', false );
+	}
+	return get_the_title( get_queried_object_id() );
+}
 
 add_action( 'wp_body_open', function () {
 	$renderer = imp_m_current_renderer();
