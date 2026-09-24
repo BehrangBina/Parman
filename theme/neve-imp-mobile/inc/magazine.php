@@ -69,6 +69,46 @@ add_action( 'save_post_imp_issue', function ( $post_id ) {
 	update_post_meta( $post_id, IMP_M_ISSUE_PDF, $url );
 } );
 
+/* ---------- Download endpoint: /?imp_issue_download=<id> ----------
+ * The HTML `download` attribute is ignored by some mobile browsers, so files in this site's
+ * uploads are sent with Content-Disposition: attachment. PDFs hosted elsewhere are redirected to.
+ */
+
+function imp_m_issue_download_url( $issue_id ) {
+	return add_query_arg( 'imp_issue_download', (int) $issue_id, home_url( '/' ) );
+}
+
+add_action( 'template_redirect', function () {
+	if ( ! isset( $_GET['imp_issue_download'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification -- public download link.
+		return;
+	}
+	$issue = get_post( absint( $_GET['imp_issue_download'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
+	$url   = ( $issue && 'imp_issue' === $issue->post_type && 'publish' === $issue->post_status ) ? get_post_meta( $issue->ID, IMP_M_ISSUE_PDF, true ) : '';
+	if ( ! $url ) {
+		wp_safe_redirect( home_url( '/' ) );
+		exit;
+	}
+
+	$uploads = wp_get_upload_dir();
+	$base    = set_url_scheme( $uploads['baseurl'], 'https' );
+	$rel     = 0 === strpos( set_url_scheme( $url, 'https' ), $base ) ? substr( set_url_scheme( $url, 'https' ), strlen( $base ) ) : '';
+	$path    = $rel ? realpath( $uploads['basedir'] . rawurldecode( $rel ) ) : false;
+	$root    = realpath( $uploads['basedir'] );
+
+	if ( $path && $root && 0 === strpos( $path, $root ) && is_file( $path ) && 'pdf' === strtolower( pathinfo( $path, PATHINFO_EXTENSION ) ) ) {
+		nocache_headers();
+		header( 'Content-Type: application/pdf' );
+		header( 'Content-Disposition: attachment; filename="' . basename( $path ) . '"' );
+		header( 'Content-Length: ' . filesize( $path ) );
+		header( 'X-Content-Type-Options: nosniff' );
+		readfile( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+		exit;
+	}
+
+	wp_redirect( esc_url_raw( $url ) ); // phpcs:ignore WordPress.Security.SafeRedirect -- admin-entered PDF URL.
+	exit;
+} );
+
 /* ---------- Front end ---------- */
 
 function imp_m_render_magazine() {
@@ -97,17 +137,27 @@ function imp_m_render_magazine() {
 					$pdf  = get_post_meta( get_the_ID(), IMP_M_ISSUE_PDF, true );
 					?>
 					<li class="imp-m-issue">
-						<div class="imp-m-issue__top">
-							<h2 class="imp-m-issue__title"><?php the_title(); ?></h2>
-							<span class="imp-m-issue__year"><?php echo esc_html( $date['year'] ); ?></span>
-						</div>
-						<?php if ( has_excerpt() ) : ?>
-							<p class="imp-m-issue__desc"><?php echo esc_html( get_the_excerpt() ); ?></p>
-						<?php endif; ?>
+						<?php
+						// Tapping the blue part views the PDF; "دانلود" downloads it.
+						$view_tag = $pdf ? 'a' : 'div';
+						printf(
+							'<%1$s class="imp-m-issue__view"%2$s>',
+							$view_tag, // phpcs:ignore WordPress.Security.EscapeOutput -- fixed tag.
+							$pdf ? ' href="' . esc_url( $pdf ) . '" target="_blank" rel="noopener" aria-label="' . esc_attr( sprintf( 'مشاهده %s', get_the_title() ) ) . '"' : '' // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above.
+						);
+						?>
+							<span class="imp-m-issue__top">
+								<span class="imp-m-issue__title"><?php the_title(); ?></span>
+								<span class="imp-m-issue__year"><?php echo esc_html( $date['year'] ); ?></span>
+							</span>
+							<?php if ( has_excerpt() ) : ?>
+								<span class="imp-m-issue__desc"><?php echo esc_html( get_the_excerpt() ); ?></span>
+							<?php endif; ?>
+						<?php echo '</' . $view_tag . '>'; // phpcs:ignore WordPress.Security.EscapeOutput -- fixed tag. ?>
 						<div class="imp-m-issue__bar">
 							<time class="imp-m-issue__date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( $date['day'] . ' ' . $date['month'] ); ?></time>
 							<?php if ( $pdf ) : ?>
-								<a class="imp-m-issue__download" href="<?php echo esc_url( $pdf ); ?>" download target="_blank" rel="noopener">
+								<a class="imp-m-issue__download" href="<?php echo esc_url( imp_m_issue_download_url( get_the_ID() ) ); ?>" download>
 									<?php echo esc_html_x( 'دانلود', 'magazine', 'imp-mobile' ); ?>
 									<?php imp_m_icon( 'download' ); ?>
 								</a>

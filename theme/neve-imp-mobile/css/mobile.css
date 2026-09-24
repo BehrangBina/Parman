@@ -730,16 +730,17 @@
 		color: var(--imp-white);
 		text-align: start;
 	}
+	.imp-m-issue__view { display: block; padding-block-end: 18px; color: inherit; text-decoration: none; transition: background-color .15s ease; }
+	a.imp-m-issue__view:active { background: var(--imp-blue-active); }
 	.imp-m-issue__top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 18px 18px 0; }
 	.imp-m-issue__title { margin: 0; font: 900 28px/1.3 var(--imp-font); color: var(--imp-white); }
 	.imp-m-issue__year { font: 700 16px/1 var(--imp-font); color: var(--imp-white); }
-	.imp-m-issue__desc { margin: 8px 0 0; padding-inline: 18px; font: 500 11px/1.7 var(--imp-font); color: var(--imp-white); opacity: .92; }
+	.imp-m-issue__desc { display: block; margin: 8px 0 0; padding-inline: 18px; font: 500 11px/1.7 var(--imp-font); color: var(--imp-white); opacity: .92; }
 	.imp-m-issue__bar {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		min-height: 48px;
-		margin-block-start: 18px;
 		padding-inline: 18px;
 		background: var(--imp-white);
 		color: var(--imp-blue);
