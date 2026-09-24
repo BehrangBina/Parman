@@ -292,7 +292,8 @@
 		align-items: center;
 		gap: 35px;
 		/* Photo is the bottom (people) strip of src/Hero/Hero-Photo.jpg; the colour matches its backdrop. */
-		background: #214289 var(--imp-hero) center bottom / 100% auto no-repeat;
+		/* Capped at the 393px Figma width so on wider screens the people don't grow into the title/buttons. */
+		background: #214289 var(--imp-hero) center bottom / min(100%, 393px) auto no-repeat;
 		text-align: center;
 	}
 	.imp-m-hero__title {
