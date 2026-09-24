@@ -24,6 +24,7 @@ require IMP_M_DIR . '/inc/news.php';
 require IMP_M_DIR . '/inc/magazine.php';
 require IMP_M_DIR . '/inc/footer.php';
 require IMP_M_DIR . '/inc/contact.php';
+require IMP_M_DIR . '/inc/forms.php';
 
 add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'neve-style', get_template_directory_uri() . '/style.css', array(), wp_get_theme( 'neve' )->get( 'Version' ) );

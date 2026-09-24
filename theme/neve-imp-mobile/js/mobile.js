@@ -103,10 +103,15 @@
 	}
 
 	// Dialogs: [data-imp-dialog="id"] opens, [data-imp-dialog-close] or a backdrop tap closes.
+	// Links fall back to their href when the dialog isn't shown (e.g. desktop, where .imp-m is hidden).
 	document.querySelectorAll('[data-imp-dialog]').forEach(function (btn) {
 		var dialog = document.getElementById(btn.dataset.impDialog);
 		if (!dialog || typeof dialog.showModal !== 'function') return;
-		btn.addEventListener('click', function () { dialog.showModal(); });
+		btn.addEventListener('click', function (e) {
+			if (!dialog.parentElement.getClientRects().length) return;
+			e.preventDefault();
+			dialog.showModal();
+		});
 		dialog.addEventListener('click', function (e) {
 			if (e.target === dialog || e.target.closest('[data-imp-dialog-close]')) dialog.close();
 		});

@@ -1,0 +1,766 @@
+[
+    {
+        "title": "فرم هموندی (Figma 2026)",
+        "status": "published",
+        "form_fields": {
+            "fields": [
+                {
+                    "element": "input_text",
+                    "attributes": {
+                        "type": "text",
+                        "name": "full_name",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "نام کامل خود را وارد کنید",
+                        "maxlength": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "نام و نام خانوادگی",
+                        "label_placement": "",
+                        "admin_field_label": "نام و نام خانوادگی",
+                        "help_message": "",
+                        "prefix_label": "",
+                        "suffix_label": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Simple Text",
+                        "icon_class": "ff-edit-text",
+                        "template": "inputText"
+                    },
+                    "uniqElKey": "el_imp_member_1",
+                    "index": 0
+                },
+                {
+                    "element": "input_date",
+                    "attributes": {
+                        "type": "text",
+                        "name": "birth_date",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "انتخاب"
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "زادروز",
+                        "label_placement": "",
+                        "admin_field_label": "زادروز",
+                        "date_format": "d\/m\/Y",
+                        "date_config": "",
+                        "is_time_enabled": false,
+                        "help_message": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Time & Date",
+                        "icon_class": "ff-edit-date",
+                        "template": "inputText"
+                    },
+                    "uniqElKey": "el_imp_member_2",
+                    "index": 1
+                },
+                {
+                    "element": "input_email",
+                    "attributes": {
+                        "type": "email",
+                        "name": "email",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "you@example.com"
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "آدرس ایمیل",
+                        "label_placement": "",
+                        "admin_field_label": "آدرس ایمیل",
+                        "help_message": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "این فیلد الزامی است"
+                            },
+                            "email": {
+                                "value": true,
+                                "message": "لطفاً یک ایمیل معتبر وارد کنید"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Email Address",
+                        "icon_class": "ff-edit-email",
+                        "template": "inputText"
+                    },
+                    "uniqElKey": "el_imp_member_3",
+                    "index": 2
+                },
+                {
+                    "element": "input_text",
+                    "attributes": {
+                        "type": "tel",
+                        "name": "phone",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "+49 000 0000000",
+                        "maxlength": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "شماره تلفن",
+                        "label_placement": "",
+                        "admin_field_label": "شماره تلفن",
+                        "help_message": "",
+                        "prefix_label": "",
+                        "suffix_label": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Simple Text",
+                        "icon_class": "ff-edit-text",
+                        "template": "inputText"
+                    },
+                    "uniqElKey": "el_imp_member_4",
+                    "index": 3
+                },
+                {
+                    "element": "input_text",
+                    "attributes": {
+                        "type": "text",
+                        "name": "occupation",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "شغل خود را وارد کنید",
+                        "maxlength": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "شغل",
+                        "label_placement": "",
+                        "admin_field_label": "شغل",
+                        "help_message": "",
+                        "prefix_label": "",
+                        "suffix_label": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": false,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Simple Text",
+                        "icon_class": "ff-edit-text",
+                        "template": "inputText"
+                    },
+                    "uniqElKey": "el_imp_member_5",
+                    "index": 4
+                },
+                {
+                    "element": "input_text",
+                    "attributes": {
+                        "type": "text",
+                        "name": "education",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "آخرین مدرک تحصیلی",
+                        "maxlength": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "تحصیلات",
+                        "label_placement": "",
+                        "admin_field_label": "تحصیلات",
+                        "help_message": "",
+                        "prefix_label": "",
+                        "suffix_label": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": false,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Simple Text",
+                        "icon_class": "ff-edit-text",
+                        "template": "inputText"
+                    },
+                    "uniqElKey": "el_imp_member_6",
+                    "index": 5
+                },
+                {
+                    "element": "input_text",
+                    "attributes": {
+                        "type": "text",
+                        "name": "telegram",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "@telegram_id",
+                        "maxlength": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "لطفاً آیدی تلگرام خود را وارد نمایید",
+                        "label_placement": "",
+                        "admin_field_label": "لطفاً آیدی تلگرام خود را وارد نمایید",
+                        "help_message": "",
+                        "prefix_label": "",
+                        "suffix_label": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": false,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Simple Text",
+                        "icon_class": "ff-edit-text",
+                        "template": "inputText"
+                    },
+                    "uniqElKey": "el_imp_member_7",
+                    "index": 6
+                },
+                {
+                    "element": "select_country",
+                    "attributes": {
+                        "name": "birthplace",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "انتخاب"
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "زادگاه",
+                        "label_placement": "",
+                        "admin_field_label": "زادگاه",
+                        "help_message": "",
+                        "enable_select_2": "no",
+                        "country_list": {
+                            "active_list": "all",
+                            "visible_list": [],
+                            "hidden_list": []
+                        },
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "options": {
+                        "US": "US"
+                    },
+                    "editor_options": {
+                        "title": "Country List",
+                        "element": "country-list",
+                        "icon_class": "ff-edit-country",
+                        "template": "selectCountry"
+                    },
+                    "uniqElKey": "el_imp_member_8",
+                    "index": 7
+                },
+                {
+                    "element": "input_radio",
+                    "attributes": {
+                        "type": "radio",
+                        "name": "gender",
+                        "value": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "جنسیت",
+                        "label_placement": "",
+                        "admin_field_label": "جنسیت",
+                        "display_type": "",
+                        "help_message": "",
+                        "randomize_options": "no",
+                        "advanced_options": [
+                            {
+                                "label": "زن",
+                                "value": "زن",
+                                "calc_value": ""
+                            },
+                            {
+                                "label": "مرد",
+                                "value": "مرد",
+                                "calc_value": ""
+                            },
+                            {
+                                "label": "سایر",
+                                "value": "سایر",
+                                "calc_value": ""
+                            }
+                        ],
+                        "calc_value_status": false,
+                        "enable_image_input": false,
+                        "layout_class": "ff_list_inline",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Radio Field",
+                        "icon_class": "ff-edit-radio",
+                        "element": "input-radio",
+                        "template": "inputCheckable"
+                    },
+                    "uniqElKey": "el_imp_member_9",
+                    "index": 8
+                },
+                {
+                    "element": "container",
+                    "attributes": [],
+                    "settings": {
+                        "container_class": "",
+                        "conditional_logics": [],
+                        "container_width": "",
+                        "is_width_auto_calc": true
+                    },
+                    "columns": [
+                        {
+                            "width": 50,
+                            "fields": [
+                                {
+                                    "element": "input_text",
+                                    "attributes": {
+                                        "type": "text",
+                                        "name": "city",
+                                        "value": "",
+                                        "class": "",
+                                        "placeholder": "شهر",
+                                        "maxlength": ""
+                                    },
+                                    "settings": {
+                                        "container_class": "",
+                                        "label": "شهر محل اقامت",
+                                        "label_placement": "",
+                                        "admin_field_label": "شهر محل اقامت",
+                                        "help_message": "",
+                                        "prefix_label": "",
+                                        "suffix_label": "",
+                                        "validation_rules": {
+                                            "required": {
+                                                "value": true,
+                                                "message": "این فیلد الزامی است"
+                                            }
+                                        },
+                                        "conditional_logics": []
+                                    },
+                                    "editor_options": {
+                                        "title": "Simple Text",
+                                        "icon_class": "ff-edit-text",
+                                        "template": "inputText"
+                                    },
+                                    "uniqElKey": "el_imp_member_10"
+                                }
+                            ]
+                        },
+                        {
+                            "width": 50,
+                            "fields": [
+                                {
+                                    "element": "select_country",
+                                    "attributes": {
+                                        "name": "country",
+                                        "value": "",
+                                        "class": "",
+                                        "placeholder": "انتخاب"
+                                    },
+                                    "settings": {
+                                        "container_class": "",
+                                        "label": "کشور محل اقامت",
+                                        "label_placement": "",
+                                        "admin_field_label": "کشور محل اقامت",
+                                        "help_message": "",
+                                        "enable_select_2": "no",
+                                        "country_list": {
+                                            "active_list": "all",
+                                            "visible_list": [],
+                                            "hidden_list": []
+                                        },
+                                        "validation_rules": {
+                                            "required": {
+                                                "value": true,
+                                                "message": "این فیلد الزامی است"
+                                            }
+                                        },
+                                        "conditional_logics": []
+                                    },
+                                    "options": {
+                                        "US": "US"
+                                    },
+                                    "editor_options": {
+                                        "title": "Country List",
+                                        "element": "country-list",
+                                        "icon_class": "ff-edit-country",
+                                        "template": "selectCountry"
+                                    },
+                                    "uniqElKey": "el_imp_member_11"
+                                }
+                            ]
+                        }
+                    ],
+                    "editor_options": {
+                        "title": "Two Column Container",
+                        "icon_class": "ff-edit-column-2"
+                    },
+                    "uniqElKey": "el_imp_member_12",
+                    "index": 9
+                },
+                {
+                    "element": "input_text",
+                    "attributes": {
+                        "type": "text",
+                        "name": "political_history",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "در صورت وجود",
+                        "maxlength": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "سوابق کارهای سیاسی قبلی",
+                        "label_placement": "",
+                        "admin_field_label": "سوابق کارهای سیاسی قبلی",
+                        "help_message": "",
+                        "prefix_label": "",
+                        "suffix_label": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": false,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Simple Text",
+                        "icon_class": "ff-edit-text",
+                        "template": "inputText"
+                    },
+                    "uniqElKey": "el_imp_member_13",
+                    "index": 10
+                },
+                {
+                    "element": "textarea",
+                    "attributes": {
+                        "name": "motivation",
+                        "value": "",
+                        "class": "",
+                        "placeholder": "لطفاً کوتاه شرح دهید",
+                        "rows": 4,
+                        "cols": 2,
+                        "maxlength": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "انگیزه درخواست هموندی",
+                        "label_placement": "",
+                        "admin_field_label": "انگیزه درخواست هموندی",
+                        "help_message": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": false,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Text Area",
+                        "icon_class": "ff-edit-textarea",
+                        "template": "inputTextarea"
+                    },
+                    "uniqElKey": "el_imp_member_14",
+                    "index": 11
+                },
+                {
+                    "element": "input_radio",
+                    "attributes": {
+                        "type": "radio",
+                        "name": "other_party",
+                        "value": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "آیا اکنون هموند سازمان سیاسی دیگری هستید؟",
+                        "label_placement": "",
+                        "admin_field_label": "آیا اکنون هموند سازمان سیاسی دیگری هستید؟",
+                        "display_type": "",
+                        "help_message": "",
+                        "randomize_options": "no",
+                        "advanced_options": [
+                            {
+                                "label": "بله",
+                                "value": "بله",
+                                "calc_value": ""
+                            },
+                            {
+                                "label": "خیر",
+                                "value": "خیر",
+                                "calc_value": ""
+                            }
+                        ],
+                        "calc_value_status": false,
+                        "enable_image_input": false,
+                        "layout_class": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Radio Field",
+                        "icon_class": "ff-edit-radio",
+                        "element": "input-radio",
+                        "template": "inputCheckable"
+                    },
+                    "uniqElKey": "el_imp_member_15",
+                    "index": 12
+                },
+                {
+                    "element": "input_radio",
+                    "attributes": {
+                        "type": "radio",
+                        "name": "other_nationality",
+                        "value": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "آیا شما به غیر از ایران دارای ملیت دیگری میباشید؟",
+                        "label_placement": "",
+                        "admin_field_label": "آیا شما به غیر از ایران دارای ملیت دیگری میباشید؟",
+                        "display_type": "",
+                        "help_message": "",
+                        "randomize_options": "no",
+                        "advanced_options": [
+                            {
+                                "label": "بله",
+                                "value": "بله",
+                                "calc_value": ""
+                            },
+                            {
+                                "label": "خیر",
+                                "value": "خیر",
+                                "calc_value": ""
+                            }
+                        ],
+                        "calc_value_status": false,
+                        "enable_image_input": false,
+                        "layout_class": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "این فیلد الزامی است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Radio Field",
+                        "icon_class": "ff-edit-radio",
+                        "element": "input-radio",
+                        "template": "inputCheckable"
+                    },
+                    "uniqElKey": "el_imp_member_16",
+                    "index": 13
+                },
+                {
+                    "element": "input_file",
+                    "attributes": {
+                        "type": "file",
+                        "name": "id_document",
+                        "value": "",
+                        "class": ""
+                    },
+                    "settings": {
+                        "container_class": "",
+                        "label": "تصویر مدرک شناسایی",
+                        "label_placement": "",
+                        "admin_field_label": "تصویر مدرک شناسایی",
+                        "btn_text": "انتخاب فایل",
+                        "help_message": "تصویر یا PDF کارت شناسایی (حداکثر ۵ مگابایت)",
+                        "file_location_type": "follow_global_settings",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "لطفاً تصویر مدرک شناسایی را بارگذاری کنید"
+                            },
+                            "max_file_size": {
+                                "value": 5242880,
+                                "_valueFrom": "MB",
+                                "message": "حداکثر حجم فایل ۵ مگابایت است"
+                            },
+                            "max_file_count": {
+                                "value": 1,
+                                "message": "فقط یک فایل مجاز است"
+                            },
+                            "allowed_file_types": {
+                                "value": [
+                                    "jpg|jpeg|gif|png|bmp",
+                                    "pdf"
+                                ],
+                                "message": "فقط تصویر یا PDF مجاز است"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "File Upload",
+                        "icon_class": "ff-edit-files",
+                        "template": "inputFile"
+                    },
+                    "uniqElKey": "el_imp_member_20",
+                    "index": 14
+                },
+                {
+                    "element": "custom_html",
+                    "attributes": [],
+                    "settings": {
+                        "html_codes": "<div class=\"imp-ff-docs\"><p class=\"imp-ff-docs__title\">لطفاً پیش از ارسال فرم، اسناد زیر را با دقت مطالعه فرمایید<\/p><p class=\"imp-ff-docs__links\"><a class=\"imp-ff-pill\" href=\"\/party-constitution\/\" target=\"_blank\">اساسنامه<\/a><a class=\"imp-ff-pill\" href=\"\/affidavit\/\" target=\"_blank\">سوگندنامه<\/a><a class=\"imp-ff-pill\" href=\"\/partys-motto\/\" target=\"_blank\">مرامنامه حزب<\/a><\/p><p class=\"imp-ff-docs__fee\"><a href=\"\/donate\/#fee\" data-imp-dialog=\"imp-m-fee-dialog\">درباره هزینه هموندی<\/a><\/p><\/div>",
+                        "conditional_logics": [],
+                        "container_class": ""
+                    },
+                    "editor_options": {
+                        "title": "Custom HTML",
+                        "icon_class": "ff-edit-html",
+                        "template": "customHTML"
+                    },
+                    "uniqElKey": "el_imp_member_17",
+                    "index": 15
+                },
+                {
+                    "element": "terms_and_condition",
+                    "attributes": {
+                        "type": "checkbox",
+                        "name": "confirm_documents",
+                        "value": false,
+                        "class": ""
+                    },
+                    "settings": {
+                        "tnc_html": "اینجانب تأیید می‌کنم که مرامنامه، راهنمای هموندی و سوگندنامه را مطالعه کرده‌ام و با آن موافقم.",
+                        "has_checkbox": true,
+                        "admin_field_label": "اینجانب تأیید می‌کنم که مرامنامه، راهنمای هموندی و سوگندنامه را مطالعه کرده‌ام و با آن موافقم.",
+                        "container_class": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "لطفاً این مورد را تأیید کنید"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Terms & Conditions",
+                        "icon_class": "ff-edit-terms-condition",
+                        "template": "termsCheckbox"
+                    },
+                    "uniqElKey": "el_imp_member_18",
+                    "index": 16
+                },
+                {
+                    "element": "terms_and_condition",
+                    "attributes": {
+                        "type": "checkbox",
+                        "name": "privacy_consent",
+                        "value": false,
+                        "class": ""
+                    },
+                    "settings": {
+                        "tnc_html": "با ارسال این فرم، موافقت خود را با ذخیره و پردازش اطلاعات شخصی‌ام مطابق مقررات حفاظت از داده‌ها (GDPR) و قوانین آلمان اعلام می‌کنم. <a href=\"\/privacy-policy\/\" target=\"_blank\">جزئیات بیشتر<\/a>",
+                        "has_checkbox": true,
+                        "admin_field_label": "با ارسال این فرم، موافقت خود را با ذخیره و پردازش اطلاعات شخصی‌ام مطابق مقررات حفاظت از داده‌ها (GDPR) و قوانین آلمان اعلام می‌کنم. جزئیات بیشتر",
+                        "container_class": "",
+                        "validation_rules": {
+                            "required": {
+                                "value": true,
+                                "message": "لطفاً این مورد را تأیید کنید"
+                            }
+                        },
+                        "conditional_logics": []
+                    },
+                    "editor_options": {
+                        "title": "Terms & Conditions",
+                        "icon_class": "ff-edit-terms-condition",
+                        "template": "termsCheckbox"
+                    },
+                    "uniqElKey": "el_imp_member_19",
+                    "index": 17
+                }
+            ],
+            "submitButton": {
+                "uniqElKey": "el_imp_member_submit",
+                "element": "button",
+                "attributes": {
+                    "type": "submit",
+                    "class": ""
+                },
+                "settings": {
+                    "align": "center",
+                    "button_style": "default",
+                    "container_class": "",
+                    "help_message": "",
+                    "background_color": "#D5AF30",
+                    "button_size": "md",
+                    "color": "#243F88",
+                    "button_ui": {
+                        "type": "default",
+                        "text": "ارسال",
+                        "img_url": ""
+                    }
+                },
+                "editor_options": {
+                    "title": "Submit Button"
+                }
+            }
+        },
+        "has_payment": 0,
+        "type": "form",
+        "conditions": null,
+        "metas": [
+            {
+                "meta_key": "formSettings",
+                "value": "{\"confirmation\":{\"redirectTo\":\"samePage\",\"messageToShow\":\"<p>درخواست هموندی شما با موفقیت ارسال شد. پس از بررسی، با شما تماس خواهیم گرفت. سپاس!<\\\/p>\",\"customPage\":null,\"samePageFormBehavior\":\"hide_form\",\"customUrl\":null},\"restrictions\":{\"limitNumberOfEntries\":{\"enabled\":false},\"scheduleForm\":{\"enabled\":false},\"requireLogin\":{\"enabled\":false},\"denyEmptySubmission\":{\"enabled\":true,\"message\":\"لطفاً فرم را تکمیل کنید.\"}},\"layout\":{\"labelPlacement\":\"top\",\"helpMessagePlacement\":\"with_label\",\"errorMessagePlacement\":\"inline\",\"asteriskPlacement\":\"asterisk-left\"}}"
+            },
+            {
+                "meta_key": "notifications",
+                "value": "{\"name\":\"اعلان درخواست هموندی جدید\",\"sendTo\":{\"type\":\"email\",\"email\":\"{wp.admin_email}\",\"field\":\"\",\"routing\":[]},\"fromName\":\"\",\"fromEmail\":\"\",\"replyTo\":\"{inputs.email}\",\"bcc\":\"\",\"cc\":\"\",\"subject\":\"درخواست هموندی جدید: {inputs.full_name}\",\"message\":\"<p>{all_data}<\\\/p>\",\"conditionals\":{\"status\":false,\"type\":\"all\",\"conditions\":[]},\"enabled\":true,\"email_template\":\"\"}"
+            },
+            {
+                "meta_key": "template_name",
+                "value": "blank_form"
+            }
+        ]
+    }
+]

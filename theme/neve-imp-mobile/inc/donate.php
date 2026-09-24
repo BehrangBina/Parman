@@ -42,7 +42,7 @@ function imp_m_render_donate() {
 		<section class="imp-m-block imp-m-block--spaced">
 			<span class="imp-m-block__icon"><?php imp_m_icon( 'wallet' ); ?></span>
 			<h2 class="imp-m-block__title"><?php echo esc_html_x( 'کمک‌های مالی', 'donate', 'imp-mobile' ); ?></h2>
-			<a class="imp-m-textlink" href="<?php echo esc_url( $links['donorbox_donation'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html_x( 'لطفا اینجا کلیک‌کنید', 'donate', 'imp-mobile' ); ?></a>
+			<a class="imp-m-textlink" href="<?php echo esc_url( $links['donorbox_membership'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html_x( 'لطفا اینجا کلیک‌کنید', 'donate', 'imp-mobile' ); ?></a>
 
 			<p class="imp-m-block__text imp-m-block__text--gap">
 				<?php echo esc_html_x( 'ازکنش‌ها، برنامه‌ها و سازوکارهای پارمان(حزب)، میتوانید از طریق سامانه امن', 'donate', 'imp-mobile' ); ?>
@@ -64,9 +64,9 @@ function imp_m_fee_dialog() {
 		<div class="imp-m-dialog__inner"><?php // padding lives here so a tap on the dialog element itself = backdrop. ?>
 		<button class="imp-m-dialog__close" type="button" data-imp-dialog-close>
 			<span class="screen-reader-text"><?php esc_html_e( 'Close', 'imp-mobile' ); ?></span>
-			<?php imp_m_icon( 'close' ); ?>
+			<?php imp_m_icon( 'close-thin' ); ?>
 		</button>
-		<h2 class="imp-m-dialog__title" id="imp-m-fee-title"><?php echo esc_html_x( 'درباره هزینه هموندی', 'donate', 'imp-mobile' ); ?></h2>
+		<h2 class="screen-reader-text" id="imp-m-fee-title"><?php echo esc_html_x( 'درباره هزینه هموندی', 'donate', 'imp-mobile' ); ?></h2>
 		<div class="imp-m-dialog__body">
 			<?php
 			if ( $page ) {

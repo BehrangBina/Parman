@@ -34,14 +34,19 @@
 
 	/* No blue tap-highlight box or Neve hover fill on our controls; keyboard focus keeps an outline. */
 	.imp-m, .imp-m * { -webkit-tap-highlight-color: transparent; }
+	/* Neve's `button:hover` turns text white with a blue fill; our buttons keep their own colours. */
 	.imp-m button,
 	.imp-m button:hover,
 	.imp-m button:focus,
 	.imp-m button:active { background: none; box-shadow: none; outline: none; }
+	.imp-m button:hover,
+	.imp-m button:focus,
+	.imp-m button:active { color: inherit; border-color: transparent; }
+	.imp-m .imp-m-info:is(:hover, :focus, :active) { color: var(--imp-blue); }
 	.imp-m .imp-m-btn--solid,
 	.imp-m .imp-m-btn--solid:hover,
 	.imp-m .imp-m-btn--solid:focus,
-	.imp-m .imp-m-btn--solid:active { background: var(--imp-blue); box-shadow: var(--imp-shadow); }
+	.imp-m .imp-m-btn--solid:active { background: var(--imp-blue); color: var(--imp-gold); box-shadow: var(--imp-shadow); }
 	.imp-m .imp-m-search__toggle { background: none; }
 	.imp-m :is(button, a):focus-visible { outline: 2px solid var(--imp-gold); outline-offset: 2px; border-radius: 6px; }
 	.imp-m-menu__list a, .imp-m-menu button { user-select: none; -webkit-user-select: none; }
@@ -636,7 +641,9 @@
 	}
 	.imp-m-enabled .fluentform { font-family: var(--imp-font); color: var(--imp-blue); }
 	.imp-m-enabled .fluentform .ff-el-group { margin-block-end: 16px; }
-	.imp-m-enabled .fluentform .ff-t-container { gap: 11px; }
+	/* Two-column rows stay side by side on phones (Fluent stacks them below 768px) */
+	.imp-m-enabled .fluentform .ff-t-container { display: flex !important; flex-direction: row; gap: 11px; }
+	.imp-m-enabled .fluentform .ff-t-container > .ff-t-cell { flex: 1 1 0; min-width: 0; width: auto !important; }
 	.imp-m-enabled .fluentform .ff-t-cell { padding: 0 !important; }
 	.imp-m-enabled .fluentform .ff-el-input--label { margin-block-end: 4px; }
 	.imp-m-enabled .fluentform .ff-el-input--label label {
@@ -660,14 +667,27 @@
 	.imp-m-enabled .fluentform .ff-el-form-control::placeholder { color: var(--imp-form-icon); font-size: 13px; }
 	.imp-m-enabled .fluentform textarea.ff-el-form-control { height: auto; min-height: 96px; padding-block: 10px; padding-inline: 12px; }
 	.imp-m-enabled .fluentform select.ff-el-form-control { padding-inline: 34px 12px; background-image: url("../assets/icons/chevron.svg"); background-position: left 6px center; background-size: 22px; appearance: none; }
-	/* Field icons (same set as the contact form) */
+	/* Field icons on the start side (right in Farsi), by field name — Figma Form-Hamvandi */
+	.imp-m-enabled .fluentform input[name="full_name"],
 	.imp-m-enabled .fluentform input[name$="[first_name]"],
 	.imp-m-enabled .fluentform input[name$="[last_name]"] { background-image: url("../assets/icons/user.svg"); }
 	.imp-m-enabled .fluentform input[type="email"] { background-image: url("../assets/icons/mail.svg"); }
 	.imp-m-enabled .fluentform .ff-el-datepicker { background-image: url("../assets/icons/calendar.svg"); background-size: 16px; }
-	.imp-m-enabled .fluentform input[name^="input_text"] { background-image: url("../assets/icons/map-pin.svg"); }
-	.imp-m-enabled .fluentform input[name="input_text_7"],
-	.imp-m-enabled .fluentform input[type="tel"] { background-image: none; padding-inline-start: 12px; }
+	.imp-m-enabled .fluentform input[name="phone"], .imp-m-enabled .fluentform input[type="tel"] { background-image: url("../assets/icons/phone.svg"); }
+	.imp-m-enabled .fluentform input[name="occupation"] { background-image: url("../assets/icons/briefcase.svg"); }
+	.imp-m-enabled .fluentform input[name="education"] { background-image: url("../assets/icons/graduation-cap.svg"); }
+	.imp-m-enabled .fluentform input[name="telegram"] { background-image: url("../assets/icons/send.svg"); }
+	/* Numbers / @handles are typed left-to-right; keep the icon slot on the right (physical padding). */
+	.imp-m-enabled .fluentform :is(input[name="phone"], input[type="tel"], input[name="telegram"], input[type="email"]) { direction: ltr; text-align: right; padding-left: 12px; padding-right: 34px; }
+	.imp-m-enabled .fluentform input[name="city"] { background-image: url("../assets/icons/map-pin.svg"); }
+	.imp-m-enabled .fluentform input[name="political_history"] { padding-inline-start: 12px; }
+	/* Country dropdowns: globe on the start side, chevron on the end side */
+	.imp-m-enabled .fluentform select.ff-el-form-control[name="birthplace"],
+	.imp-m-enabled .fluentform select.ff-el-form-control[name="country"] {
+		background-image: url("../assets/icons/globe.svg"), url("../assets/icons/chevron.svg");
+		background-position: right 11px center, left 6px center;
+		background-size: 14px, 22px;
+	}
 	:root:not([dir="rtl"]) .imp-m-enabled .fluentform .ff-el-form-control { background-position: left 11px center; }
 
 	/* Radios & checkboxes */
@@ -687,6 +707,39 @@
 		accent-color: var(--imp-blue);
 	}
 	.imp-m-enabled .fluentform .ff-el-tc { font: 500 13px/1.6 var(--imp-font); color: var(--imp-ink); }
+
+	/* Inline radio groups (جنسیت) */
+	.imp-m-enabled .fluentform .ff_list_inline .ff-el-input--content { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+	.imp-m-enabled .fluentform .ff_list_inline .ff-el-form-check { margin: 0; }
+
+	/* Documents block (custom HTML in the form) */
+	.imp-m-enabled .fluentform .imp-ff-docs { margin-block: 8px 12px; padding-block-start: 16px; border-top: 1px solid var(--imp-blue-grey); text-align: center; }
+	.imp-m-enabled .fluentform .imp-ff-docs__title { margin: 0 0 12px; font: 700 13px/1.6 var(--imp-font); color: var(--imp-blue); }
+	.imp-m-enabled .fluentform .imp-ff-docs__links { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 0; }
+	.imp-m-enabled .fluentform .imp-ff-pill {
+		padding: 5px 12px;
+		border: 1.5px solid var(--imp-blue);
+		border-radius: 8px;
+		box-shadow: var(--imp-shadow);
+		font: 700 12px/1.3 var(--imp-font);
+		color: var(--imp-blue);
+		text-decoration: none;
+	}
+	.imp-m-enabled .fluentform .imp-ff-docs__fee { margin: 12px 0 0; }
+	.imp-m-enabled .fluentform .imp-ff-docs__fee a {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		font: 400 12px/1 var(--imp-font);
+		color: var(--imp-blue);
+		text-decoration: none;
+	}
+	.imp-m-enabled .fluentform .imp-ff-docs__fee a::before { content: ""; width: 16px; height: 16px; background: url("../assets/icons/info.svg") center / contain no-repeat; }
+	.imp-m-enabled .fluentform .ff-el-tc a { color: var(--imp-blue); text-decoration: underline; }
+
+	/* "Your information is safe" line under the submit button (inc/forms.php) */
+	.imp-m-form-safe { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 10px 0 0; font: 400 11px/1.4 var(--imp-font); color: var(--imp-form-icon); }
+	.imp-m-form-safe .imp-m-icon { width: 12px; height: 12px; }
 
 	/* Errors */
 	.imp-m-enabled .fluentform .ff-el-is-error .ff-el-form-control { border-color: var(--imp-error); }
@@ -750,33 +803,40 @@
 	.imp-m-issue__download { display: inline-flex; align-items: center; gap: 6px; padding: 10px 0; font: 700 14px/1 var(--imp-font); color: var(--imp-blue); text-decoration: none; }
 	.imp-m-issue__download .imp-m-icon { width: 18px; height: 18px; }
 
-	/* ---------- Dialog ---------- */
+	/* ---------- Dialog (Figma Overlay-MembershipFee 966:3055: 317 wide, thin blue border) ---------- */
 	.imp-m-dialog {
-		width: min(374px, 100% - 20px);
-		max-height: 85vh;
+		width: min(317px, 100% - 32px);
+		max-height: min(80vh, 560px);
 		padding: 0;
-		border: 0;
-		border-radius: var(--imp-radius);
+		border: 1px solid var(--imp-blue);
+		border-radius: 4px;
 		background: var(--imp-white);
 		color: var(--imp-blue);
 		box-shadow: var(--imp-shadow);
+		overflow: auto;
 	}
-	.imp-m-dialog::backdrop { background: rgba(16, 28, 61, .55); }
+	.imp-m-dialog::backdrop { background: rgba(16, 28, 61, .45); }
 	.imp-m-dialog[open] { animation: imp-m-pop .2s ease-out; }
 	@keyframes imp-m-pop { from { opacity: 0; transform: translateY(12px); } }
-	.imp-m-dialog__inner { position: relative; padding: 48px 24px 28px; }
+	.imp-m-dialog__inner { position: relative; padding: 16px 16px 18px; }
 	.imp-m-dialog__close {
 		position: absolute;
-		top: 10px;
-		inset-inline-start: 10px;
-		width: 32px;
-		height: 32px;
-		padding: 0;
+		top: 6px;
+		left: 6px; /* Figma: top-left corner */
+		width: 28px;
+		height: 28px;
+		padding: 5px;
 		border: 0;
 		cursor: pointer;
 	}
-	.imp-m-dialog__title { margin: 0 0 12px; text-align: center; font: 900 18px/1.5 var(--imp-font); color: var(--imp-blue); }
-	.imp-m-dialog__body { font: 500 15px/1.7 var(--imp-font); text-align: start; }
+	.imp-m-dialog__body { font: 400 12px/1.85 var(--imp-font); color: var(--imp-blue); text-align: start; }
+	.imp-m-dialog__body :is(h2, h3, h4, strong:only-child) { display: block; margin: 0 0 4px; font: 700 13px/1.7 var(--imp-font); color: var(--imp-blue); }
+	.imp-m-dialog__body p { margin: 0 0 8px; }
+	.imp-m-dialog__body :is(ul, ol) { margin: 0 0 10px; padding-inline-start: 18px; }
+	.imp-m-dialog__body ul { list-style: disc; }
+	.imp-m-dialog__body ol { list-style: decimal; }
+	.imp-m-dialog__body li { margin-block-end: 2px; }
+	.imp-m-dialog__body li::marker { color: var(--imp-blue); }
 	.imp-m-dialog__body > :last-child { margin-block-end: 0; }
 
 	/* ---------- Footer ---------- */
