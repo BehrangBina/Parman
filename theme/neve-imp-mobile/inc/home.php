@@ -30,13 +30,45 @@ function imp_m_render_home() {
 	<?php
 }
 
-function imp_m_news_section() {
-	$query = new WP_Query( array(
+/**
+ * Query args for party news: the "اخبار حزب" category (live slug `news-party`, filter
+ * `imp_m_news_category`), falling back to all posts when that category is missing or empty.
+ */
+function imp_m_news_query_args( $args = array() ) {
+	$args = wp_parse_args( $args, array(
 		'post_type'           => 'post',
-		'posts_per_page'      => 6,
 		'ignore_sticky_posts' => true,
-		'no_found_rows'       => true,
 	) );
+	$cat = get_category_by_slug( apply_filters( 'imp_m_news_category', 'news-party' ) );
+	if ( $cat && $cat->count > 0 ) {
+		$args['cat'] = $cat->term_id;
+	}
+	return $args;
+}
+
+/** News card (home carousel + news page), for the current post in the loop. */
+function imp_m_news_card() {
+	?>
+	<a class="imp-m-card" href="<?php the_permalink(); ?>">
+		<span class="imp-m-card__media">
+			<?php if ( has_post_thumbnail() ) : ?>
+				<?php the_post_thumbnail( 'medium_large', array( 'loading' => 'lazy', 'alt' => '' ) ); ?>
+			<?php else : ?>
+				<img src="<?php echo esc_url( imp_m_asset( 'img/news-placeholder.png' ) ); ?>" alt="" loading="lazy">
+			<?php endif; ?>
+		</span>
+		<time class="imp-m-card__date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( implode( ' ', imp_m_post_date_gregorian_fa() ) ); ?></time>
+		<span class="imp-m-card__title"><?php the_title(); ?></span>
+		<span class="imp-m-card__excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 40, '…' ) ); ?></span>
+	</a>
+	<?php
+}
+
+function imp_m_news_section() {
+	$query = new WP_Query( imp_m_news_query_args( array(
+		'posts_per_page' => 6,
+		'no_found_rows'  => true,
+	) ) );
 	if ( ! $query->have_posts() ) {
 		return;
 	}
@@ -48,20 +80,9 @@ function imp_m_news_section() {
 			<?php
 			while ( $query->have_posts() ) :
 				$query->the_post();
-				?>
-				<a class="imp-m-card" href="<?php the_permalink(); ?>">
-					<span class="imp-m-card__media">
-						<?php if ( has_post_thumbnail() ) : ?>
-							<?php the_post_thumbnail( 'medium_large', array( 'loading' => 'lazy', 'alt' => '' ) ); ?>
-						<?php else : ?>
-							<img src="<?php echo esc_url( imp_m_asset( 'img/news-placeholder.png' ) ); ?>" alt="" loading="lazy">
-						<?php endif; ?>
-					</span>
-					<time class="imp-m-card__date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( imp_m_post_date() ); ?></time>
-					<span class="imp-m-card__title"><?php the_title(); ?></span>
-					<span class="imp-m-card__excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 40, '…' ) ); ?></span>
-				</a>
-			<?php endwhile; ?>
+				imp_m_news_card();
+			endwhile;
+			?>
 		</div>
 		<div class="imp-m-news__nav">
 			<button class="imp-m-news__arrow imp-m-news__arrow--left" type="button" data-dir="-1">

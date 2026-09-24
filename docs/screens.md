@@ -16,7 +16,7 @@ Figma: `IMP-Website-2026`, page **Mobile-HiFi-Farsi** (node `697:927`). Frames a
 | Dabir (secretaries) | 871:12520 | secretaries page | todo |
 | Sokhangoo (spokespersons) | 865:12156 | spokespersons page | todo |
 | BonyanGozaran-Overlay | 1006:1920 | founders section | todo |
-| Akhbaar (news list) | 697:2647 | page `news` / post archive | todo |
+| Akhbaar (news list) | 697:2647 | page `news` → `inc/news.php` (category `news-party`) | ✅ done (from screenshot) |
 | Full Post, -02, -03 | 697:2681, 1023:2445, 1023:2602 | single post | todo |
 | Bayanie (list) | 1009:3003 | category archive `statements` → `inc/statements.php` | ✅ done (from screenshot) |
 | Bayanie dated statements (single) | 1011:3758, 1014:4757, 1014:4874, 1014:4958 | single post in `statements` | todo |

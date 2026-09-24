@@ -619,6 +619,10 @@
 	.imp-m-pagination .page-numbers.current { background: var(--imp-blue); color: var(--imp-gold); }
 	.imp-m-pagination .page-numbers.dots { border: 0; }
 
+	/* ---------- News page (Figma 697:2647) ---------- */
+	.imp-m-newslist { display: flex; flex-direction: column; align-items: center; gap: 24px; margin-block-start: 30px; }
+	.imp-m-newslist .imp-m-card { flex: none; width: min(342px, 100%); text-align: start; box-shadow: var(--imp-shadow); }
+
 	/* ---------- Dialog ---------- */
 	.imp-m-dialog {
 		width: min(374px, 100% - 20px);

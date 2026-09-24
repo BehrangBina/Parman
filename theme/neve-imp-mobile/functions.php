@@ -20,6 +20,7 @@ require IMP_M_DIR . '/inc/pages.php';
 require IMP_M_DIR . '/inc/home.php';
 require IMP_M_DIR . '/inc/donate.php';
 require IMP_M_DIR . '/inc/statements.php';
+require IMP_M_DIR . '/inc/news.php';
 require IMP_M_DIR . '/inc/footer.php';
 require IMP_M_DIR . '/inc/contact.php';
 

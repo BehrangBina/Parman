@@ -16,6 +16,7 @@ function imp_m_custom_pages() {
 		'bcd31-contact-us'    => 'imp_m_render_contact', // live slug
 		'contact-us'          => 'imp_m_render_contact',
 		'category:statements' => 'imp_m_render_statements',
+		'news'                => 'imp_m_render_news',
 	) );
 }
 
