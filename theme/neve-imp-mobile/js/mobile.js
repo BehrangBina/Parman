@@ -29,9 +29,18 @@
 	if (burger && menu) {
 		burger.addEventListener('click', openMenu);
 		menu.querySelector('.imp-m-menu__close').addEventListener('click', closeMenu);
-		// Tapping any menu link closes the panel (also covers same-page #anchors).
+		// Tapping a menu link closes the panel. A parent whose link is just "#"
+		// (e.g. مدیا) only opens/closes its submenu instead.
 		menu.addEventListener('click', function (e) {
-			if (e.target.closest('a[href]')) closeMenu(false);
+			var link = e.target.closest('a[href]');
+			if (!link) return;
+			var toggle = link.getAttribute('href') === '#' && link.parentElement.querySelector(':scope > .imp-m-sub-toggle');
+			if (toggle) {
+				e.preventDefault();
+				toggle.click();
+				return;
+			}
+			closeMenu(false);
 		});
 		document.addEventListener('keydown', function (e) {
 			if (e.key === 'Escape' && !menu.hidden) closeMenu();

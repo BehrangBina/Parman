@@ -24,7 +24,7 @@ Figma: `IMP-Website-2026`, page **Mobile-HiFi-Farsi** (node `697:927`). Frames a
 | Form-Hamvandi | 740:2198 | page `membership-form` (live: Fluent Forms Pro form 3) → restyled in `css/mobile.css` | ✅ styled (from screenshot; re-check with real form after import) |
 | Overlay-MembershipFee | 966:3055 | fee popup on donate page | todo (needs design) |
 | Contact | 820:11317 | page `bcd31-contact-us` → `imp_m_render_contact` in `inc/contact.php` | ✅ done (built from screenshot; Figma MCP limit) |
-| Nashriye (magazine) | 820:9504 | Irangera magazine page (dFlip) | todo |
+| Nashriye (magazine) | 820:9504 | page `نشریه-ایرانگرا` → `inc/magazine.php`; issues = admin "نشریه ایرانگرا" (post type `imp_issue`) | ✅ done (from screenshot) |
 | Prince | 790:5679 | TBD — ask designer | todo |
 
 Components: Search-Bar 526:1324, News-Home-Slide 1023:2421, Arrows-Slider 1023:2422, Card 715:4482, FIND-US 780:4882, Language/Dropdown 746:2755 (phase 2).

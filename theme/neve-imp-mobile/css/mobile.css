@@ -223,7 +223,7 @@
 		padding-inline-start: 34px;
 	}
 	.imp-m-menu__list .sub-menu.is-open { display: block; }
-	.imp-m-menu__list .sub-menu a { height: 28px; font-size: 16px; font-weight: 500; }
+	.imp-m-menu__list .sub-menu a { height: 28px; font-size: 16px; font-weight: 700; text-decoration: underline; text-underline-offset: 5px; } /* Figma: underlined sub-items */
 
 	/* ---------- Donate tab (fixed on the inline-end edge) ---------- */
 	.imp-m-donate {
@@ -564,7 +564,7 @@
 		text-decoration: underline;
 		text-underline-offset: 3px;
 	}
-	.imp-m-contact-page__email .imp-m-icon { flex: none; width: 28px; height: 22px; }
+	.imp-m-contact-page__email .imp-m-icon { flex: none; width: 28px; height: 28px; }
 
 	/* ---------- Statements list (Figma 1009:3003) ---------- */
 	.imp-m-statements { padding-inline: 26px; }
@@ -713,6 +713,41 @@
 		font: 700 15px/1.6 var(--imp-font);
 		color: var(--imp-blue);
 	}
+
+	/* ---------- Magazine / Nashriye (Figma 820:9504) ---------- */
+	.imp-m-magazine__intro { margin-block-start: 20px; text-align: center; }
+	.imp-m-magazine__intro p { margin: 0 0 12px; font: 500 13px/1.9 var(--imp-font); color: var(--imp-blue); text-align: justify; text-align-last: center; }
+	/* The page content's cover image and "download" button are replaced by the issue cards on mobile */
+	.imp-m-magazine__intro :is(figure, .wp-block-image, .wp-block-buttons, .wp-block-file, img) { display: none; }
+	.imp-m-magazine__intro a[href$=".pdf"] { display: none; }
+
+	.imp-m-issues { display: flex; flex-direction: column; gap: 40px; margin: 28px auto 0; padding: 0; list-style: none; width: min(342px, 100%); }
+	.imp-m-issue {
+		overflow: hidden;
+		border-radius: var(--imp-radius);
+		background: var(--imp-blue);
+		box-shadow: var(--imp-shadow);
+		color: var(--imp-white);
+		text-align: start;
+	}
+	.imp-m-issue__top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 18px 18px 0; }
+	.imp-m-issue__title { margin: 0; font: 900 28px/1.3 var(--imp-font); color: var(--imp-white); }
+	.imp-m-issue__year { font: 700 16px/1 var(--imp-font); color: var(--imp-white); }
+	.imp-m-issue__desc { margin: 8px 0 0; padding-inline: 18px; font: 500 11px/1.7 var(--imp-font); color: var(--imp-white); opacity: .92; }
+	.imp-m-issue__bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		min-height: 48px;
+		margin-block-start: 18px;
+		padding-inline: 18px;
+		background: var(--imp-white);
+		color: var(--imp-blue);
+	}
+	.imp-m-issue__date { display: inline-flex; align-items: center; gap: 8px; font: 700 14px/1 var(--imp-font); }
+	.imp-m-issue__date::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--imp-gold); }
+	.imp-m-issue__download { display: inline-flex; align-items: center; gap: 6px; padding: 10px 0; font: 700 14px/1 var(--imp-font); color: var(--imp-blue); text-decoration: none; }
+	.imp-m-issue__download .imp-m-icon { width: 18px; height: 18px; }
 
 	/* ---------- Dialog ---------- */
 	.imp-m-dialog {

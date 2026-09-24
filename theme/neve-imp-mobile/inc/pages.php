@@ -17,6 +17,8 @@ function imp_m_custom_pages() {
 		'contact-us'          => 'imp_m_render_contact',
 		'category:statements' => 'imp_m_render_statements',
 		'news'                => 'imp_m_render_news',
+		'نشریه-ایرانگرا'      => 'imp_m_render_magazine', // live slug (Persian)
+		'irangara'            => 'imp_m_render_magazine',
 	) );
 }
 
@@ -27,7 +29,7 @@ function imp_m_current_renderer() {
 	if ( is_front_page() ) {
 		$key = 'front';
 	} elseif ( is_page() ) {
-		$key = get_post_field( 'post_name', get_queried_object_id() );
+		$key = urldecode( get_post_field( 'post_name', get_queried_object_id() ) ); // Persian slugs are stored encoded
 	} elseif ( is_category() ) {
 		$key = 'category:' . get_queried_object()->slug;
 	}
