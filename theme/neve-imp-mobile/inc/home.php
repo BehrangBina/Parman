@@ -1,15 +1,12 @@
 <?php
 /**
  * Mobile home page (Figma frame "Home" 697:928): hero, document buttons,
- * news carousel and the membership/contact form. Only printed on the front page.
+ * news carousel and the membership/contact form. Registered in inc/pages.php.
  */
 
 defined( 'ABSPATH' ) || exit;
 
-add_action( 'wp_body_open', function () {
-	if ( ! is_front_page() ) {
-		return;
-	}
+function imp_m_render_home() {
 	$links = imp_m_links();
 	?>
 	<main class="imp-m imp-m-home" id="imp-m-home">
@@ -31,7 +28,7 @@ add_action( 'wp_body_open', function () {
 		<?php imp_m_contact_section(); ?>
 	</main>
 	<?php
-}, 6 );
+}
 
 function imp_m_news_section() {
 	$query = new WP_Query( array(

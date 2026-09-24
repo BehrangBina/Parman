@@ -13,8 +13,8 @@
 	.imp-m { display: block; }
 	.imp-m-enabled .header,
 	.imp-m-enabled .site-footer { display: none !important; }
-	.home.imp-m-enabled .neve-main { display: none; }
-	.home.imp-m-enabled .wrapper { min-height: 0; } /* Neve sets 100vh; it's empty on our home */
+	.imp-m-custom .neve-main { display: none; }
+	.imp-m-custom .wrapper { min-height: 0; } /* Neve sets 100vh; it is empty on designed pages */
 
 	body.imp-m-enabled {
 		background: var(--imp-bg);
@@ -443,6 +443,140 @@
 	.imp-m-contact__card .imp-m-btn--solid { align-self: center; margin-block-start: 4px; }
 	.imp-m-contact__note { max-width: 272px; margin: 0; text-align: center; font: 400 10px/1.6 var(--imp-font-slab); color: var(--imp-blue); }
 	.imp-m-hp { position: absolute !important; inset-inline-start: -9999px; }
+
+	/* ---------- Back link (fixed under the header, physical left like Figma) ---------- */
+	.imp-m-back {
+		position: fixed;
+		top: calc(126px + var(--wp-admin--admin-bar--height, 0px));
+		left: 10px;
+		z-index: 20;
+		display: flex;
+		align-items: center;
+		gap: 2px;
+		width: 64px;
+		height: 30px;
+		padding-inline: 10px 0;
+		direction: ltr;
+		background: var(--imp-bg);
+		color: var(--imp-blue);
+		font: 700 13.5px/1 "Roboto", var(--imp-font);
+		text-decoration: none;
+	}
+	.imp-m-back .imp-m-icon { flex: none; width: 18px; height: 18px; }
+
+	/* ---------- Ornament title (Figma "Text-About") ---------- */
+	.imp-m-otitle,
+	.imp-m-enabled .neve-main .nv-page-title h1 {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		margin: 0;
+		direction: ltr; /* ornaments stay in physical order; text keeps its own direction */
+	}
+	.imp-m-otitle__orn { flex: none; width: 42px; height: 16px; }
+	.imp-m-otitle__orn--flip { scale: -1 1; }
+	.imp-m-otitle__text,
+	.imp-m-enabled .neve-main .nv-page-title h1 {
+		margin: 0;
+		direction: rtl;
+		font: 700 22px/1.5 var(--imp-font);
+		color: var(--imp-blue);
+		text-align: center;
+	}
+	/* Same ornaments on regular Neve page titles */
+	.imp-m-enabled .neve-main .nv-page-title h1::before,
+	.imp-m-enabled .neve-main .nv-page-title h1::after {
+		content: "";
+		flex: none;
+		width: 42px;
+		height: 16px;
+		background: url("../assets/img/ornament.svg") center / contain no-repeat;
+	}
+	.imp-m-enabled .neve-main .nv-page-title h1::before { scale: -1 1; } /* rtl: ::before sits on the right */
+
+	/* ---------- Designed inner pages (inc/pages.php) ---------- */
+	.imp-m-page {
+		position: relative;
+		z-index: 1;
+		padding: 109px 25px 40px; /* title at y=232 in Figma (123px header + 109) */
+		text-align: center;
+		color: var(--imp-blue);
+	}
+	.imp-m-block {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-block-start: 54px;
+	}
+	.imp-m-block--spaced { margin-block-start: 66px; }
+	.imp-m-block__icon { display: block; width: 30px; height: 30px; color: var(--imp-blue); }
+	.imp-m-block__title { margin: 2px 0 0; font: 900 18px/1.55 var(--imp-font); color: var(--imp-blue); }
+	.imp-m-block__text {
+		margin: 27px 0 0;
+		font: 700 16px/1.55 var(--imp-font);
+		color: var(--imp-blue);
+	}
+	.imp-m-block__text--gap { margin-block-start: 58px; }
+
+	.imp-m-info {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		height: 44px;
+		margin-block-start: 6px;
+		padding: 0 8px;
+		border: 0;
+		background: none;
+		color: var(--imp-blue);
+		font: 400 12px/1 var(--imp-font);
+		cursor: pointer;
+	}
+	.imp-m-info__icon { display: block; width: 16px; height: 16px; }
+
+	.imp-m-btn--gold {
+		margin-block-start: 6px;
+		background: var(--imp-gold);
+		color: var(--imp-blue);
+		box-shadow: 0 2px 2px rgba(0, 0, 0, .15);
+	}
+	.imp-m-textlink {
+		display: inline-block;
+		padding: 8px;
+		font: 400 16px/1.55 var(--imp-font);
+		color: var(--imp-blue);
+		text-decoration: underline;
+		text-underline-offset: 4px;
+	}
+
+	/* ---------- Dialog ---------- */
+	.imp-m-dialog {
+		width: min(374px, 100% - 20px);
+		max-height: 85vh;
+		padding: 0;
+		border: 0;
+		border-radius: var(--imp-radius);
+		background: var(--imp-white);
+		color: var(--imp-blue);
+		box-shadow: var(--imp-shadow);
+	}
+	.imp-m-dialog::backdrop { background: rgba(16, 28, 61, .55); }
+	.imp-m-dialog[open] { animation: imp-m-pop .2s ease-out; }
+	@keyframes imp-m-pop { from { opacity: 0; transform: translateY(12px); } }
+	.imp-m-dialog__inner { position: relative; padding: 48px 24px 28px; }
+	.imp-m-dialog__close {
+		position: absolute;
+		top: 10px;
+		inset-inline-start: 10px;
+		width: 32px;
+		height: 32px;
+		padding: 0;
+		border: 0;
+		cursor: pointer;
+	}
+	.imp-m-dialog__title { margin: 0 0 12px; text-align: center; font: 900 18px/1.5 var(--imp-font); color: var(--imp-blue); }
+	.imp-m-dialog__body { font: 500 15px/1.7 var(--imp-font); text-align: start; }
+	.imp-m-dialog__body > :last-child { margin-block-end: 0; }
 
 	/* ---------- Footer ---------- */
 	.imp-m-footer {

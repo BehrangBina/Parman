@@ -19,7 +19,7 @@ Figma: `IMP-Website-2026`, page **Mobile-HiFi-Farsi** (node `697:927`). Frames a
 | Akhbaar (news list) | 697:2647 | page `news` / post archive | todo |
 | Full Post, -02, -03 | 697:2681, 1023:2445, 1023:2602 | single post | todo |
 | Bayanie + dated statements | 1009:3003, 1011:3758, 1014:4757, 1014:4874, 1014:4958 | category `statements` + single | todo |
-| Hamyari (donate) | 697:2603, 1023:2782 | page `donate` | todo |
+| Hamyari (donate) | 697:2603, 1023:2782 | page `donate` → `inc/donate.php` | ✅ done (fee popup uses page `membership-fee`; design 966:3055 not yet read) |
 | Form-Hamvandi, Overlay-MembershipFee | 740:2198, 966:3055 | page `membership-form` | todo |
 | Contact | 820:11317 | page `bcd31-contact-us` | todo |
 | Nashriye (magazine) | 820:9504 | Irangera magazine page (dFlip) | todo |

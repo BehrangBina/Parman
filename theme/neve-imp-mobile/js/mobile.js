@@ -76,6 +76,27 @@
 		});
 	}
 
+	// Back: use browser history when we came from this site, otherwise follow the link.
+	var back = document.querySelector('[data-imp-back]');
+	if (back) {
+		back.addEventListener('click', function (e) {
+			if (history.length > 1 && document.referrer.indexOf(location.origin) === 0) {
+				e.preventDefault();
+				history.back();
+			}
+		});
+	}
+
+	// Dialogs: [data-imp-dialog="id"] opens, [data-imp-dialog-close] or a backdrop tap closes.
+	document.querySelectorAll('[data-imp-dialog]').forEach(function (btn) {
+		var dialog = document.getElementById(btn.dataset.impDialog);
+		if (!dialog || typeof dialog.showModal !== 'function') return;
+		btn.addEventListener('click', function () { dialog.showModal(); });
+		dialog.addEventListener('click', function (e) {
+			if (e.target === dialog || e.target.closest('[data-imp-dialog-close]')) dialog.close();
+		});
+	});
+
 	// News carousel arrows scroll one card in the physical direction.
 	document.querySelectorAll('.imp-m-news').forEach(function (news) {
 		var track = news.querySelector('.imp-m-news__track');

@@ -58,6 +58,13 @@ add_action( 'wp_body_open', function () {
 				</button>
 		</div>
 
+		<?php if ( ! is_front_page() ) : ?>
+			<a class="imp-m-back" href="<?php echo esc_url( wp_get_referer() ?: home_url( '/' ) ); ?>" data-imp-back>
+				<?php imp_m_icon( 'caret-back' ); ?>
+				<span><?php esc_html_e( 'Back', 'imp-mobile' ); ?></span>
+			</a>
+		<?php endif; ?>
+
 		<nav id="imp-m-menu" class="imp-m-menu" aria-label="<?php esc_attr_e( 'Main menu', 'imp-mobile' ); ?>" hidden>
 			<button class="imp-m-menu__close" type="button">
 				<span class="screen-reader-text"><?php esc_html_e( 'Close menu', 'imp-mobile' ); ?></span>
