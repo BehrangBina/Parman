@@ -27,7 +27,7 @@ add_action( 'wp_enqueue_scripts', function () {
 
 	wp_enqueue_style(
 		'imp-m-fonts',
-		'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&family=Roboto+Slab:wght@400;700&family=Roboto:wght@700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&family=Roboto+Slab:wght@400;700&family=Roboto:wght@400;700&display=swap',
 		array(),
 		null
 	);

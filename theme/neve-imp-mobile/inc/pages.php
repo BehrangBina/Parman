@@ -12,7 +12,9 @@ defined( 'ABSPATH' ) || exit;
 function imp_m_custom_pages() {
 	return apply_filters( 'imp_m_custom_pages', array(
 		'front'  => 'imp_m_render_home',
-		'donate' => 'imp_m_render_donate',
+		'donate'           => 'imp_m_render_donate',
+		'bcd31-contact-us' => 'imp_m_render_contact', // live slug
+		'contact-us'       => 'imp_m_render_contact',
 	) );
 }
 

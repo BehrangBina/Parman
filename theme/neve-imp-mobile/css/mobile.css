@@ -549,6 +549,22 @@
 		text-underline-offset: 4px;
 	}
 
+	/* ---------- Contact page (Figma 820:11317) ---------- */
+	.imp-m-contact-page__social { margin: 48px 0 0 !important; }
+	.imp-m-contact-page .imp-m-contact__card { width: min(327px, 100%); margin: 51px auto 0; text-align: start; }
+	.imp-m-contact-page .imp-m-contact__note { margin: 4px auto 0; }
+	.imp-m-contact-page__email {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		margin-block-start: 50px;
+		font: 400 16px/1.4 "Roboto", var(--imp-font);
+		color: var(--imp-blue);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+	.imp-m-contact-page__email .imp-m-icon { flex: none; width: 28px; height: 22px; }
+
 	/* ---------- Dialog ---------- */
 	.imp-m-dialog {
 		width: min(374px, 100% - 20px);
@@ -587,9 +603,10 @@
 		align-items: center;
 		gap: 35px;
 	}
-	.imp-m-social { display: flex; justify-content: center; gap: 17px; margin: 0; padding: 0; list-style: none; }
+	.imp-m-social { display: flex; justify-content: center; gap: 17px; margin: 0; padding: 0; list-style: none; direction: ltr; } /* Figma order: Instagram … Telegram, left to right */
 	.imp-m-social a { display: block; width: 42px; height: 42px; }
 	.imp-m-footer__copy { margin: 0; font: 700 8px var(--imp-font-slab); color: var(--imp-blue); text-align: center; direction: ltr; }
+	.imp-m-footer__copy a { color: inherit; text-decoration: underline; }
 }
 
 /* ---------- Motion ---------- */

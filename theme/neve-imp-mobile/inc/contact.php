@@ -1,12 +1,47 @@
 <?php
 /**
- * Home "Interested in membership?" form. Posts to admin-post.php and emails the
- * recipient (default: site admin email; filter `imp_m_contact_recipient`).
+ * "Interested in membership?" form, used on the home page and the Contact page
+ * (Figma 820:11317). Posts to admin-post.php and emails the recipient
+ * (default: site admin email; filter `imp_m_contact_recipient`).
  */
 
 defined( 'ABSPATH' ) || exit;
 
+add_filter( 'imp_m_links', function ( $links ) {
+	return $links + array( 'contact_email' => 'padeshahiparty@gmail.com' );
+}, 5 );
+
+/** Home page section: slab title, form card, note below the card. */
 function imp_m_contact_section() {
+	?>
+	<section class="imp-m-contact" aria-labelledby="imp-m-contact-title">
+		<h2 id="imp-m-contact-title" class="imp-m-section-title imp-m-section-title--slab"><?php echo esc_html_x( 'تماس با ما', 'home contact', 'imp-mobile' ); ?></h2>
+		<?php imp_m_contact_form(); ?>
+		<p class="imp-m-contact__note"><?php echo esc_html_x( 'پس از بررسی اولیه، یکی از اعضای تیم با شما تماس خواهد گرفت', 'home contact', 'imp-mobile' ); ?></p>
+	</section>
+	<?php
+}
+
+/** Contact page (slug bcd31-contact-us): ornament title, socials, form with the note inside, email. */
+function imp_m_render_contact() {
+	$email = imp_m_links()['contact_email'];
+	?>
+	<main class="imp-m imp-m-page imp-m-contact-page">
+		<?php imp_m_ornament_title( get_the_title( get_queried_object_id() ) ); ?>
+		<?php imp_m_social_list( 'imp-m-social imp-m-contact-page__social' ); ?>
+		<?php imp_m_contact_form( true ); ?>
+		<a class="imp-m-contact-page__email" href="mailto:<?php echo esc_attr( antispambot( $email ) ); ?>" dir="ltr">
+			<?php imp_m_icon( 'mail-lg' ); ?>
+			<span><?php echo esc_html( antispambot( $email ) ); ?></span>
+		</a>
+	</main>
+	<?php
+}
+
+/**
+ * @param bool $note_inside Put the "we'll contact you" note inside the card (Contact page).
+ */
+function imp_m_contact_form( $note_inside = false ) {
 	$status = isset( $_GET['imp_contact'] ) ? sanitize_key( $_GET['imp_contact'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 	$field  = function ( $name, $label, $icon, $type = 'text', $placeholder = '' ) {
 		?>
@@ -20,10 +55,7 @@ function imp_m_contact_section() {
 		<?php
 	};
 	?>
-	<section class="imp-m-contact" id="imp-contact" aria-labelledby="imp-m-contact-title">
-		<h2 id="imp-m-contact-title" class="imp-m-section-title imp-m-section-title--slab"><?php echo esc_html_x( 'تماس با ما', 'home contact', 'imp-mobile' ); ?></h2>
-
-		<form class="imp-m-contact__card" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+		<form class="imp-m-contact__card" id="imp-contact" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 			<p class="imp-m-contact__heading"><?php echo esc_html_x( 'علاقه‌مند به هموندی هستید؟', 'home contact', 'imp-mobile' ); ?></p>
 			<p class="imp-m-contact__sub"><?php echo esc_html_x( 'لطفاً اطلاعات زیر را وارد کنید', 'home contact', 'imp-mobile' ); ?></p>
 
@@ -51,10 +83,10 @@ function imp_m_contact_section() {
 			<?php wp_nonce_field( 'imp_contact', 'imp_contact_nonce' ); ?>
 
 			<button class="imp-m-btn imp-m-btn--solid" type="submit"><?php echo esc_html_x( 'ارسال', 'home contact', 'imp-mobile' ); ?></button>
+			<?php if ( $note_inside ) : ?>
+				<p class="imp-m-contact__note"><?php echo esc_html_x( 'پس از بررسی اولیه، یکی از اعضای تیم با شما تماس خواهد گرفت', 'home contact', 'imp-mobile' ); ?></p>
+			<?php endif; ?>
 		</form>
-
-		<p class="imp-m-contact__note"><?php echo esc_html_x( 'پس از بررسی اولیه، یکی از اعضای تیم با شما تماس خواهد گرفت', 'home contact', 'imp-mobile' ); ?></p>
-	</section>
 	<?php
 }
 
