@@ -134,10 +134,12 @@ function imp_m_render_document() {
 				<?php if ( $pdf ) : ?><span class="imp-m-doc__pdf">PDF</span><?php endif; ?>
 			</a>
 
-			<?php if ( $text['has_text'] ) : ?>
+			<?php
+			// بخوانید only when the page has text for the reader. (A plain PDF link here made
+			// Android phones download the file, so without text only دانلود is offered.)
+			if ( $text['has_text'] ) :
+				?>
 				<button class="imp-m-btn imp-m-btn--gold imp-m-doc__read" type="button" data-imp-reader-open><?php echo esc_html_x( 'بخوانید', 'document', 'imp-mobile' ); ?></button>
-			<?php elseif ( $pdf ) : ?>
-				<a class="imp-m-btn imp-m-btn--gold imp-m-doc__read" href="<?php echo esc_url( $pdf ); ?>" target="_blank" rel="noopener"><?php echo esc_html_x( 'بخوانید', 'document', 'imp-mobile' ); ?></a>
 			<?php endif; ?>
 		</div>
 
