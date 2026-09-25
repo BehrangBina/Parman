@@ -10,9 +10,9 @@ Figma: `IMP-Website-2026`, page **Mobile-HiFi-Farsi** (node `697:927`). Frames a
 | Style guide (Colors/Effects) | 1035:4601 | `css/tokens.css` | ✅ done |
 | About (long) | 966:3542 | page `about-us` | todo |
 | Overlay-About | 975:4405 | about-us intro | todo |
-| Maram-01/02, Read-Maramname, Overlay-Maramname | 805:7201, 813:7420, 805:6354, 697:1066 | page `partys-motto` | todo |
-| Asas-01/02, Read-Asas, Overlay-Asasname | 813:9167, 813:9243, 813:9134, 697:1553 | page `party-constitution` | todo |
-| Sogand01, Read-Sogand, Overlay-Sogandname | 813:8901, 813:8862, 813:8316 | page `affidavit` | todo |
+| Maram-01/02, Read-Maramname, Overlay-Maramname | 805:7201, 813:7420, 805:6354, 697:1066 | page `partys-motto` → `inc/documents.php` | ✅ done — needs the real text pasted into the page |
+| Asas-01/02, Read-Asas, Overlay-Asasname | 813:9167, 813:9243, 813:9134, 697:1553 | page `party-constitution` (same template) | ✅ template done — needs text (until then بخوانید opens the PDF) |
+| Sogand01, Read-Sogand, Overlay-Sogandname | 813:8901, 813:8862, 813:8316 | page `affidavit` (same template) | ✅ done (live text) |
 | Dabir (secretaries) | 871:12520 | secretaries page | todo |
 | Sokhangoo (spokespersons) | 865:12156 | spokespersons page | todo |
 | BonyanGozaran-Overlay | 1006:1920 | founders section | todo |

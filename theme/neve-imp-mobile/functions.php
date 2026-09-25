@@ -22,6 +22,7 @@ require IMP_M_DIR . '/inc/donate.php';
 require IMP_M_DIR . '/inc/statements.php';
 require IMP_M_DIR . '/inc/news.php';
 require IMP_M_DIR . '/inc/magazine.php';
+require IMP_M_DIR . '/inc/documents.php';
 require IMP_M_DIR . '/inc/footer.php';
 require IMP_M_DIR . '/inc/contact.php';
 require IMP_M_DIR . '/inc/forms.php';

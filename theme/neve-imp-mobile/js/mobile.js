@@ -88,8 +88,7 @@
 	// Back: go to the previous page in history. If the browser can't go back (new tab,
 	// first entry, history.back() is a no-op), fall back to the link's href
 	// (the server-side referrer, or the home page).
-	var back = document.querySelector('[data-imp-back]');
-	if (back) {
+	document.querySelectorAll('[data-imp-back]').forEach(function (back) {
 		back.addEventListener('click', function (e) {
 			if (history.length <= 1) return; // nothing to go back to: follow href
 			e.preventDefault();
@@ -100,7 +99,80 @@
 				if (!left) location.href = back.href;
 			}, 500);
 		});
-	}
+	});
+
+	// Document reader (inc/documents.php): cover, then the page text split into screen-sized
+	// pages with CSS columns. RTL: next page lies to the left, swipe right to advance.
+	document.querySelectorAll('[data-imp-reader]').forEach(function (reader) {
+		var cover = reader.querySelector('[data-imp-reader-cover]');
+		var pagesEl = reader.querySelector('[data-imp-reader-pages]');
+		var viewport = reader.querySelector('[data-imp-reader-viewport]');
+		var flow = reader.querySelector('[data-imp-reader-flow]');
+		var count = reader.querySelector('[data-imp-reader-count]');
+		var rtl = getComputedStyle(reader).direction === 'rtl';
+		var page = 0, total = 1, step = 0;
+		var fa = function (n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); };
+
+		function layout() {
+			var width = viewport.clientWidth;
+			var gap = parseFloat(getComputedStyle(flow).columnGap) || 0;
+			flow.style.columnWidth = width + 'px';
+			step = width + gap;
+			total = Math.max(1, Math.round((flow.scrollWidth + gap) / step));
+			page = Math.min(page, total - 1);
+			render();
+		}
+		function render() {
+			flow.style.transform = 'translateX(' + (rtl ? 1 : -1) * page * step + 'px)';
+			// Figma Maram-01: "ورق بزن" (turn the page) on the first page, then the page count.
+			count.textContent = total < 2 ? '' : page === 0 ? 'ورق بزن' : 'صفحه ' + fa(page + 1) + ' از ' + fa(total);
+			reader.querySelector('[data-imp-reader-pages] [data-imp-reader-next]').disabled = page >= total - 1;
+		}
+		function showCover() { pagesEl.hidden = true; cover.hidden = false; }
+		function showPages() { cover.hidden = true; pagesEl.hidden = false; layout(); }
+		function go(delta) {
+			if (pagesEl.hidden) { if (delta > 0) showPages(); return; }
+			if (page + delta < 0) { showCover(); return; }
+			page = Math.max(0, Math.min(total - 1, page + delta));
+			render();
+		}
+		function open(e) {
+			if (e) e.preventDefault();
+			reader.hidden = false;
+			document.body.classList.add('imp-m-menu-open'); // reuse the scroll lock
+			page = 0; showCover();
+			var close = cover.querySelector('[data-imp-reader-close]');
+			if (close) close.focus({ preventScroll: true });
+		}
+		function close() {
+			reader.hidden = true;
+			document.body.classList.remove('imp-m-menu-open');
+		}
+
+		document.querySelectorAll('[data-imp-reader-open]').forEach(function (b) { b.addEventListener('click', open); });
+		reader.querySelectorAll('[data-imp-reader-close]').forEach(function (b) { b.addEventListener('click', close); });
+		reader.querySelectorAll('[data-imp-reader-next]').forEach(function (b) { b.addEventListener('click', function () { go(1); }); });
+		reader.querySelectorAll('[data-imp-reader-prev]').forEach(function (b) { b.addEventListener('click', function () { go(-1); }); });
+
+		document.addEventListener('keydown', function (e) {
+			if (reader.hidden) return;
+			if (e.key === 'Escape') close();
+			if (e.key === 'ArrowLeft') go(rtl ? 1 : -1);
+			if (e.key === 'ArrowRight') go(rtl ? -1 : 1);
+		});
+
+		var x0 = null;
+		reader.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+		reader.addEventListener('touchend', function (e) {
+			if (x0 === null) return;
+			var dx = e.changedTouches[0].clientX - x0;
+			x0 = null;
+			if (Math.abs(dx) < 40) return;
+			go((dx > 0) === rtl ? 1 : -1);
+		});
+		window.addEventListener('resize', function () { if (!pagesEl.hidden) layout(); });
+		if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!pagesEl.hidden) layout(); });
+	});
 
 	// Dialogs: [data-imp-dialog="id"] opens, [data-imp-dialog-close] or a backdrop tap closes.
 	// Links fall back to their href when the dialog isn't shown (e.g. desktop, where .imp-m is hidden).

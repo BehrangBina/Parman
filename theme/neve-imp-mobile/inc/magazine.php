@@ -69,21 +69,38 @@ add_action( 'save_post_imp_issue', function ( $post_id ) {
 	update_post_meta( $post_id, IMP_M_ISSUE_PDF, $url );
 } );
 
-/* ---------- Download endpoint: /?imp_issue_download=<id> ----------
- * The HTML `download` attribute is ignored by some mobile browsers, so files in this site's
- * uploads are sent with Content-Disposition: attachment. PDFs hosted elsewhere are redirected to.
+/* ---------- Download endpoint: /?imp_pdf=<post id> ----------
+ * Works for magazine issues and document pages (see imp_m_post_pdf()). The HTML `download`
+ * attribute is ignored by some mobile browsers, so files in this site's uploads are sent with
+ * Content-Disposition: attachment. PDFs hosted elsewhere are redirected to.
  */
 
+function imp_m_pdf_download_url( $post_id ) {
+	return add_query_arg( 'imp_pdf', (int) $post_id, home_url( '/' ) );
+}
+
+/** Back-compat name used by the magazine template. */
 function imp_m_issue_download_url( $issue_id ) {
-	return add_query_arg( 'imp_issue_download', (int) $issue_id, home_url( '/' ) );
+	return imp_m_pdf_download_url( $issue_id );
+}
+
+/** PDF URL for an issue (its PDF field) or a document page (see inc/documents.php). */
+function imp_m_post_pdf( $post ) {
+	if ( ! $post || 'publish' !== $post->post_status ) {
+		return '';
+	}
+	if ( 'imp_issue' === $post->post_type ) {
+		return get_post_meta( $post->ID, IMP_M_ISSUE_PDF, true );
+	}
+	return function_exists( 'imp_m_document_pdf' ) ? imp_m_document_pdf( $post ) : '';
 }
 
 add_action( 'template_redirect', function () {
-	if ( ! isset( $_GET['imp_issue_download'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification -- public download link.
+	$key = isset( $_GET['imp_pdf'] ) ? 'imp_pdf' : ( isset( $_GET['imp_issue_download'] ) ? 'imp_issue_download' : '' ); // phpcs:ignore WordPress.Security.NonceVerification -- public download link.
+	if ( ! $key ) {
 		return;
 	}
-	$issue = get_post( absint( $_GET['imp_issue_download'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
-	$url   = ( $issue && 'imp_issue' === $issue->post_type && 'publish' === $issue->post_status ) ? get_post_meta( $issue->ID, IMP_M_ISSUE_PDF, true ) : '';
+	$url = imp_m_post_pdf( get_post( absint( $_GET[ $key ] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
 	if ( ! $url ) {
 		wp_safe_redirect( home_url( '/' ) );
 		exit;
@@ -98,7 +115,10 @@ add_action( 'template_redirect', function () {
 	if ( $path && $root && 0 === strpos( $path, $root ) && is_file( $path ) && 'pdf' === strtolower( pathinfo( $path, PATHINFO_EXTENSION ) ) ) {
 		nocache_headers();
 		header( 'Content-Type: application/pdf' );
-		header( 'Content-Disposition: attachment; filename="' . basename( $path ) . '"' );
+		$name = basename( $path ); // may be Persian: send an ASCII fallback + the UTF-8 name (RFC 5987)
+		$ascii = preg_replace( '/[^A-Za-z0-9._-]/', '', $name );
+		$ascii = preg_match( '/[A-Za-z0-9]/', pathinfo( $ascii, PATHINFO_FILENAME ) ) ? $ascii : 'document.pdf';
+		header( 'Content-Disposition: attachment; filename="' . $ascii . '"; filename*=UTF-8\'\'' . rawurlencode( $name ) );
 		header( 'Content-Length: ' . filesize( $path ) );
 		header( 'X-Content-Type-Options: nosniff' );
 		readfile( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions

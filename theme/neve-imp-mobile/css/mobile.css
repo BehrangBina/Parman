@@ -47,6 +47,10 @@
 	.imp-m .imp-m-btn--solid:hover,
 	.imp-m .imp-m-btn--solid:focus,
 	.imp-m .imp-m-btn--solid:active { background: var(--imp-blue); color: var(--imp-gold); box-shadow: var(--imp-shadow); }
+	.imp-m .imp-m-btn--gold,
+	.imp-m .imp-m-btn--gold:hover,
+	.imp-m .imp-m-btn--gold:focus,
+	.imp-m .imp-m-btn--gold:active { background: var(--imp-gold); color: var(--imp-blue); border: 0; box-shadow: 0 2px 2px rgba(0, 0, 0, .15); }
 	.imp-m .imp-m-search__toggle { background: none; }
 	.imp-m :is(button, a):focus-visible { outline: 2px solid var(--imp-gold); outline-offset: 2px; border-radius: 6px; }
 	.imp-m-menu__list a, .imp-m-menu button { user-select: none; -webkit-user-select: none; }
@@ -802,6 +806,169 @@
 	.imp-m-issue__date::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--imp-gold); }
 	.imp-m-issue__download { display: inline-flex; align-items: center; gap: 6px; padding: 10px 0; font: 700 14px/1 var(--imp-font); color: var(--imp-blue); text-decoration: none; }
 	.imp-m-issue__download .imp-m-icon { width: 18px; height: 18px; }
+
+	/* ---------- Party documents (Figma Overlay-Maramname 697:1066 + reader) ----------
+	   The page itself is the full-screen "overlay" (no site header), like the Figma frame. */
+	body.imp-m-docpage { overflow: hidden; }
+	.imp-m-doc {
+		position: fixed;
+		inset: var(--wp-admin--admin-bar--height, 0px) 0 0 0;
+		z-index: 60; /* above the fixed header/search/back (in .imp-m-top, z 50) */
+		display: flex;
+		flex-direction: column;
+		overflow-y: auto;
+		background: var(--imp-bg);
+	}
+	.imp-m-doc__top { position: relative; flex: none; height: 183px; padding-block-start: 128px; }
+	.imp-m-doc__close,
+	.imp-m-reader__close {
+		position: absolute;
+		top: 76px;
+		inset-inline-start: 23px;
+		z-index: 2;
+		width: 46px;
+		height: 46px;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+	}
+	.imp-m-reader__close--light path { fill: var(--imp-white); } /* white circle, blue ✕ (cut-out) */
+
+	.imp-m-doc__stage {
+		position: relative;
+		flex: 1 0 auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 100px 24px 48px;
+		background: var(--imp-blue);
+		overflow: hidden;
+	}
+	/* Faint lion pattern behind the stage */
+	.imp-m-doc__stage::before,
+	.imp-m-reader__cover::before {
+		content: "";
+		position: absolute;
+		inset: 30px -40px auto;
+		height: 520px;
+		background: rgba(255, 255, 255, .05);
+		-webkit-mask: var(--imp-lion, url("../assets/img/lion.svg")) center / contain no-repeat;
+		mask: var(--imp-lion, url("../assets/img/lion.svg")) center / contain no-repeat;
+		pointer-events: none;
+	}
+	.imp-m-doc__stage > * { position: relative; }
+	.imp-m-doc__download {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 4px 8px;
+		font: 700 17px/1.4 var(--imp-font);
+		color: var(--imp-white);
+		text-decoration: none;
+	}
+	.imp-m-doc__download .imp-m-icon { width: 20px; height: 20px; }
+	.imp-m-doc__download .imp-m-icon * { stroke: var(--imp-white); }
+	.imp-m-doc__thumb {
+		position: relative;
+		display: block;
+		width: 165px;
+		height: 233px;
+		margin-block-start: 12px;
+		overflow: hidden;
+		border-radius: 8px;
+		background: var(--imp-white);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+	}
+	.imp-m-doc__thumb > img { width: 100%; height: 100%; object-fit: cover; display: block; }
+	.imp-m-doc__pdf { position: absolute; top: 8px; left: 10px; font: 800 12px/1 "Roboto", var(--imp-font); color: var(--imp-blue); }
+	/* Stand-in page when the document has no cover image (Featured image) */
+	.imp-m-doc__sheet { display: flex; flex-direction: column; align-items: center; gap: 7px; height: 100%; padding: 22px 20px 0; border-bottom: 6px solid var(--imp-gold); }
+	.imp-m-doc__sheet img { width: 40px; height: auto; margin-block-end: 8px; }
+	.imp-m-doc__sheet i { display: block; width: 100%; height: 3px; border-radius: 2px; background: #d9dde8; }
+	.imp-m-doc__sheet i:nth-child(3n) { width: 70%; }
+	.imp-m-doc__read { width: min(250px, 100%); height: 40px; margin-block-start: 40px; font-size: 18px; }
+
+	/* Reader: cover + paged text */
+	.imp-m-reader {
+		position: fixed;
+		inset: var(--wp-admin--admin-bar--height, 0px) 0 0 0;
+		z-index: 70;
+		background: var(--imp-bg);
+	}
+	.imp-m-reader[hidden], .imp-m-reader [hidden] { display: none !important; }
+	.imp-m-reader__cover {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 14px;
+		padding: 24px;
+		background: var(--imp-blue);
+		color: var(--imp-white);
+		text-align: center;
+		overflow: hidden;
+	}
+	.imp-m-reader__cover > :not(.imp-m-reader__close):not(.imp-m-reader__start) { position: relative; }
+	.imp-m-reader__logo { width: 140px; height: auto; margin-block-end: 18px; filter: drop-shadow(var(--imp-shadow-logo)); }
+	.imp-m-reader__title { margin: 0; font: 900 26px/1.4 var(--imp-font); color: var(--imp-white); }
+	.imp-m-reader__slogan { display: flex; align-items: center; gap: 8px; margin: 0; font: 700 15px/1.4 var(--imp-font); color: var(--imp-white); direction: ltr; }
+	.imp-m-reader__slogan span { direction: rtl; }
+	.imp-m-reader__slogan img { width: 42px; height: 16px; }
+	.imp-m-reader__start { position: absolute !important; bottom: 56px; left: 32px; }
+	.imp-m-reader__cover .imp-m-reader__arrow .imp-m-icon * { stroke: var(--imp-gold); }
+
+	.imp-m-reader__pages {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		padding: 136px 24px 0;
+		background: var(--imp-bg);
+		border-bottom: 10px solid transparent;
+		border-image: var(--imp-gold-gradient) 1;
+	}
+	.imp-m-reader__label { position: absolute; top: 90px; left: 24px; font: 500 12px/1 var(--imp-font); color: var(--imp-form-icon); }
+	.imp-m-reader__viewport { flex: 1; min-height: 0; overflow: hidden; }
+	.imp-m-reader__flow {
+		height: 100%;
+		column-gap: 48px;
+		column-fill: auto;
+		transition: transform .35s cubic-bezier(.22, .61, .36, 1);
+		font: 400 13px/2 var(--imp-font);
+		color: var(--imp-blue);
+		text-align: start; /* Figma Maram-01/02: right-aligned, not justified */
+	}
+	.imp-m-reader__flow :is(h1, h2, h3, h4) { margin: 0 0 10px; font: 800 14px/1.7 var(--imp-font); color: var(--imp-blue); break-after: avoid; }
+	/* A page shows whole paragraphs; one only splits if it is taller than a page */
+	.imp-m-reader__flow :is(p, li) { margin: 0 0 10px; break-inside: avoid; }
+	.imp-m-reader__flow .has-text-align-center { text-align: center; }
+	.imp-m-reader__flow :is(ul, ol) { margin: 0 0 10px; padding-inline-start: 20px; }
+	.imp-m-reader__nav { display: flex; align-items: center; justify-content: space-between; flex: none; height: 88px; direction: ltr; }
+	.imp-m-reader__count { font: 500 12px/1 var(--imp-font); color: var(--imp-form-icon); direction: rtl; }
+	.imp-m-reader__arrow {
+		display: grid;
+		place-items: center;
+		width: 34px;
+		height: 34px;
+		padding: 4px;
+		border: 1.5px solid var(--imp-gold) !important;
+		border-radius: 6px;
+		background: none;
+		cursor: pointer;
+	}
+	.imp-m-reader__arrow .imp-m-icon * { stroke: var(--imp-gold); }
+	.imp-m-reader__arrow:disabled { opacity: .35; cursor: default; }
+	/* The icon points left: left button = next page in Farsi; the right one is mirrored */
+	.imp-m-reader__arrow--prev { order: 2; }
+	.imp-m-reader__arrow--prev .imp-m-icon { scale: -1 1; }
+	.imp-m-reader__arrow--next { order: 0; }
+	.imp-m-reader__count { order: 1; }
+	:root:not([dir="rtl"]) .imp-m-reader__arrow--prev { order: 0; }
+	:root:not([dir="rtl"]) .imp-m-reader__arrow--next { order: 2; }
+	@media (prefers-reduced-motion: reduce) { .imp-m-reader__flow { transition: none; } }
 
 	/* ---------- Dialog (Figma Overlay-MembershipFee 966:3055: 317 wide, thin blue border) ---------- */
 	.imp-m-dialog {
