@@ -7,12 +7,39 @@
 
 namespace IMP\Core;
 
+use IMP\Routing\Page_Router;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Enqueues the theme's CSS and JS.
+ * CSS is one file per component (assets/css/components/) and per designed page
+ * (assets/css/pages/); each file holds its mobile rules and its ≥1024px desktop rules.
+ * Page files load only on their own page. No build step: on the live site the WP-Optimize
+ * plugin already combines and minifies stylesheets.
  */
 final class Assets {
+
+	/**
+	 * Component stylesheets, in cascade order (later files may build on earlier ones).
+	 *
+	 * @var string[]
+	 */
+	const COMPONENTS = array(
+		'header',
+		'search',
+		'mobile-menu',
+		'donate-tab',
+		'back-link',
+		'buttons',
+		'ornament-title',
+		'news-card',
+		'contact-form',
+		'statement-card',
+		'pagination',
+		'dialog',
+		'fluent-forms',
+		'footer',
+	);
 
 	/**
 	 * Hook into WordPress.
@@ -23,17 +50,37 @@ final class Assets {
 	}
 
 	/**
-	 * Neve's stylesheet first (we build on it), then fonts, tokens, mobile base, desktop layer.
+	 * Neve's stylesheet first (we build on it), then fonts, tokens, base, components, page.
 	 */
 	public static function enqueue() {
 		wp_enqueue_style( 'neve-style', get_template_directory_uri() . '/style.css', array(), wp_get_theme( 'neve' )->get( 'Version' ) );
 		wp_enqueue_style( 'imp-fonts', Config::get( 'fonts_url' ), array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Google Fonts URL is versioned by its query.
 
-		wp_enqueue_style( 'imp-tokens', IMP_URI . '/css/tokens.css', array(), self::version( 'css/tokens.css' ) );
-		wp_enqueue_style( 'imp', IMP_URI . '/css/mobile.css', array( 'imp-tokens', 'neve-style' ), self::version( 'css/mobile.css' ) );
-		wp_enqueue_style( 'imp-desktop', IMP_URI . '/css/desktop.css', array( 'imp' ), self::version( 'css/desktop.css' ) );
+		$previous = self::style( 'imp-tokens', 'tokens', array( 'neve-style' ) );
+		$previous = self::style( 'imp-base', 'base', array( $previous ) );
+		foreach ( self::COMPONENTS as $component ) {
+			$previous = self::style( 'imp-' . $component, 'components/' . $component, array( $previous ) );
+		}
+		$page = Page_Router::current();
+		if ( $page ) {
+			self::style( 'imp-page-' . $page, 'pages/' . $page, array( $previous ) );
+		}
 
 		wp_enqueue_script( 'imp', IMP_URI . '/js/mobile.js', array(), self::version( 'js/mobile.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+	}
+
+	/**
+	 * Enqueue one stylesheet from assets/css/.
+	 *
+	 * @param string   $handle Style handle.
+	 * @param string   $file   Path inside assets/css/ without ".css".
+	 * @param string[] $deps   Dependencies (keeps the cascade order).
+	 * @return string The handle, to chain as the next file's dependency.
+	 */
+	private static function style( $handle, $file, array $deps ) {
+		$path = 'assets/css/' . $file . '.css';
+		wp_enqueue_style( $handle, IMP_URI . '/' . $path, $deps, self::version( $path ) );
+		return $handle;
 	}
 
 	/**

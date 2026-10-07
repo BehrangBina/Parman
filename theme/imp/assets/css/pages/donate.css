@@ -1,0 +1,44 @@
+/*
+ * Hamyari page (Figma 697:2603, desktop 1181:5330).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-block {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-block-start: 54px;
+}
+.imp-block--spaced { margin-block-start: 66px; }
+.imp-block__icon { display: block; width: 30px; height: 30px; color: var(--imp-blue); }
+.imp-block__title { margin: 2px 0 0; font: 900 18px/1.55 var(--imp-font); color: var(--imp-blue); }
+.imp-block__text {
+	margin: 27px 0 0;
+	font: 700 16px/1.55 var(--imp-font);
+	color: var(--imp-blue);
+}
+.imp-block__text--gap { margin-block-start: 58px; }
+
+.imp-info {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	height: 44px;
+	margin-block-start: 6px;
+	padding: 0 8px;
+	border: 0;
+	background: none;
+	color: var(--imp-blue);
+	font: 400 12px/1 var(--imp-font);
+	cursor: pointer;
+}
+.imp-info__icon { display: block; width: 16px; height: 16px; }
+
+.imp-textlink {
+	display: inline-block;
+	padding: 8px;
+	font: 400 16px/1.55 var(--imp-font);
+	color: var(--imp-blue);
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
