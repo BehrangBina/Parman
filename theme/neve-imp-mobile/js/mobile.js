@@ -67,23 +67,57 @@
 		});
 	}
 
-	// Search: first tap opens the bar, second tap (with text) submits.
+	// Search: the round button opens the bar and turns into ✕ (closes it);
+	// the magnifier at the far end (or Enter) searches.
 	var search = document.querySelector('.imp-m-search');
 	if (search) {
 		var toggle = search.querySelector('.imp-m-search__toggle');
 		var input = search.querySelector('.imp-m-search__input');
-		toggle.addEventListener('click', function () {
-			if (search.dataset.state === 'open' && input.value.trim()) {
-				search.querySelector('form').submit();
-				return;
-			}
-			var open = search.dataset.state !== 'open';
+		var submit = search.querySelector('.imp-m-search__submit');
+		var setSearch = function (open) {
 			search.dataset.state = open ? 'open' : 'closed';
 			toggle.setAttribute('aria-expanded', String(open));
-			input.tabIndex = open ? 0 : -1;
-			if (open) input.focus();
+			input.tabIndex = submit.tabIndex = open ? 0 : -1;
+			if (open) input.focus(); else input.blur();
+		};
+		toggle.addEventListener('click', function () { setSearch(search.dataset.state !== 'open'); });
+		search.querySelector('form').addEventListener('submit', function (e) {
+			if (!input.value.trim()) { e.preventDefault(); input.focus(); }
+		});
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape' && search.dataset.state === 'open') setSearch(false);
 		});
 	}
+
+	// Desktop dropdowns: open on hover (CSS) and on click/keyboard via the chevron or a "#" label.
+	var navToggles = document.querySelectorAll('.imp-d-nav__toggle');
+	var closeAllNav = function (except) {
+		navToggles.forEach(function (t) {
+			if (t === except) return;
+			t.setAttribute('aria-expanded', 'false');
+			t.closest('.imp-d-nav__item').classList.remove('is-open');
+		});
+	};
+	navToggles.forEach(function (t) {
+		t.addEventListener('click', function (e) {
+			e.stopPropagation();
+			var item = t.closest('.imp-d-nav__item');
+			var open = !item.classList.contains('is-open');
+			closeAllNav(t);
+			item.classList.toggle('is-open', open);
+			item.querySelectorAll('.imp-d-nav__toggle').forEach(function (x) { x.setAttribute('aria-expanded', String(open)); });
+		});
+	});
+	document.addEventListener('click', function (e) { if (!e.target.closest('.imp-d-nav__item')) closeAllNav(); });
+	document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAllNav(); });
+
+	// Footer "back to top" (desktop design).
+	document.querySelectorAll('[data-imp-top]').forEach(function (b) {
+		b.addEventListener('click', function () {
+			var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+		});
+	});
 
 	// Back: go to the previous page in history. If the browser can't go back (new tab,
 	// first entry, history.back() is a no-op), fall back to the link's href

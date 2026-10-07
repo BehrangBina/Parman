@@ -1,13 +1,12 @@
 /*
- * IMP mobile layout. Everything here only applies below 960px (Neve's mobile
- * breakpoint); on desktop the .imp-m blocks are hidden and Neve renders as before.
+ * IMP mobile layout — the base styles for every screen size (mobile-first).
+ * css/desktop.css overrides them from 1024px up (Figma Desktop-HiFi-Farsi).
  * Logical properties (inline-start/end) are used so the layout mirrors for LTR languages.
  * Measurements follow the 393px Figma frames 1:1 (header 123px, logo frame 169px).
  */
 
-.imp-m { display: none; }
+/* Base = mobile layout (mobile-first). css/desktop.css adds the ≥1024px layout on top. */
 
-@media (max-width: 959.98px) {
 
 	/* ---------- Swap Neve chrome for ours ---------- */
 	.imp-m { display: block; }
@@ -123,18 +122,24 @@
 		transition: width .25s ease;
 	}
 	.imp-m-search[data-state="open"] { width: calc(100vw - 42px); }
-	.imp-m-search__form { flex: 1; min-width: 0; margin: 0; }
+	/* Open state (Figma Search-Bar-Open): ✕ where the round button was, magnifier at the far end */
+	.imp-m-search__form { flex: 1; min-width: 0; display: flex; align-items: center; margin: 0; }
 	.imp-m-search__input {
+		flex: 1;
+		min-width: 0;
 		width: 100%;
 		border: 0 !important;
 		background: transparent !important;
 		box-shadow: none !important;
-		padding-inline: 12px 4px !important;
-		font: 400 16px var(--imp-font);
-		color: var(--imp-ink);
+		padding-inline: 8px 4px !important;
+		font: 700 16px var(--imp-font);
+		color: var(--imp-blue);
 		outline: none;
 	}
-	.imp-m-search__toggle {
+	.imp-m-search__input::placeholder { color: var(--imp-blue); opacity: .55; }
+	.imp-m-search__input::-webkit-search-cancel-button { display: none; }
+	.imp-m-search__toggle,
+	.imp-m-search__submit {
 		flex: none;
 		width: 30px;
 		height: 37px;
@@ -142,9 +147,18 @@
 		border: 0;
 		background: none;
 		cursor: pointer;
-		order: -1;
 	}
+	.imp-m-search__toggle { order: -1; }
+	.imp-m-search__icon-close { display: none; }
+	.imp-m-search[data-state="open"] .imp-m-search__icon-open { display: none; }
+	.imp-m-search[data-state="open"] .imp-m-search__icon-close { display: block; }
+	.imp-m-search__icon-open, .imp-m-search__icon-close { width: 17px; height: 17px; }
+	.imp-m-search[data-state="open"] .imp-m-search__toggle { padding: 9px 6px; }
+	.imp-m-search[data-state="open"] .imp-m-search__icon-close { width: 19px; height: 19px; }
 	.imp-m-search[data-state="closed"] .imp-m-search__form { visibility: hidden; }
+
+	/* Desktop-only pieces stay hidden in the mobile layout */
+	.imp-d-header, .imp-m-footer__top { display: none; }
 
 	/* ---------- Full-screen menu ---------- */
 	.imp-m-menu {
@@ -1020,7 +1034,6 @@
 	.imp-m-social a { display: block; width: 42px; height: 42px; }
 	.imp-m-footer__copy { margin: 0; font: 700 8px var(--imp-font-slab); color: var(--imp-blue); text-align: center; direction: ltr; }
 	.imp-m-footer__copy a { color: inherit; text-decoration: underline; }
-}
 
 /* ---------- Motion ---------- */
 @media (prefers-reduced-motion: reduce) {

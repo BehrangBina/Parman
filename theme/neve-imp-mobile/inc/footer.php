@@ -31,6 +31,11 @@ add_action( 'wp_footer', function () {
 		}
 		?>
 		<p class="imp-m-footer__copy">© <?php echo esc_html( gmdate( 'Y' ) ); ?> All rights reserved to this website belong to the <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Iranian Monarchy Party</a></p>
+		<?php // Desktop design: "back to top" arrow beside the social icons (hidden on mobile). ?>
+		<button class="imp-m-footer__top" type="button" data-imp-top>
+			<span class="screen-reader-text"><?php esc_html_e( 'Back to top', 'imp-mobile' ); ?></span>
+			<?php imp_m_icon( 'go-up' ); ?>
+		</button>
 	</footer>
 	<?php
 }, 1 );

@@ -42,6 +42,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	};
 	wp_enqueue_style( 'imp-m-tokens', IMP_M_URI . '/css/tokens.css', array(), $ver( '/css/tokens.css' ) );
 	wp_enqueue_style( 'imp-m-mobile', IMP_M_URI . '/css/mobile.css', array( 'imp-m-tokens', 'neve-style' ), $ver( '/css/mobile.css' ) );
+	wp_enqueue_style( 'imp-m-desktop', IMP_M_URI . '/css/desktop.css', array( 'imp-m-mobile' ), $ver( '/css/desktop.css' ) );
 
 	wp_enqueue_script( 'imp-m-mobile', IMP_M_URI . '/js/mobile.js', array(), $ver( '/js/mobile.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 }, 20 );

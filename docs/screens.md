@@ -28,3 +28,24 @@ Figma: `IMP-Website-2026`, page **Mobile-HiFi-Farsi** (node `697:927`). Frames a
 | Prince | 790:5679 | TBD — ask designer | todo |
 
 Components: Search-Bar 526:1324, News-Home-Slide 1023:2421, Arrows-Slider 1023:2422, Card 715:4482, FIND-US 780:4882, Language/Dropdown 746:2755 (phase 2).
+
+## Desktop (≥ 1024px) — Figma page **Desktop-HiFi-Farsi** (node `1074:5061`, 1440px frames)
+
+Mobile layout below 1024px; `css/mobile.css` is the mobile-first base and `css/desktop.css` overrides from 1024px.
+Menus: "Desktop menu (IMP)" and "Mobile menu (IMP)" locations (both fall back to Neve's `primary`).
+References saved in `docs/figma/` (overview, Home, Components with hover/dropdown states).
+
+| Figma frame | Node | Status |
+|---|---|---|
+| Header + dropdowns + search + footer + Donate (Components 1181:6348) | 1171:5178 | ✅ done |
+| Home | 1112:5062 | ✅ done |
+| About (people sections) | 1153:292 | todo (+ admin "people" section, + mobile About) |
+| Hamyari / Overlay-MembershipFee | 1181:5330 / 1181:6254 | todo |
+| Hamvandi (form) | 1181:5631 | todo |
+| Maramname / Asasname / Sogandname + *-Content | 1181:6630, 1181:10104, 1215:994, 1181:9241, 1181:10634, 1215:1524 | todo |
+| Nashriye | 1215:4401 | todo |
+| News | 1215:5585 | todo |
+| Full-News (single post, also mobile) | 1215:6609 | todo |
+| Bayanie | 1215:6745 | todo |
+| Contact | 1225:9182 | todo |
+| Generic page style (pages without a design) | — | todo |
