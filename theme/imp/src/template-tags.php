@@ -6,8 +6,6 @@
  * @package IMP
  */
 
-use IMP\Core\Config;
-
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -53,16 +51,6 @@ function imp_icon( $name, $class = '' ) {
  */
 function imp_component( $name, array $args = array() ) {
 	get_template_part( 'templates/components/' . $name, null, $args );
-}
-
-/**
- * Permalink of a configured page (config/site.php "pages").
- *
- * @param string $key Page key, e.g. "donate".
- * @return string
- */
-function imp_url( $key ) {
-	return Config::page_url( $key );
 }
 
 /**
