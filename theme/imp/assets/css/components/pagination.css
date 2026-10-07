@@ -1,0 +1,21 @@
+/*
+ * "‹ 1 2 3 ›" page links (site style, not in Figma).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-pagination { margin-block-start: 28px; }
+.imp-pagination .nav-links { display: flex; justify-content: center; gap: 8px; }
+.imp-pagination .page-numbers {
+	display: grid;
+	place-items: center;
+	min-width: 36px;
+	height: 36px;
+	padding-inline: 8px;
+	border: 2px solid var(--imp-blue);
+	border-radius: var(--imp-radius);
+	font: 700 15px/1 var(--imp-font);
+	color: var(--imp-blue);
+	text-decoration: none;
+}
+.imp-pagination .page-numbers.current { background: var(--imp-blue); color: var(--imp-gold); }
+.imp-pagination .page-numbers.dots { border: 0; }

@@ -145,7 +145,7 @@ $docs_html = '<div class="imp-ff-docs">'
 	. '<a class="imp-ff-pill" href="/affidavit/" target="_blank">سوگندنامه</a>'
 	. '<a class="imp-ff-pill" href="/partys-motto/" target="_blank">مرامنامه حزب</a>'
 	. '</p>'
-	. '<p class="imp-ff-docs__fee"><a href="/donate/#fee" data-imp-dialog="imp-m-fee-dialog">درباره هزینه هموندی</a></p>'
+	. '<p class="imp-ff-docs__fee"><a href="/donate/#fee" data-imp-dialog="imp-fee-dialog">درباره هزینه هموندی</a></p>'
 	. '</div>';
 
 $fields = array(
