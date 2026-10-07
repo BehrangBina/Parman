@@ -15,6 +15,7 @@
 	.imp-m-enabled .site-footer { display: none !important; }
 	.imp-m-custom .neve-main { display: none; }
 	.imp-m-custom .wrapper { min-height: 0; } /* Neve sets 100vh; it is empty on designed pages */
+	.imp-m-enabled #comments { display: none !important; } /* no comment section in the mobile design */
 
 	body.imp-m-enabled {
 		background: var(--imp-bg);
