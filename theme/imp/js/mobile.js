@@ -2,8 +2,8 @@
 (function () {
 	'use strict';
 
-	var burger = document.querySelector('.imp-m-header__burger');
-	var menu = document.getElementById('imp-m-menu');
+	var burger = document.querySelector('.imp-header__burger');
+	var menu = document.getElementById('imp-menu');
 
 	var hideTimer;
 
@@ -12,15 +12,15 @@
 		menu.hidden = false;
 		void menu.offsetWidth; // apply the off-screen position first so the slide animates
 		menu.classList.add('is-open');
-		document.body.classList.add('imp-m-menu-open');
+		document.body.classList.add('imp-menu-open');
 		burger.setAttribute('aria-expanded', 'true');
-		var close = menu.querySelector('.imp-m-menu__close');
+		var close = menu.querySelector('.imp-menu__close');
 		if (close) close.focus({ preventScroll: true });
 	}
 
 	function closeMenu(restoreFocus) {
 		menu.classList.remove('is-open');
-		document.body.classList.remove('imp-m-menu-open');
+		document.body.classList.remove('imp-menu-open');
 		burger.setAttribute('aria-expanded', 'false');
 		hideTimer = setTimeout(function () { menu.hidden = true; }, 400); // after the slide-out
 		if (restoreFocus !== false) burger.focus({ preventScroll: true });
@@ -28,13 +28,13 @@
 
 	if (burger && menu) {
 		burger.addEventListener('click', openMenu);
-		menu.querySelector('.imp-m-menu__close').addEventListener('click', closeMenu);
+		menu.querySelector('.imp-menu__close').addEventListener('click', closeMenu);
 		// Tapping a menu link closes the panel. A parent whose link is just "#"
 		// (e.g. مدیا) only opens/closes its submenu instead.
 		menu.addEventListener('click', function (e) {
 			var link = e.target.closest('a[href]');
 			if (!link) return;
-			var toggle = link.getAttribute('href') === '#' && link.parentElement.querySelector(':scope > .imp-m-sub-toggle');
+			var toggle = link.getAttribute('href') === '#' && link.parentElement.querySelector(':scope > .imp-sub-toggle');
 			if (toggle) {
 				e.preventDefault();
 				toggle.click();
@@ -50,10 +50,10 @@
 		menu.querySelectorAll('.menu-item-has-children, .page_item_has_children').forEach(function (item, i) {
 			var sub = item.querySelector(':scope > ul');
 			if (!sub) return;
-			sub.id = sub.id || 'imp-m-sub-' + i;
+			sub.id = sub.id || 'imp-sub-' + i;
 			var btn = document.createElement('button');
 			btn.type = 'button';
-			btn.className = 'imp-m-sub-toggle';
+			btn.className = 'imp-sub-toggle';
 			btn.setAttribute('aria-expanded', 'false');
 			btn.setAttribute('aria-controls', sub.id);
 			btn.innerHTML = '<svg aria-hidden="true" viewBox="0 0 30 30" width="30" height="30" fill="none"><path d="M10 12L15 17L20 12" stroke="#243F88" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
@@ -69,11 +69,11 @@
 
 	// Search: the round button opens the bar and turns into ✕ (closes it);
 	// the magnifier at the far end (or Enter) searches.
-	var search = document.querySelector('.imp-m-search');
+	var search = document.querySelector('.imp-search');
 	if (search) {
-		var toggle = search.querySelector('.imp-m-search__toggle');
-		var input = search.querySelector('.imp-m-search__input');
-		var submit = search.querySelector('.imp-m-search__submit');
+		var toggle = search.querySelector('.imp-search__toggle');
+		var input = search.querySelector('.imp-search__input');
+		var submit = search.querySelector('.imp-search__submit');
 		var setSearch = function (open) {
 			search.dataset.state = open ? 'open' : 'closed';
 			toggle.setAttribute('aria-expanded', String(open));
@@ -173,14 +173,14 @@
 		function open(e) {
 			if (e) e.preventDefault();
 			reader.hidden = false;
-			document.body.classList.add('imp-m-menu-open'); // reuse the scroll lock
+			document.body.classList.add('imp-menu-open'); // reuse the scroll lock
 			page = 0; showCover();
 			var close = cover.querySelector('[data-imp-reader-close]');
 			if (close) close.focus({ preventScroll: true });
 		}
 		function close() {
 			reader.hidden = true;
-			document.body.classList.remove('imp-m-menu-open');
+			document.body.classList.remove('imp-menu-open');
 		}
 
 		document.querySelectorAll('[data-imp-reader-open]').forEach(function (b) { b.addEventListener('click', open); });
@@ -209,7 +209,7 @@
 	});
 
 	// Dialogs: [data-imp-dialog="id"] opens, [data-imp-dialog-close] or a backdrop tap closes.
-	// Links fall back to their href when the dialog isn't shown (e.g. desktop, where .imp-m is hidden).
+	// Links fall back to their href when the dialog isn't shown (e.g. desktop, where .imp-ui is hidden).
 	document.querySelectorAll('[data-imp-dialog]').forEach(function (btn) {
 		var dialog = document.getElementById(btn.dataset.impDialog);
 		if (!dialog || typeof dialog.showModal !== 'function') return;
@@ -224,11 +224,11 @@
 	});
 
 	// News carousel arrows scroll one card in the physical direction.
-	document.querySelectorAll('.imp-m-news').forEach(function (news) {
-		var track = news.querySelector('.imp-m-news__track');
-		news.querySelectorAll('.imp-m-news__arrow').forEach(function (btn) {
+	document.querySelectorAll('.imp-news').forEach(function (news) {
+		var track = news.querySelector('.imp-news__track');
+		news.querySelectorAll('.imp-news__arrow').forEach(function (btn) {
 			btn.addEventListener('click', function () {
-				var card = track.querySelector('.imp-m-card');
+				var card = track.querySelector('.imp-card');
 				var step = card ? card.getBoundingClientRect().width + 16 : track.clientWidth;
 				track.scrollBy({ left: step * Number(btn.dataset.dir), behavior: 'smooth' });
 			});

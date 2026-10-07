@@ -28,11 +28,14 @@ window.impCheckLayout = function (prefix) {
 	];
 	var boxes = {};
 	selectors.forEach(function (s) {
+		// Key = selector with the prefix swapped for "*-", so results compare across a rename.
+		// Only selectors built from the prefix are rewritten (".imp-d-…" stays literal).
+		var key = s.indexOf('.' + p) === 0 && s.indexOf('.imp-d-') !== 0 ? '.*-' + s.slice(p.length + 1) : s;
 		var e = document.querySelector(s);
-		if (!e) { boxes[s.replace(p, '*-')] = null; return; }
-		if (getComputedStyle(e).display === 'none' || !e.getClientRects().length) { boxes[s.replace(p, '*-')] = 'hidden'; return; }
+		if (!e) { boxes[key] = null; return; }
+		if (getComputedStyle(e).display === 'none' || !e.getClientRects().length) { boxes[key] = 'hidden'; return; }
 		var r = e.getBoundingClientRect();
-		boxes[s.replace(p, '*-')] = [r.left, r.top + scrollY, r.width, r.height].map(Math.round);
+		boxes[key] = [r.left, r.top + scrollY, r.width, r.height].map(Math.round);
 	});
 	return { url: decodeURI(location.pathname), width: innerWidth, boxes: boxes };
 };

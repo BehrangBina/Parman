@@ -36,7 +36,7 @@ services:
       # made every page take ~4s. The old copy in D:/wordpress-7.0.3/wordpress is kept as a backup.
       - wordpress_html:/var/www/html
       # Child theme lives in this repo; mounted so edits show up instantly.
-      - ./theme/neve-imp-mobile:/var/www/html/wp-content/themes/neve-imp-mobile
+      - ./theme/imp:/var/www/html/wp-content/themes/imp
 
 volumes:
   wordpress_db:
