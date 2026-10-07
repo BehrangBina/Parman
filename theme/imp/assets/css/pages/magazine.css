@@ -1,0 +1,39 @@
+/*
+ * Nashriye magazine page (Figma 820:9504, desktop 1215:4401).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-magazine__intro { margin-block-start: 20px; text-align: center; }
+.imp-magazine__intro p { margin: 0 0 12px; font: 500 13px/1.9 var(--imp-font); color: var(--imp-blue); text-align: justify; text-align-last: center; }
+/* The page content's cover image and "download" button are replaced by the issue cards on mobile */
+.imp-magazine__intro :is(figure, .wp-block-image, .wp-block-buttons, .wp-block-file, img) { display: none; }
+.imp-magazine__intro a[href$=".pdf"] { display: none; }
+
+.imp-issues { display: flex; flex-direction: column; gap: 40px; margin: 28px auto 0; padding: 0; list-style: none; width: min(342px, 100%); }
+.imp-issue {
+	overflow: hidden;
+	border-radius: var(--imp-radius);
+	background: var(--imp-blue);
+	box-shadow: var(--imp-shadow);
+	color: var(--imp-white);
+	text-align: start;
+}
+.imp-issue__view { display: block; padding-block-end: 18px; color: inherit; text-decoration: none; transition: background-color .15s ease; }
+a.imp-issue__view:active { background: var(--imp-blue-active); }
+.imp-issue__top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 18px 18px 0; }
+.imp-issue__title { margin: 0; font: 900 28px/1.3 var(--imp-font); color: var(--imp-white); }
+.imp-issue__year { font: 700 16px/1 var(--imp-font); color: var(--imp-white); }
+.imp-issue__desc { display: block; margin: 8px 0 0; padding-inline: 18px; font: 500 11px/1.7 var(--imp-font); color: var(--imp-white); opacity: .92; }
+.imp-issue__bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 48px;
+	padding-inline: 18px;
+	background: var(--imp-white);
+	color: var(--imp-blue);
+}
+.imp-issue__date { display: inline-flex; align-items: center; gap: 8px; font: 700 14px/1 var(--imp-font); }
+.imp-issue__date::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--imp-gold); }
+.imp-issue__download { display: inline-flex; align-items: center; gap: 6px; padding: 10px 0; font: 700 14px/1 var(--imp-font); color: var(--imp-blue); text-decoration: none; }
+.imp-issue__download .imp-icon { width: 18px; height: 18px; }

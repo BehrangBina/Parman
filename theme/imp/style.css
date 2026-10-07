@@ -1,0 +1,12 @@
+/*
+Theme Name:   IMP (Neve child)
+Theme URI:    https://iranianmonarchy.info/
+Description:  Iranian Monarchy Party theme, built from the "IMP Website 2026" Figma file: the mobile design below 1024px and the desktop design from 1024px up. Child of Neve, so Neve's plugin compatibility is kept.
+Author:       Behrang Bina
+Template:     neve
+Version:      0.2.0
+Requires PHP: 7.4
+Text Domain:  imp
+*/
+
+/* WordPress requires this file for the theme header. The actual styles are enqueued from functions.php. */

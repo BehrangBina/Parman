@@ -1,0 +1,142 @@
+/*
+ * Fluent Forms restyle for the membership form (Figma Form-Hamvandi 740:2198).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+/* The live form is Fluent Forms Pro; we only restyle its output so admins keep managing it there. */
+.imp-enabled .neve-main .nv-single-page-wrap,
+.imp-enabled .neve-main .nv-content-wrap { padding-inline: 25px; }
+.imp-enabled .neve-main .nv-content-wrap > p:has(+ .fluentform),
+.imp-enabled .neve-main .nv-content-wrap > p:first-child:not(:only-child) {
+	margin: 12px 0 24px;
+	text-align: center;
+	font: 700 15px/1.6 var(--imp-font);
+	color: var(--imp-blue);
+}
+.imp-enabled .fluentform { font-family: var(--imp-font); color: var(--imp-blue); }
+.imp-enabled .fluentform .ff-el-group { margin-block-end: 16px; }
+/* Two-column rows stay side by side on phones (Fluent stacks them below 768px) */
+.imp-enabled .fluentform .ff-t-container { display: flex !important; flex-direction: row; gap: 11px; }
+.imp-enabled .fluentform .ff-t-container > .ff-t-cell { flex: 1 1 0; min-width: 0; width: auto !important; }
+.imp-enabled .fluentform .ff-t-cell { padding: 0 !important; }
+.imp-enabled .fluentform .ff-el-input--label { margin-block-end: 4px; }
+.imp-enabled .fluentform .ff-el-input--label label {
+	font: 700 13px/1.4 var(--imp-font);
+	color: var(--imp-blue);
+}
+.imp-enabled .fluentform .ff-el-form-control {
+	height: 40px;
+	padding-block: 0;
+	padding-inline: 34px 12px; /* room for the icon on the start side */
+	border: 1px solid var(--imp-form-line);
+	border-radius: 6px;
+	background: var(--imp-white) no-repeat;
+	background-position: right 11px center; /* start side in RTL */
+	background-size: 14px;
+	box-shadow: none;
+	font: 400 16px/1.3 var(--imp-font); /* 16px stops iOS zoom-on-focus */
+	color: var(--imp-ink);
+}
+.imp-enabled .fluentform .ff-el-form-control:focus { border-color: var(--imp-blue); outline: none; box-shadow: 0 0 0 2px rgba(36, 63, 136, .12); }
+.imp-enabled .fluentform .ff-el-form-control::placeholder { color: var(--imp-form-icon); font-size: 13px; }
+.imp-enabled .fluentform textarea.ff-el-form-control { height: auto; min-height: 96px; padding-block: 10px; padding-inline: 12px; }
+.imp-enabled .fluentform select.ff-el-form-control { padding-inline: 34px 12px; background-image: url("../../icons/chevron.svg"); background-position: left 6px center; background-size: 22px; appearance: none; }
+/* Field icons on the start side (right in Farsi), by field name — Figma Form-Hamvandi */
+.imp-enabled .fluentform input[name="full_name"],
+.imp-enabled .fluentform input[name$="[first_name]"],
+.imp-enabled .fluentform input[name$="[last_name]"] { background-image: url("../../icons/user.svg"); }
+.imp-enabled .fluentform input[type="email"] { background-image: url("../../icons/mail.svg"); }
+.imp-enabled .fluentform .ff-el-datepicker { background-image: url("../../icons/calendar.svg"); background-size: 16px; }
+.imp-enabled .fluentform input[name="phone"], .imp-enabled .fluentform input[type="tel"] { background-image: url("../../icons/phone.svg"); }
+.imp-enabled .fluentform input[name="occupation"] { background-image: url("../../icons/briefcase.svg"); }
+.imp-enabled .fluentform input[name="education"] { background-image: url("../../icons/graduation-cap.svg"); }
+.imp-enabled .fluentform input[name="telegram"] { background-image: url("../../icons/send.svg"); }
+/* Numbers / @handles are typed left-to-right; keep the icon slot on the right (physical padding). */
+.imp-enabled .fluentform :is(input[name="phone"], input[type="tel"], input[name="telegram"], input[type="email"]) { direction: ltr; text-align: right; padding-left: 12px; padding-right: 34px; }
+.imp-enabled .fluentform input[name="city"] { background-image: url("../../icons/map-pin.svg"); }
+.imp-enabled .fluentform input[name="political_history"] { padding-inline-start: 12px; }
+/* Country dropdowns: globe on the start side, chevron on the end side */
+.imp-enabled .fluentform select.ff-el-form-control[name="birthplace"],
+.imp-enabled .fluentform select.ff-el-form-control[name="country"] {
+	background-image: url("../../icons/globe.svg"), url("../../icons/chevron.svg");
+	background-position: right 11px center, left 6px center;
+	background-size: 14px, 22px;
+}
+:root:not([dir="rtl"]) .imp-enabled .fluentform .ff-el-form-control { background-position: left 11px center; }
+
+/* Radios & checkboxes */
+.imp-enabled .fluentform .ff-el-form-check { margin-block-end: 6px; }
+.imp-enabled .fluentform .ff-el-form-check-label {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font: 500 14px/1.5 var(--imp-font);
+	color: var(--imp-ink);
+}
+.imp-enabled .fluentform .ff-el-form-check-input {
+	flex: none;
+	width: 18px;
+	height: 18px;
+	margin: 2px 0 0;
+	accent-color: var(--imp-blue);
+}
+.imp-enabled .fluentform .ff-el-tc { font: 500 13px/1.6 var(--imp-font); color: var(--imp-ink); }
+
+/* Inline radio groups (جنسیت) */
+.imp-enabled .fluentform .ff_list_inline .ff-el-input--content { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.imp-enabled .fluentform .ff_list_inline .ff-el-form-check { margin: 0; }
+
+/* Documents block (custom HTML in the form) */
+.imp-enabled .fluentform .imp-ff-docs { margin-block: 8px 12px; padding-block-start: 16px; border-top: 1px solid var(--imp-blue-grey); text-align: center; }
+.imp-enabled .fluentform .imp-ff-docs__title { margin: 0 0 12px; font: 700 13px/1.6 var(--imp-font); color: var(--imp-blue); }
+.imp-enabled .fluentform .imp-ff-docs__links { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 0; }
+.imp-enabled .fluentform .imp-ff-pill {
+	padding: 5px 12px;
+	border: 1.5px solid var(--imp-blue);
+	border-radius: 8px;
+	box-shadow: var(--imp-shadow);
+	font: 700 12px/1.3 var(--imp-font);
+	color: var(--imp-blue);
+	text-decoration: none;
+}
+.imp-enabled .fluentform .imp-ff-docs__fee { margin: 12px 0 0; }
+.imp-enabled .fluentform .imp-ff-docs__fee a {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font: 400 12px/1 var(--imp-font);
+	color: var(--imp-blue);
+	text-decoration: none;
+}
+.imp-enabled .fluentform .imp-ff-docs__fee a::before { content: ""; width: 16px; height: 16px; background: url("../../icons/info.svg") center / contain no-repeat; }
+.imp-enabled .fluentform .ff-el-tc a { color: var(--imp-blue); text-decoration: underline; }
+
+/* "Your information is safe" line under the submit button (inc/forms.php) */
+.imp-form-safe { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 10px 0 0; font: 400 11px/1.4 var(--imp-font); color: var(--imp-form-icon); }
+.imp-form-safe .imp-icon { width: 12px; height: 12px; }
+
+/* Errors */
+.imp-enabled .fluentform .ff-el-is-error .ff-el-form-control { border-color: var(--imp-error); }
+.imp-enabled .fluentform .error.text-danger { font: 500 12px/1.4 var(--imp-font); color: var(--imp-error); margin-block-start: 4px; }
+
+/* Submit: gold like the Figma "ارسال" (overrides the colour set in Fluent's settings) */
+.imp-enabled .fluentform .ff_submit_btn_wrapper { margin-block-start: 24px; text-align: center; }
+.imp-enabled .fluentform .ff-btn-submit {
+	min-width: 124px;
+	padding: 8px 24px !important;
+	border: 0 !important;
+	border-radius: var(--imp-radius) !important;
+	background: var(--imp-gold) !important;
+	color: var(--imp-blue) !important;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, .15) !important;
+	font: 700 16px/1.5 var(--imp-font) !important;
+	opacity: 1 !important;
+}
+.imp-enabled .fluentform .ff-message-success {
+	border: 0;
+	border-radius: var(--imp-radius);
+	background: var(--imp-white);
+	box-shadow: var(--imp-shadow);
+	font: 700 15px/1.6 var(--imp-font);
+	color: var(--imp-blue);
+}

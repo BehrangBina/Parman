@@ -648,7 +648,7 @@
                     "element": "custom_html",
                     "attributes": [],
                     "settings": {
-                        "html_codes": "<div class=\"imp-ff-docs\"><p class=\"imp-ff-docs__title\">لطفاً پیش از ارسال فرم، اسناد زیر را با دقت مطالعه فرمایید<\/p><p class=\"imp-ff-docs__links\"><a class=\"imp-ff-pill\" href=\"\/party-constitution\/\" target=\"_blank\">اساسنامه<\/a><a class=\"imp-ff-pill\" href=\"\/affidavit\/\" target=\"_blank\">سوگندنامه<\/a><a class=\"imp-ff-pill\" href=\"\/partys-motto\/\" target=\"_blank\">مرامنامه حزب<\/a><\/p><p class=\"imp-ff-docs__fee\"><a href=\"\/donate\/#fee\" data-imp-dialog=\"imp-m-fee-dialog\">درباره هزینه هموندی<\/a><\/p><\/div>",
+                        "html_codes": "<div class=\"imp-ff-docs\"><p class=\"imp-ff-docs__title\">لطفاً پیش از ارسال فرم، اسناد زیر را با دقت مطالعه فرمایید<\/p><p class=\"imp-ff-docs__links\"><a class=\"imp-ff-pill\" href=\"\/party-constitution\/\" target=\"_blank\">اساسنامه<\/a><a class=\"imp-ff-pill\" href=\"\/affidavit\/\" target=\"_blank\">سوگندنامه<\/a><a class=\"imp-ff-pill\" href=\"\/partys-motto\/\" target=\"_blank\">مرامنامه حزب<\/a><\/p><p class=\"imp-ff-docs__fee\"><a href=\"\/donate\/#fee\" data-imp-dialog=\"imp-fee-dialog\">درباره هزینه هموندی<\/a><\/p><\/div>",
                         "conditional_logics": [],
                         "container_class": ""
                     },
