@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <p>
-	<input type="url" class="widefat" id="imp-pdf" name="imp_pdf" value="<?php echo esc_attr( $args['url'] ); ?>" placeholder="https://…/file.pdf" dir="ltr">
+	<input type="url" class="widefat" id="imp-pdf-url" name="imp_pdf" value="<?php echo esc_attr( $args['url'] ); ?>" placeholder="https://…/file.pdf" dir="ltr">
 </p>
 <p><button type="button" class="button" id="imp-pdf-pick">انتخاب از کتابخانه رسانه</button></p>
 <p class="description">

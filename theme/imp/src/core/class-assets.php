@@ -42,6 +42,23 @@ final class Assets {
 	);
 
 	/**
+	 * Front-end JS modules (assets/js/modules/), imported by assets/js/main.js.
+	 *
+	 * @var string[]
+	 */
+	const JS_MODULES = array(
+		'scroll-lock',
+		'mobile-menu',
+		'search',
+		'desktop-nav',
+		'back-link',
+		'back-to-top',
+		'dialog',
+		'reader',
+		'news-carousel',
+	);
+
+	/**
 	 * Hook into WordPress.
 	 */
 	public static function register() {
@@ -66,7 +83,22 @@ final class Assets {
 			self::style( 'imp-page-' . $page, 'pages/' . $page, array( $previous ) );
 		}
 
-		wp_enqueue_script( 'imp', IMP_URI . '/js/mobile.js', array(), self::version( 'js/mobile.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+		self::enqueue_scripts();
+	}
+
+	/**
+	 * Front-end JS: assets/js/main.js plus one ES module per feature (assets/js/modules/).
+	 * Registered as WordPress script modules, so WordPress prints the import map with a
+	 * version per file (cache busting) and the browser loads them deferred — no build step.
+	 */
+	private static function enqueue_scripts() {
+		$ids = array();
+		foreach ( self::JS_MODULES as $module ) {
+			$file  = 'assets/js/modules/' . $module . '.js';
+			$ids[] = '@imp/' . $module;
+			wp_register_script_module( '@imp/' . $module, IMP_URI . '/' . $file, array(), self::version( $file ) );
+		}
+		wp_enqueue_script_module( '@imp/main', IMP_URI . '/assets/js/main.js', $ids, self::version( 'assets/js/main.js' ) );
 	}
 
 	/**

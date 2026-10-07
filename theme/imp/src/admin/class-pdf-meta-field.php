@@ -58,7 +58,7 @@ final class Pdf_Meta_Field {
 	 */
 	public static function render( $post, $box ) {
 		wp_enqueue_media();
-		wp_enqueue_script( 'imp-admin-pdf-field', IMP_URI . '/js/admin-pdf-field.js', array( 'media-editor' ), IMP_VERSION, true );
+		wp_enqueue_script( 'imp-admin-pdf-field', IMP_URI . '/assets/js/admin/pdf-field.js', array( 'media-editor' ), IMP_VERSION, true );
 		wp_nonce_field( self::NONCE, self::NONCE );
 		get_template_part(
 			'templates/admin/pdf-field',

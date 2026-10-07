@@ -86,6 +86,8 @@ $home_url  = home_url( '/' );
 		);
 		?>
 		<img class="imp-menu__lion" src="<?php echo esc_url( imp_asset( 'img/lion.svg' ) ); ?>" alt="" aria-hidden="true">
+		<?php // Chevron for the submenu toggles that assets/js/modules/mobile-menu.js adds. ?>
+		<template id="imp-tpl-chevron"><?php imp_icon( 'chevron' ); ?></template>
 		<?php echo $args['mobile_menu']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core wp_nav_menu() output. ?>
 	</nav>
 

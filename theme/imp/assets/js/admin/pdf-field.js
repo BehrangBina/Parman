@@ -2,7 +2,7 @@
 ( function () {
 	'use strict';
 	var button = document.getElementById( 'imp-pdf-pick' );
-	var input = document.getElementById( 'imp-pdf' );
+	var input = document.getElementById( 'imp-pdf-url' );
 	if ( ! button || ! input || ! window.wp || ! wp.media ) {
 		return;
 	}

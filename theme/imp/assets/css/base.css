@@ -21,7 +21,7 @@ body.imp-enabled {
 	font-family: var(--imp-font);
 	color: var(--imp-ink);
 }
-body.imp-menu-open { overflow: hidden; }
+body.imp-scroll-lock { overflow: hidden; } /* set by assets/js/modules/scroll-lock.js (menu, reader) */
 
 .imp-enabled .neve-main {
 	background: var(--imp-bg);
