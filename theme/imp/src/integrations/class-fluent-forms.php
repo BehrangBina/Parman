@@ -1,7 +1,8 @@
 <?php
 /**
  * Extras for the Fluent Forms membership form (Figma Form-Hamvandi 740:2198, desktop 1181:5631).
- * The form itself is built by tools/build-membership-form.php and managed in Fluent Forms.
+ * The form is the live Fluent form #3 (config "membership"); tools/build-membership-form.php
+ * rebuilds its local copy.
  *
  * @package IMP
  */

@@ -28,6 +28,8 @@ final class Theme {
 		\IMP\Services\Pdf_Download::class,
 		\IMP\Services\Contact_Mailer::class,
 		\IMP\Integrations\Fluent_Forms::class,
+		\IMP\Integrations\Membership_Digest::class,
+		\IMP\Integrations\Whatsapp_Notifier::class,
 	);
 
 	/**

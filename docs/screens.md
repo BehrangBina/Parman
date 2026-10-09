@@ -23,7 +23,7 @@ Figma: `IMP-Website-2026`, page **Mobile-HiFi-Farsi** (node `697:927`). Frames a
 | Bayanie (list) | 1009:3003 | category archive `statements` → `templates/pages/statements.php` | ✅ done (from screenshot) |
 | Bayanie dated statements (single) | 1011:3758, 1014:4757, 1014:4874, 1014:4958 | single post in `statements` | todo |
 | Hamyari (donate) | 697:2603, 1023:2782 | page `donate` → `templates/pages/donate.php` | ✅ done (fee popup uses page `membership-fee`; design 966:3055 not yet read) |
-| Form-Hamvandi | 740:2198 | NEW Fluent form built by `tools/build-membership-form.php`; import file `docs/membership-form.fluentform.json`; styles in `assets/css/components/fluent-forms.css`, extras in `src/integrations/class-fluent-forms.php` | ✅ done (+ ID upload kept, Pro-only) |
+| Form-Hamvandi | 740:2198 | live Fluent form **#3** restyled (live field names kept), local copy built by `tools/build-membership-form.php`; styles in `assets/css/components/fluent-forms.css`, extras in `src/integrations/class-fluent-forms.php` | ✅ done (+ ID upload kept, Pro-only) |
 | Overlay-MembershipFee | 966:3055 | popup on donate + membership pages; text = page `membership-fee` | ✅ styled — needs the real text |
 | Contact | 820:11317 | page `bcd31-contact-us` → `templates/pages/contact.php` | ✅ done (built from screenshot; Figma MCP limit) |
 | Nashriye (magazine) | 820:9504 | page `نشریه-ایرانگرا` → `templates/pages/magazine.php`; issues = admin "نشریه ایرانگرا" (post type `imp_issue`) | ✅ done (from screenshot) |

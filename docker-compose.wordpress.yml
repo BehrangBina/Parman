@@ -41,12 +41,23 @@ services:
         define( 'WP_ENVIRONMENT_TYPE', 'local' );
         define( 'WP_DEBUG_LOG', true );
         define( 'WP_DEBUG_DISPLAY', false );
+        // WhatsApp stays in test mode locally (no token); a fake office number to try it.
+        define( 'IMP_WHATSAPP_OFFICE', '+49 000 0000001' );
     volumes:
       # WordPress core/plugins/uploads live in a Docker volume: a Windows-drive bind mount
       # made every page take ~4s. The old copy in D:/wordpress-7.0.3/wordpress is kept as a backup.
       - wordpress_html:/var/www/html
       # The theme lives in this repo; mounted so edits show up instantly.
       - ./theme/imp:/var/www/html/wp-content/themes/imp
+      # Local-only: route all site email to Mailpit below.
+      - ./tools/local/mu-plugins/imp-local-mail.php:/var/www/html/wp-content/mu-plugins/imp-local-mail.php:ro
+
+  # Catches every email the local site sends: http://localhost:8025
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "8025:8025"
 
 volumes:
   wordpress_db:

@@ -58,6 +58,33 @@ return array(
 	// Membership enquiries from the home/contact form go here (empty = the site admin email).
 	'contact_recipient' => '',
 
+	// The Fluent Forms membership form (live ID 3, "فرم هموندی") and its weekly digest email.
+	// Field names are the form's own, so stored entries and email conditions keep working.
+	'membership' => array(
+		'form_id'      => 3,
+		'fee_field'    => 'membership_fee_commitment', // answer shown as a coloured badge (بله / خیر)
+		'digest'       => array(
+			'recipient' => 'office@iranianmonarchy.info',
+			'weekday'   => 6, // ISO-8601: 6 = Saturday
+			'days_back' => 7,
+		),
+	),
+
+	// WhatsApp messages on a new membership entry (WhatsApp Business Cloud API, Meta).
+	// Secrets and phone numbers are NOT here: they go in wp-config.php —
+	//   IMP_WHATSAPP_TOKEN, IMP_WHATSAPP_PHONE_ID, IMP_WHATSAPP_OFFICE ("+49…,+44…").
+	// Without a token the module runs in test mode: messages are only listed in
+	// Tools → IMP WhatsApp. Template names must match templates approved in Meta.
+	'whatsapp'   => array(
+		'api_version'   => 'v21.0',
+		'language'      => 'fa',
+		'consent_field' => 'whatsapp_consent', // applicant messages only with this box ticked
+		'templates'     => array(
+			'office'    => 'imp_new_member', // {{1}} name, {{2}} country, {{3}} entry link
+			'applicant' => 'imp_welcome',    // {{1}} first name
+		),
+	),
+
 	// Menu locations (Appearance → Menus). Both fall back to Neve's "primary" menu.
 	'menus'      => array(
 		'imp-mobile'  => 'Mobile menu (IMP)',

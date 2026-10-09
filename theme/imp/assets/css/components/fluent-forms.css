@@ -41,23 +41,23 @@
 .imp-enabled .fluentform .ff-el-form-control::placeholder { color: var(--imp-form-icon); font-size: 13px; }
 .imp-enabled .fluentform textarea.ff-el-form-control { height: auto; min-height: 96px; padding-block: 10px; padding-inline: 12px; }
 .imp-enabled .fluentform select.ff-el-form-control { padding-inline: 34px 12px; background-image: url("../../icons/chevron.svg"); background-position: left 6px center; background-size: 22px; appearance: none; }
-/* Field icons on the start side (right in Farsi), by field name — Figma Form-Hamvandi */
-.imp-enabled .fluentform input[name="full_name"],
+/* Field icons on the start side (right in Farsi), by field name — Figma Form-Hamvandi.
+   Names are the live form #3's own (Fluent keeps entries by name), see config/site.php. */
 .imp-enabled .fluentform input[name$="[first_name]"],
 .imp-enabled .fluentform input[name$="[last_name]"] { background-image: url("../../icons/user.svg"); }
 .imp-enabled .fluentform input[type="email"] { background-image: url("../../icons/mail.svg"); }
 .imp-enabled .fluentform .ff-el-datepicker { background-image: url("../../icons/calendar.svg"); background-size: 16px; }
 .imp-enabled .fluentform input[name="phone"], .imp-enabled .fluentform input[type="tel"] { background-image: url("../../icons/phone.svg"); }
-.imp-enabled .fluentform input[name="occupation"] { background-image: url("../../icons/briefcase.svg"); }
-.imp-enabled .fluentform input[name="education"] { background-image: url("../../icons/graduation-cap.svg"); }
-.imp-enabled .fluentform input[name="telegram"] { background-image: url("../../icons/send.svg"); }
+.imp-enabled .fluentform input[name="input_text_2"] { background-image: url("../../icons/briefcase.svg"); }
+.imp-enabled .fluentform input[name="input_text_3"] { background-image: url("../../icons/graduation-cap.svg"); }
+.imp-enabled .fluentform input[name="input_text_7"] { background-image: url("../../icons/send.svg"); }
 /* Numbers / @handles are typed left-to-right; keep the icon slot on the right (physical padding). */
-.imp-enabled .fluentform :is(input[name="phone"], input[type="tel"], input[name="telegram"], input[type="email"]) { direction: ltr; text-align: right; padding-left: 12px; padding-right: 34px; }
-.imp-enabled .fluentform input[name="city"] { background-image: url("../../icons/map-pin.svg"); }
-.imp-enabled .fluentform input[name="political_history"] { padding-inline-start: 12px; }
-/* Country dropdowns: globe on the start side, chevron on the end side */
-.imp-enabled .fluentform select.ff-el-form-control[name="birthplace"],
-.imp-enabled .fluentform select.ff-el-form-control[name="country"] {
+.imp-enabled .fluentform :is(input[name="phone"], input[type="tel"], input[name="input_text_7"], input[type="email"]) { direction: ltr; text-align: right; padding-left: 12px; padding-right: 34px; }
+.imp-enabled .fluentform input[name="input_text_1"] { background-image: url("../../icons/map-pin.svg"); }
+.imp-enabled .fluentform input[name="subject"] { padding-inline-start: 12px; }
+/* Birthplace (text) and country of residence (dropdown): globe on the start side */
+.imp-enabled .fluentform input[name="input_text"] { background-image: url("../../icons/globe.svg"); background-size: 14px; }
+.imp-enabled .fluentform select.ff-el-form-control[name="country-list"] {
 	background-image: url("../../icons/globe.svg"), url("../../icons/chevron.svg");
 	background-position: right 11px center, left 6px center;
 	background-size: 14px, 22px;

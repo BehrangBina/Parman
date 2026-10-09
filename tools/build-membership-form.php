@@ -1,39 +1,75 @@
 <?php
 /**
- * Builds the Figma "Form-Hamvandi" (740:2198) membership form as a Fluent Forms form,
- * and writes docs/membership-form.fluentform.json for importing on the live site
- * (Fluent Forms → Tools → Import Forms).
+ * LOCAL ONLY. Rebuilds the local copy of the live membership form (Fluent Forms #3,
+ * "فرم هموندی") in the Figma "Form-Hamvandi" layout (740:2198 / desktop 1181:5631).
+ *
+ * Field names are the live form's own (names, datetime, input_text, …): Fluent stores
+ * entries by name, and the 178 live entries, the three emails and the weekly digest all
+ * depend on them. Only order, labels, placeholders and styling follow Figma.
+ * Removed (not in Figma): file-upload (education document), "how did you find us"
+ * (input_radio_2 + description, description_2, description_3), net_promoter_score.
+ * Added: whatsapp_consent (opt-in for the WhatsApp welcome message).
  *
  * Run inside the WordPress container (from the repo root):
  *   docker cp tools/build-membership-form.php local-wordpress-703-wordpress-1:/tmp/
- *   docker exec local-wordpress-703-wordpress-1 php /tmp/build-membership-form.php /tmp/membership-form.fluentform.json
- *   docker cp local-wordpress-703-wordpress-1:/tmp/membership-form.fluentform.json docs/
+ *   docker exec local-wordpress-703-wordpress-1 php /tmp/build-membership-form.php
  *
- * The ID-upload field (input_file) is Fluent Forms Pro only: it is always written to the
- * export, but only saved into the local form when Pro is active.
+ * The ID upload (input_file) and the international phone field are Fluent Forms Pro;
+ * without Pro (local) the upload is left out and the phone is a plain tel input.
  */
 
 require '/var/www/html/wp-load.php';
+
+if ( 'production' === wp_get_environment_type() ) {
+	exit( "Refusing to run on production.\n" );
+}
+
+const IMP_FORM_ID    = 3;
+const IMP_FORM_TITLE = 'فرم هموندی';
 
 global $wpdb;
 $forms_table = $wpdb->prefix . 'fluentform_forms';
 $meta_table  = $wpdb->prefix . 'fluentform_form_meta';
 $has_pro     = defined( 'FLUENTFORMPRO' );
-$export_path = isset( $argv[1] ) ? $argv[1] : '/tmp/membership-form.fluentform.json';
 
 /* ---------- field helpers ---------- */
 
-$n   = 0;
-$uid = function () use ( &$n ) { return 'el_imp_member_' . ( ++$n ); };
-$req = function ( $on = true, $msg = 'این فیلد الزامی است' ) { return array( 'required' => array( 'value' => $on, 'message' => $msg ) ); };
-$opt = function ( $labels ) { return array_map( function ( $l ) { return array( 'label' => $l, 'value' => $l, 'calc_value' => '' ); }, $labels ); };
+$n    = 0;
+$uid  = function () use ( &$n ) { return 'el_imp_member_' . ( ++$n ); };
+$req  = function ( $on = true, $msg = 'این فیلد الزامی است' ) { return array( 'required' => array( 'value' => $on, 'message' => $msg ) ); };
+$opt  = function ( $labels ) { return array_map( function ( $l ) { return array( 'label' => $l, 'value' => $l, 'calc_value' => '' ); }, $labels ); };
+$when = function ( $field, $value ) {
+	return array( 'type' => 'any', 'status' => true, 'conditions' => array( array( 'field' => $field, 'value' => $value, 'operator' => '=' ) ) );
+};
 
-$text = function ( $name, $label, $placeholder = '', $required = false, $type = 'text' ) use ( $uid, $req ) {
+$text = function ( $name, $label, $placeholder = '', $required = false, $type = 'text', $logic = array() ) use ( $uid, $req ) {
 	return array(
 		'element'        => 'input_text',
 		'attributes'     => array( 'type' => $type, 'name' => $name, 'value' => '', 'class' => '', 'placeholder' => $placeholder, 'maxlength' => '' ),
-		'settings'       => array( 'container_class' => '', 'label' => $label, 'label_placement' => '', 'admin_field_label' => $label, 'help_message' => '', 'prefix_label' => '', 'suffix_label' => '', 'validation_rules' => $req( $required ), 'conditional_logics' => array() ),
+		'settings'       => array( 'container_class' => '', 'label' => $label, 'label_placement' => '', 'admin_field_label' => $label, 'help_message' => '', 'prefix_label' => '', 'suffix_label' => '', 'validation_rules' => $req( $required ), 'conditional_logics' => $logic ),
 		'editor_options' => array( 'title' => 'Simple Text', 'icon_class' => 'ff-edit-text', 'template' => 'inputText' ),
+		'uniqElKey'      => $uid(),
+	);
+};
+$name_part = function ( $name, $label, $placeholder, $visible ) use ( $req ) {
+	return array(
+		'element'        => 'input_text',
+		'attributes'     => array( 'type' => 'text', 'name' => $name, 'value' => '', 'id' => '', 'class' => '', 'placeholder' => $placeholder, 'maxlength' => '' ),
+		'settings'       => array( 'container_class' => '', 'label' => $label, 'help_message' => '', 'visible' => $visible, 'label_placement' => 'top', 'validation_rules' => $req( $visible ), 'conditional_logics' => array() ),
+		'editor_options' => array( 'template' => 'inputText' ),
+	);
+};
+$names = function () use ( $uid, $name_part ) {
+	return array(
+		'element'        => 'input_name',
+		'attributes'     => array( 'name' => 'names', 'data-type' => 'name-element' ),
+		'settings'       => array( 'container_class' => '', 'admin_field_label' => 'نام و نام خانوادگی', 'conditional_logics' => array(), 'label_placement' => 'top' ),
+		'fields'         => array(
+			'first_name'  => $name_part( 'first_name', 'نام', 'نام', true ),
+			'middle_name' => $name_part( 'middle_name', 'نام مستعار', '', false ),
+			'last_name'   => $name_part( 'last_name', 'نام خانوادگی', 'نام خانوادگی', true ),
+		),
+		'editor_options' => array( 'title' => 'Name Fields', 'element' => 'name-fields', 'icon_class' => 'ff-edit-name', 'template' => 'nameFields' ),
 		'uniqElKey'      => $uid(),
 	);
 };
@@ -65,20 +101,20 @@ $country = function ( $name, $label ) use ( $uid, $req ) {
 		'uniqElKey'      => $uid(),
 	);
 };
-$radio = function ( $name, $label, $choices, $layout = 'ff_list_inline' ) use ( $uid, $req, $opt ) {
+$radio = function ( $name, $label, $choices, $required = true, $layout = '' ) use ( $uid, $req, $opt ) {
 	return array(
 		'element'        => 'input_radio',
 		'attributes'     => array( 'type' => 'radio', 'name' => $name, 'value' => '' ),
-		'settings'       => array( 'container_class' => '', 'label' => $label, 'label_placement' => '', 'admin_field_label' => $label, 'display_type' => '', 'help_message' => '', 'randomize_options' => 'no', 'advanced_options' => $opt( $choices ), 'calc_value_status' => false, 'enable_image_input' => false, 'layout_class' => $layout, 'validation_rules' => $req( true ), 'conditional_logics' => array() ),
+		'settings'       => array( 'container_class' => '', 'label' => $label, 'label_placement' => '', 'admin_field_label' => $label, 'display_type' => '', 'help_message' => '', 'randomize_options' => 'no', 'advanced_options' => $opt( $choices ), 'calc_value_status' => false, 'enable_image_input' => false, 'layout_class' => $layout, 'validation_rules' => $req( $required ), 'conditional_logics' => array() ),
 		'editor_options' => array( 'title' => 'Radio Field', 'icon_class' => 'ff-edit-radio', 'element' => 'input-radio', 'template' => 'inputCheckable' ),
 		'uniqElKey'      => $uid(),
 	);
 };
-$textarea = function ( $name, $label, $placeholder ) use ( $uid, $req ) {
+$textarea = function ( $name, $label, $placeholder, $required = false ) use ( $uid, $req ) {
 	return array(
 		'element'        => 'textarea',
 		'attributes'     => array( 'name' => $name, 'value' => '', 'class' => '', 'placeholder' => $placeholder, 'rows' => 4, 'cols' => 2, 'maxlength' => '' ),
-		'settings'       => array( 'container_class' => '', 'label' => $label, 'label_placement' => '', 'admin_field_label' => $label, 'help_message' => '', 'validation_rules' => $req( false ), 'conditional_logics' => array() ),
+		'settings'       => array( 'container_class' => '', 'label' => $label, 'label_placement' => '', 'admin_field_label' => $label, 'help_message' => '', 'validation_rules' => $req( $required ), 'conditional_logics' => array() ),
 		'editor_options' => array( 'title' => 'Text Area', 'icon_class' => 'ff-edit-textarea', 'template' => 'inputTextarea' ),
 		'uniqElKey'      => $uid(),
 	);
@@ -102,16 +138,16 @@ $two_columns = function ( $right, $left ) use ( $uid ) {
 		'uniqElKey'      => $uid(),
 	);
 };
-$checkbox_tnc = function ( $name, $html_text ) use ( $uid, $req ) {
+$checkbox_tnc = function ( $name, $html_text, $required = true ) use ( $uid, $req ) {
 	return array(
 		'element'        => 'terms_and_condition',
 		'attributes'     => array( 'type' => 'checkbox', 'name' => $name, 'value' => false, 'class' => '' ),
-		'settings'       => array( 'tnc_html' => $html_text, 'has_checkbox' => true, 'admin_field_label' => wp_strip_all_tags( $html_text ), 'container_class' => '', 'validation_rules' => $req( true, 'لطفاً این مورد را تأیید کنید' ), 'conditional_logics' => array() ),
+		'settings'       => array( 'tnc_html' => $html_text, 'has_checkbox' => true, 'admin_field_label' => wp_strip_all_tags( $html_text ), 'container_class' => '', 'validation_rules' => $req( $required, 'لطفاً این مورد را تأیید کنید' ), 'conditional_logics' => array() ),
 		'editor_options' => array( 'title' => 'Terms & Conditions', 'icon_class' => 'ff-edit-terms-condition', 'template' => 'termsCheckbox' ),
 		'uniqElKey'      => $uid(),
 	);
 };
-$file = function ( $name, $label ) use ( $uid, $req ) {
+$file = function ( $name, $label ) use ( $uid ) {
 	return array(
 		'element'        => 'input_file',
 		'attributes'     => array( 'type' => 'file', 'name' => $name, 'value' => '', 'class' => '' ),
@@ -136,7 +172,7 @@ $file = function ( $name, $label ) use ( $uid, $req ) {
 	);
 };
 
-/* ---------- the form, in Figma order ---------- */
+/* ---------- the form, in Figma order, with the live field names ---------- */
 
 $docs_html = '<div class="imp-ff-docs">'
 	. '<p class="imp-ff-docs__title">لطفاً پیش از ارسال فرم، اسناد زیر را با دقت مطالعه فرمایید</p>'
@@ -149,51 +185,53 @@ $docs_html = '<div class="imp-ff-docs">'
 	. '</div>';
 
 $fields = array(
-	$text( 'full_name', 'نام و نام خانوادگی', 'نام کامل خود را وارد کنید', true ),
-	$date( 'birth_date', 'زادروز' ),
+	$names(),
+	$date( 'datetime', 'زادروز' ),
 	$email( 'email', 'آدرس ایمیل', 'you@example.com' ),
-	$text( 'phone', 'شماره تلفن', '+49 000 0000000', true, 'tel' ),
-	$text( 'occupation', 'شغل', 'شغل خود را وارد کنید' ),
-	$text( 'education', 'تحصیلات', 'آخرین مدرک تحصیلی' ),
-	$text( 'telegram', 'لطفاً آیدی تلگرام خود را وارد نمایید', '@telegram_id' ),
-	$country( 'birthplace', 'زادگاه' ),
-	$radio( 'gender', 'جنسیت', array( 'زن', 'مرد', 'سایر' ) ),
-	$two_columns( $text( 'city', 'شهر محل اقامت', 'شهر', true ), $country( 'country', 'کشور محل اقامت' ) ),
-	$text( 'political_history', 'سوابق کارهای سیاسی قبلی', 'در صورت وجود' ),
-	$textarea( 'motivation', 'انگیزه درخواست هموندی', 'لطفاً کوتاه شرح دهید' ),
-	$radio( 'other_party', 'آیا اکنون هموند سازمان سیاسی دیگری هستید؟', array( 'بله', 'خیر' ), '' ),
-	$radio( 'other_nationality', 'آیا شما به غیر از ایران دارای ملیت دیگری میباشید؟', array( 'بله', 'خیر' ), '' ),
+	$text( 'phone', 'شماره تلفن', '+49 000 0000000', true, 'tel' ), // Pro: replaced by the international phone field below
+	$text( 'input_text_2', 'شغل', 'شغل خود را وارد کنید', true ),
+	$text( 'input_text_3', 'تحصیلات', 'آخرین مدرک تحصیلی', true ),
+	$text( 'input_text_7', 'لطفاً آیدی تلگرام خود را وارد نمایید', '@telegram_id', true ),
+	$text( 'input_text', 'زادگاه', 'شهر یا کشور محل تولد', true ),
+	$radio( 'dropdown', 'جنسیت', array( 'زن', 'مرد', 'دگرباش' ), true, 'ff_list_inline' ),
+	$two_columns( $text( 'input_text_1', 'شهر محل اقامت', 'شهر', true ), $country( 'country-list', 'کشور محل اقامت' ) ),
+	$text( 'subject', 'سوابق کارهای سیاسی قبلی', 'در صورت وجود' ),
+	$textarea( 'message', 'انگیزه درخواست هموندی', 'لطفاً کوتاه شرح دهید', true ),
+	$radio( 'input_radio', 'آیا اکنون هموند سازمان سیاسی دیگری هستید؟', array( 'بله', 'خیر' ) ),
+	$text( 'input_text_5', 'کدام حزب یا سازمان؟', '', true, 'text', $when( 'input_radio', 'بله' ) ),
+	$radio( 'input_radio_1', 'آیا شما به غیر از ایران دارای ملیت دیگری میباشید؟', array( 'بله', 'خیر' ) ),
+	$text( 'input_text_6', 'ملیت چه کشوری؟', '', false, 'text', $when( 'input_radio_1', 'بله' ) ),
 	'__FILE__',
 	$html( $docs_html ),
-	$checkbox_tnc( 'confirm_documents', 'اینجانب تأیید می‌کنم که مرامنامه، راهنمای هموندی و سوگندنامه را مطالعه کرده‌ام و با آن موافقم.' ),
-	$checkbox_tnc( 'privacy_consent', 'با ارسال این فرم، موافقت خود را با ذخیره و پردازش اطلاعات شخصی‌ام مطابق مقررات حفاظت از داده‌ها (GDPR) و قوانین آلمان اعلام می‌کنم. <a href="/privacy-policy/" target="_blank">جزئیات بیشتر</a>' ),
+	$radio( 'membership_fee_commitment', 'حق هموندی ماهانه ۹٫۹۹ دلار آمریکا و سالانه ۹۹ دلار است. دانشجویان و پناهجویان از پرداخت حق هموندی معاف هستند. آیا امکان تضمین پرداخت حق هموندی را دارید؟', array( 'بله', 'خیر', 'معاف هستم (دانشجو یا پناهجو)' ), false ),
+	$checkbox_tnc( 'confirm_documents', 'اینجانب تأیید می‌کنم که مرامنامه، راهنمای هموندی و سوگندنامه را مطالعه کرده‌ام و با مفاد آن موافقم.' ),
+	$checkbox_tnc( 'terms-n-condition', 'با ارسال این فرم، موافقت خود را با ذخیره و پردازش اطلاعات شخصی‌ام مطابق مقررات حفاظت از داده‌ها (GDPR) و قوانین آلمان اعلام می‌کنم. <a href="https://gdpr.eu" target="_blank" rel="noopener">جزئیات بیشتر</a>' ),
+	$checkbox_tnc( 'whatsapp_consent', 'مایلم پیام خوش‌آمدگویی و اطلاع‌رسانی‌های هموندی را از طریق واتساپ (به شماره بالا) دریافت کنم.', false ),
 );
 
-$build = function ( $with_file ) use ( $fields, $file ) {
-	$out = array();
-	foreach ( $fields as $f ) {
-		if ( '__FILE__' === $f ) {
-			if ( $with_file ) {
-				$out[] = $file( 'id_document', 'تصویر مدرک شناسایی' );
-			}
-			continue;
+$out = array();
+foreach ( $fields as $f ) {
+	if ( '__FILE__' === $f ) {
+		if ( $has_pro ) {
+			$out[] = $file( 'file-upload_1', 'آپلود مدرک شناسایی' );
 		}
-		$out[] = $f;
+		continue;
 	}
-	foreach ( $out as $i => $f ) {
-		$out[ $i ]['index'] = $i;
-	}
-	return array(
-		'fields'       => $out,
-		'submitButton' => array(
-			'uniqElKey'      => 'el_imp_member_submit',
-			'element'        => 'button',
-			'attributes'     => array( 'type' => 'submit', 'class' => '' ),
-			'settings'       => array( 'align' => 'center', 'button_style' => 'default', 'container_class' => '', 'help_message' => '', 'background_color' => '#D5AF30', 'button_size' => 'md', 'color' => '#243F88', 'button_ui' => array( 'type' => 'default', 'text' => 'ارسال', 'img_url' => '' ) ),
-			'editor_options' => array( 'title' => 'Submit Button' ),
-		),
-	);
-};
+	$out[] = $f;
+}
+foreach ( $out as $i => $f ) {
+	$out[ $i ]['index'] = $i;
+}
+$form_fields = array(
+	'fields'       => $out,
+	'submitButton' => array(
+		'uniqElKey'      => 'el_imp_member_submit',
+		'element'        => 'button',
+		'attributes'     => array( 'type' => 'submit', 'class' => '' ),
+		'settings'       => array( 'align' => 'center', 'button_style' => 'default', 'container_class' => '', 'help_message' => '', 'background_color' => '#D5AF30', 'button_size' => 'md', 'color' => '#243F88', 'button_ui' => array( 'type' => 'default', 'text' => 'ارسال', 'img_url' => '' ) ),
+		'editor_options' => array( 'title' => 'Submit Button' ),
+	),
+);
 
 $form_settings = array(
 	'confirmation' => array(
@@ -206,54 +244,72 @@ $form_settings = array(
 	'restrictions' => array( 'limitNumberOfEntries' => array( 'enabled' => false ), 'scheduleForm' => array( 'enabled' => false ), 'requireLogin' => array( 'enabled' => false ), 'denyEmptySubmission' => array( 'enabled' => true, 'message' => 'لطفاً فرم را تکمیل کنید.' ) ),
 	'layout'       => array( 'labelPlacement' => 'top', 'helpMessagePlacement' => 'with_label', 'errorMessagePlacement' => 'inline', 'asteriskPlacement' => 'asterisk-left' ),
 );
-$notification = array(
-	'name'         => 'اعلان درخواست هموندی جدید',
-	'sendTo'       => array( 'type' => 'email', 'email' => '{wp.admin_email}', 'field' => '', 'routing' => array() ),
-	'fromName'     => '', 'fromEmail' => '',
-	'replyTo'      => '{inputs.email}',
-	'bcc'          => '', 'cc' => '',
-	'subject'      => 'درخواست هموندی جدید: {inputs.full_name}',
-	'message'      => '<p>{all_data}</p>',
-	'conditionals' => array( 'status' => false, 'type' => 'all', 'conditions' => array() ),
-	'enabled'      => true,
-	'email_template' => '',
+
+/* ---------- the live form's three emails (same recipients, subjects, conditions, text) ---------- */
+
+$notification = function ( $name, $send_to, $subject, $message, $conditions = array(), $reply_to = '' ) {
+	return array(
+		'name'           => $name,
+		'sendTo'         => $send_to,
+		'fromName'       => '',
+		'fromEmail'      => '',
+		'replyTo'        => $reply_to,
+		'bcc'            => '',
+		'cc'             => '',
+		'subject'        => $subject,
+		'message'        => $message,
+		'conditionals'   => array( 'status' => (bool) $conditions, 'type' => 'all', 'conditions' => $conditions ? $conditions : array( array( 'field' => null, 'operator' => '=', 'value' => null ) ) ),
+		'enabled'        => true,
+		'email_template' => '',
+	);
+};
+$to_applicant = array( 'type' => 'field', 'email' => null, 'field' => 'email', 'routing' => array() );
+$cell         = 'border: 1px solid #ddd; padding: 6px 10px;';
+$office_rows  = array(
+	'نام و نام خانوادگی'     => '{inputs.names.first_name} {inputs.names.last_name}',
+	'تعهد پرداخت حق هموندی'  => '{inputs.membership_fee_commitment}',
+	'ایمیل'                  => '{inputs.email}',
+	'شماره تلفن'             => '{inputs.phone}',
+	'آیدی تلگرام'            => '{inputs.input_text_7}',
+	'کشور محل اقامت'         => '{inputs.country-list}',
+	'شهر محل اقامت'          => '{inputs.input_text_1}',
+	'شغل'                    => '{inputs.input_text_2}',
+	'انگیزه درخواست هموندی'  => '{inputs.message}',
+);
+$office_html = '<div dir="rtl" style="font-family: Tahoma,Arial,sans-serif; text-align: right;"><p><strong>درخواست هموندی جدید دریافت شد.</strong></p><table style="border-collapse: collapse; font-size: 14px;"><tbody>';
+foreach ( $office_rows as $label => $code ) {
+	$office_html .= '<tr><td style="' . $cell . '"><strong>' . $label . '</strong></td><td style="' . $cell . '">' . $code . '</td></tr>';
+}
+$office_html .= '</tbody></table><p><a href="' . admin_url( 'admin.php?page=fluent_forms&route=entries&form_id=' . IMP_FORM_ID ) . '#/entries/{submission.id}">مشاهده پرونده کامل در سامانه</a></p><p style="color: #888; font-size: 12px;">به جهت بررسی</p></div>';
+
+$welcome = function ( $with_fee ) {
+	return '<div>درود بر شما {inputs.names.first_name} {inputs.names.last_name}</div><p>&nbsp;</p>'
+		. '<div>عضویت شما با موفقیت ثبت شد ✅</div><div>'
+		. '<p>از کارگروه هموندی با شما تماس برقرار خواهد شد و شما به گروه واتساپی پارمان هدایت می‌شوید و سپس به گروه تلگرام، و با توجه به تخصصی که اعلام فرموده‌اید در کارگروه، کمیسیون مربوطه شروع به فعالیت خواهید کرد.</p>'
+		. ( $with_fee ? '<p>برای پرداخت حق هموندی، از طریق پیوند زیر اقدام فرمایید:<br /><a href="https://donorbox.org/membership-930550">https://donorbox.org/membership-930550</a></p>' : '' )
+		. '<p>با سپاس<br />دبیرخانه حزب پادشاهی ایرانیان<br />میترا سالار</p><br />E-Mail: Info@Iranianmonarchy.info</div>';
+};
+
+$notifications = array(
+	$notification( 'New Notification', array( 'type' => 'email', 'email' => 'office@iranianmonarchy.info', 'field' => null, 'routing' => array() ), 'هموند جدید ارشد', $office_html ),
+	$notification( 'ایمیل خوش‌آمدگویی — بدون پرداخت حق هموندی', $to_applicant, 'عضویت شما با موفقیت انجام شد ✅', $welcome( false ), array( array( 'field' => 'membership_fee_commitment', 'operator' => '!=', 'value' => 'بله' ) ), '{inputs.email}' ),
+	$notification( 'ایمیل خوش‌آمدگویی — با پرداخت حق هموندی', $to_applicant, 'عضویت شما با موفقیت انجام شد ✅', $welcome( true ), array( array( 'field' => 'membership_fee_commitment', 'operator' => '=', 'value' => 'بله' ) ), '{inputs.email}' ),
 );
 
-/* ---------- save locally ---------- */
+/* ---------- save as local form #3 ---------- */
 
-$title  = 'فرم هموندی (Figma 2026)';
-$fields_local = wp_json_encode( $build( $has_pro ), JSON_UNESCAPED_UNICODE );
-$now    = current_time( 'mysql' );
-$id     = (int) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $forms_table WHERE title=%s", $title ) );
-if ( $id ) {
-	$wpdb->update( $forms_table, array( 'form_fields' => $fields_local, 'updated_at' => $now ), array( 'id' => $id ) );
+$now  = current_time( 'mysql' );
+$row  = array( 'title' => IMP_FORM_TITLE, 'status' => 'published', 'form_fields' => wp_json_encode( $form_fields, JSON_UNESCAPED_UNICODE ), 'has_payment' => 0, 'type' => 'form', 'updated_at' => $now );
+if ( $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $forms_table WHERE id = %d", IMP_FORM_ID ) ) ) {
+	$wpdb->update( $forms_table, $row, array( 'id' => IMP_FORM_ID ) );
 } else {
-	$wpdb->insert( $forms_table, array( 'title' => $title, 'status' => 'published', 'form_fields' => $fields_local, 'has_payment' => 0, 'type' => 'form', 'created_by' => 1, 'created_at' => $now, 'updated_at' => $now ) );
-	$id = (int) $wpdb->insert_id;
+	$wpdb->insert( $forms_table, $row + array( 'id' => IMP_FORM_ID, 'created_by' => 1, 'created_at' => $now ) );
 }
-$wpdb->delete( $meta_table, array( 'form_id' => $id ) );
-$metas = array(
-	array( 'meta_key' => 'formSettings', 'value' => wp_json_encode( $form_settings, JSON_UNESCAPED_UNICODE ) ),
-	array( 'meta_key' => 'notifications', 'value' => wp_json_encode( $notification, JSON_UNESCAPED_UNICODE ) ),
-	array( 'meta_key' => 'template_name', 'value' => 'blank_form' ),
-);
-foreach ( $metas as $meta ) {
-	$wpdb->insert( $meta_table, array( 'form_id' => $id, 'meta_key' => $meta['meta_key'], 'value' => $meta['value'] ) );
+$wpdb->delete( $meta_table, array( 'form_id' => IMP_FORM_ID ) );
+$wpdb->insert( $meta_table, array( 'form_id' => IMP_FORM_ID, 'meta_key' => 'formSettings', 'value' => wp_json_encode( $form_settings, JSON_UNESCAPED_UNICODE ) ) );
+$wpdb->insert( $meta_table, array( 'form_id' => IMP_FORM_ID, 'meta_key' => 'template_name', 'value' => 'blank_form' ) );
+foreach ( $notifications as $item ) {
+	$wpdb->insert( $meta_table, array( 'form_id' => IMP_FORM_ID, 'meta_key' => 'notifications', 'value' => wp_json_encode( $item, JSON_UNESCAPED_UNICODE ) ) );
 }
 
-/* ---------- export (always includes the ID upload) ---------- */
-
-$export = array(
-	array(
-		'title'       => $title,
-		'status'      => 'published',
-		'form_fields' => $build( true ),
-		'has_payment' => 0,
-		'type'        => 'form',
-		'conditions'  => null,
-		'metas'       => $metas,
-	),
-);
-file_put_contents( $export_path, wp_json_encode( $export, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ) );
-
-echo "form_id=$id pro=" . ( $has_pro ? 'yes' : 'no' ) . " export=$export_path\n";
+echo 'form_id=' . IMP_FORM_ID . ' fields=' . count( $out ) . ' pro=' . ( $has_pro ? 'yes' : 'no' ) . "\n";

@@ -17,7 +17,7 @@ Below **1024px** the mobile design is shown, from 1024px the desktop design.
 | `src/data/` | Queries: news, issues, document text, menu tree, fee text | |
 | `src/services/` | Jalali dates, PDF locator + download endpoint, contact mailer, statement titles | |
 | `src/admin/` | Issue post type, the reusable **PDF file** box (issues + document pages) | |
-| `src/integrations/` | Fluent Forms extras | |
+| `src/integrations/` | Fluent Forms extras; weekly membership digest (Tools → IMP membership digest) | membership form = live Fluent form **#3**, keep its field names |
 | `templates/` | **HTML only**, everything escaped, data comes in `$args` | no queries |
 | `templates/layout/` | header (mobile + desktop), footer | |
 | `templates/components/` | reusable parts: ornament title, cards, search, close button, contact form, dialog… | |
@@ -114,7 +114,11 @@ When a change is **intended** to move things, capture a new baseline with
 
 ## Other tools
 
-* `tools/build-membership-form.php` — builds the Fluent Forms membership form and writes
-  `docs/membership-form.fluentform.json` for import on the live site.
+* `tools/build-membership-form.php` — LOCAL ONLY: rebuilds local Fluent form **#3** (the live
+  membership form) in the Figma layout, keeping the live field names and its three emails.
+* `tools/local/mu-plugins/imp-local-mail.php` + the `mailpit` service — every email the local
+  site sends lands in http://localhost:8025 (nothing leaves your machine).
+* Tools → **IMP membership digest** / **IMP WhatsApp** (admin) — weekly digest status and
+  "send now"; WhatsApp messages (test mode until `IMP_WHATSAPP_TOKEN` is in wp-config.php).
 * `tools/pdf-to-reader.py` — turns a Persian Google-Docs PDF into reader text
   (`docs/content/*.html`), fixing direction marks, half-spaces and line breaks. Proofread the result.
