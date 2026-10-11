@@ -1,0 +1,73 @@
+/*
+ * "علاقه‌مند به هموندی هستید؟" form card (Figma Join-Us 715:4821, desktop 1250:9590).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-contact__card {
+	width: min(327px, 100% - 32px);
+	padding: 13px 32px 24px;
+	border-radius: var(--imp-radius);
+	background: var(--imp-white);
+	filter: drop-shadow(0 2px 1px rgba(0, 0, 0, .2));
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.imp-contact__heading { margin: 0; text-align: center; font: 700 18px/1.4 var(--imp-font); color: var(--imp-blue); }
+.imp-contact__sub { margin: -10px 0 8px; text-align: center; font: 400 14px/1.4 var(--imp-font); color: var(--imp-blue); }
+.imp-contact__notice { margin: 0; padding: 8px 12px; border-radius: 6px; background: var(--imp-bg); font-size: 14px; color: var(--imp-blue); }
+.imp-contact__notice--error { color: var(--imp-error); }
+.imp-contact__row { display: flex; gap: 11px; }
+.imp-contact__row .imp-field { flex: 1; min-width: 0; }
+.imp-field { display: flex; flex-direction: column; gap: 4px; margin: 0; }
+.imp-field__label { font: 500 12px/1.2 var(--imp-font); color: var(--imp-form-label); }
+.imp-field__control {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	height: 36px;
+	padding-inline: 10px;
+	border: 1px solid var(--imp-form-line);
+	border-radius: 6px;
+	background: var(--imp-white);
+	color: var(--imp-form-icon);
+}
+.imp-field__control:focus-within { border-color: var(--imp-blue); }
+/* Icon on the start side: right in Farsi, left in LTR languages. */
+.imp-field__control .imp-icon { flex: none; order: -1; width: 13px; height: 13px; }
+.imp-field__control--area { height: auto; align-items: flex-start; padding-block: 8px; }
+.imp-field input,
+.imp-field textarea {
+	flex: 1;
+	min-width: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0 !important;
+	border: 0 !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	outline: none;
+	font: 400 16px/1.3 var(--imp-font); /* 16px stops iOS zoom-on-focus */
+	color: var(--imp-ink);
+}
+.imp-field textarea { min-height: 72px; resize: vertical; }
+.imp-field ::placeholder { color: var(--imp-form-icon); font-size: 13px; }
+.imp-contact__card .imp-btn--solid { align-self: center; margin-block-start: 4px; }
+.imp-contact__note { max-width: 272px; margin: 0; text-align: center; font: 400 10px/1.6 var(--imp-font-slab); color: var(--imp-blue); }
+.imp-hp { position: absolute !important; inset-inline-start: -9999px; }
+
+@media (min-width: 1024px) {
+	.imp-contact__card { width: 594px; padding: 20px 36px 36px; padding-inline: 29px 36px; gap: 20px; border-radius: 15px; }
+	.imp-contact__heading { font-size: 24px; }
+	.imp-contact__sub { margin: -16px 0 32px; font-size: 20px; }
+	.imp-contact__row { gap: 16.5px; }
+	.imp-field { gap: 6px; }
+	.imp-field__label { font-size: 14px; }
+	.imp-field__control { height: 45.4px; padding-inline: 14.5px; border-radius: 8.3px; }
+	.imp-field__control .imp-icon { width: 16.5px; height: 16.5px; }
+	.imp-field__control--area { height: auto; }
+	.imp-field textarea { min-height: 112px; }
+	.imp-field ::placeholder { font-size: 14.5px; }
+	.imp-contact__card .imp-btn--solid { margin-block-start: 30px; padding: 12px 36px; font: 700 27px/1.2 "Roboto", var(--imp-font); border-radius: 10px; }
+	.imp-contact__note { max-width: 408px; margin-block-start: 38px; font-size: 14px; }
+}

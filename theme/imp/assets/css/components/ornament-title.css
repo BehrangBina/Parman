@@ -1,0 +1,34 @@
+/*
+ * Page title between gold ornaments (Figma Text-About 740:2162).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-otitle,
+.imp-enabled .neve-main .nv-page-title h1 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	margin: 0;
+	direction: ltr; /* ornaments stay in physical order; text keeps its own direction */
+}
+.imp-otitle__orn { flex: none; width: 42px; height: 16px; }
+.imp-otitle__orn--flip { scale: -1 1; }
+.imp-otitle__text,
+.imp-enabled .neve-main .nv-page-title h1 {
+	margin: 0;
+	direction: rtl;
+	font: 700 22px/1.5 var(--imp-font);
+	color: var(--imp-blue);
+	text-align: center;
+}
+/* Same ornaments on regular Neve page titles */
+.imp-enabled .neve-main .nv-page-title h1::before,
+.imp-enabled .neve-main .nv-page-title h1::after {
+	content: "";
+	flex: none;
+	width: 42px;
+	height: 16px;
+	background: url("../../img/ornament.svg") center / contain no-repeat;
+}
+.imp-enabled .neve-main .nv-page-title h1::before { scale: -1 1; } /* rtl: ::before sits on the right */

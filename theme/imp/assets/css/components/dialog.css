@@ -1,0 +1,39 @@
+/*
+ * Popup dialog (Figma Overlay-MembershipFee 966:3055: 317 wide, thin blue border).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-dialog {
+	width: min(317px, 100% - 32px);
+	max-height: min(80vh, 560px);
+	padding: 0;
+	border: 1px solid var(--imp-blue);
+	border-radius: 4px;
+	background: var(--imp-white);
+	color: var(--imp-blue);
+	box-shadow: var(--imp-shadow);
+	overflow: auto;
+}
+.imp-dialog::backdrop { background: rgba(16, 28, 61, .45); }
+.imp-dialog[open] { animation: imp-pop .2s ease-out; }
+@keyframes imp-pop { from { opacity: 0; transform: translateY(12px); } }
+.imp-dialog__inner { position: relative; padding: 16px 16px 18px; }
+.imp-dialog__close {
+	position: absolute;
+	top: 6px;
+	left: 6px; /* Figma: top-left corner */
+	width: 28px;
+	height: 28px;
+	padding: 5px;
+	border: 0;
+	cursor: pointer;
+}
+.imp-dialog__body { font: 400 12px/1.85 var(--imp-font); color: var(--imp-blue); text-align: start; }
+.imp-dialog__body :is(h2, h3, h4, strong:only-child) { display: block; margin: 0 0 4px; font: 700 13px/1.7 var(--imp-font); color: var(--imp-blue); }
+.imp-dialog__body p { margin: 0 0 8px; }
+.imp-dialog__body :is(ul, ol) { margin: 0 0 10px; padding-inline-start: 18px; }
+.imp-dialog__body ul { list-style: disc; }
+.imp-dialog__body ol { list-style: decimal; }
+.imp-dialog__body li { margin-block-end: 2px; }
+.imp-dialog__body li::marker { color: var(--imp-blue); }
+.imp-dialog__body > :last-child { margin-block-end: 0; }

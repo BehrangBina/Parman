@@ -1,0 +1,19 @@
+/*
+ * Contact page (Figma 820:11317, desktop 1225:9182).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-contact-page__social { margin: 48px 0 0 !important; }
+.imp-contact-page .imp-contact__card { width: min(327px, 100%); margin: 51px auto 0; text-align: start; }
+.imp-contact-page .imp-contact__note { margin: 4px auto 0; }
+.imp-contact-page__email {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	margin-block-start: 50px;
+	font: 400 16px/1.4 "Roboto", var(--imp-font);
+	color: var(--imp-blue);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+.imp-contact-page__email .imp-icon { flex: none; width: 28px; height: 28px; }

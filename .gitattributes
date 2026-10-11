@@ -1,0 +1,7 @@
+# Keep LF line endings in the repo and the working copy (WordPress/PHP tooling expects LF).
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary
+*.pdf binary
+*.zip binary

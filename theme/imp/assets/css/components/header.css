@@ -1,0 +1,155 @@
+/*
+ * Header: mobile bar (Figma NavBar 881:13007) and desktop bar + dropdowns (NAVBAR-FINAL 1171:5178, Components 1181:6348).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+/* Header is fixed; .imp-top keeps its 123px slot in the page flow. */
+.imp-top { position: relative; z-index: 50; padding-block-start: var(--imp-header-h); }
+.imp-header {
+	position: fixed;
+	inset-block-start: var(--wp-admin--admin-bar--height, 0px);
+	inset-inline: 0;
+	z-index: 10;
+	height: var(--imp-header-h);
+	background: var(--imp-blue);
+	box-shadow: var(--imp-shadow);
+}
+.imp-header__logo {
+	position: absolute;
+	inset-block-start: 61px; /* logo bottom = 169px, the Figma header frame */
+	left: 50%;
+	translate: -50% 0;
+	width: 152px;
+	z-index: 2;
+}
+.imp-header__logo img { display: block; width: 152px; height: auto; }
+
+.imp-header__burger {
+	position: absolute;
+	inset-block-start: 91.42px;
+	inset-inline-start: 24px;
+	width: 36px;
+	height: 20px;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+.imp-header__date {
+	position: absolute;
+	inset-block-start: 78px;
+	inset-inline-end: 16px;
+	width: 68px;
+	padding: 8px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font: 700 12px/14px var(--imp-font);
+	background: var(--imp-gold-gradient);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	white-space: nowrap;
+}
+
+.imp-d-header { display: none; } /* desktop header; shown from 1024px */
+
+@media (min-width: 1024px) {
+	.imp-header, .imp-menu { display: none !important; }
+	.imp-d-header {
+		position: fixed;
+		inset-block-start: var(--wp-admin--admin-bar--height, 0px);
+		inset-inline: 0;
+		z-index: 10;
+		display: block;
+		height: var(--imp-header-h);
+		background: var(--imp-blue);
+		box-shadow: var(--imp-shadow);
+	}
+	.imp-d-header__date {
+		position: absolute;
+		top: 71px;
+		left: max(40px, 50vw - 599px); /* Figma: 121px from the left of a 1440 frame */
+		font: 700 18px/1.2 var(--imp-font);
+		background: var(--imp-gold-gradient);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		white-space: nowrap;
+	}
+	.imp-d-header__nav {
+		position: absolute;
+		inset-inline: max(40px, 50vw - 604px); /* items end 116px / 110px from the 1440 frame edges */
+		top: 109px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.imp-d-header__logo {
+		position: absolute;
+		top: -31px; /* logo top at 78px, overhanging the 152px bar */
+		left: 50%;
+		translate: -50% 0;
+		width: 182px;
+		z-index: 2;
+	}
+	.imp-d-header__logo img { display: block; width: 182px; height: auto; filter: drop-shadow(var(--imp-shadow-logo)); }
+
+	.imp-d-nav { display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; list-style: none; }
+	.imp-d-nav__item { position: relative; display: flex; align-items: center; }
+	.imp-d-nav__link {
+		display: inline-flex;
+		align-items: center;
+		height: 30px;
+		padding: 0 8px;
+		border: 0;
+		background: none;
+		font: 700 16px/1 var(--imp-font);
+		color: var(--imp-white);
+		text-decoration: none;
+		white-space: nowrap;
+		cursor: pointer;
+		transition: opacity .15s ease;
+	}
+	.imp-ui .imp-d-nav__link:hover, .imp-ui .imp-d-nav__link:focus { color: var(--imp-white); }
+	.imp-d-nav__link:hover { opacity: .75; }
+	.imp-d-nav__item.is-current > .imp-d-nav__link { color: var(--imp-gold); }
+	.imp-d-nav__toggle { padding: 0; border: 0; background: none; cursor: pointer; color: var(--imp-white); }
+	.imp-d-nav__toggle .imp-icon { width: 30px; height: 30px; transition: rotate .2s ease; }
+	.imp-d-nav__link.imp-d-nav__toggle { gap: 0; padding-inline-end: 0; }
+	.imp-d-nav__item:is(:hover, :focus-within, .is-open) .imp-icon { rotate: 180deg; }
+
+	/* Dropdown (Figma Components: blue rounded box, white items that dim on hover) */
+	.imp-d-nav__sub {
+		position: absolute;
+		top: 100%;
+		inset-inline-start: 0;
+		z-index: 5;
+		min-width: 104px;
+		margin: 0;
+		padding: 8px 0;
+		list-style: none;
+		border-radius: 6px;
+		background: var(--imp-blue);
+		box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
+		opacity: 0;
+		visibility: hidden;
+		translate: 0 -4px;
+		transition: opacity .15s ease, translate .15s ease, visibility 0s .15s;
+	}
+	.imp-d-nav__item:is(:hover, :focus-within, .is-open) > .imp-d-nav__sub {
+		opacity: 1;
+		visibility: visible;
+		translate: 0 0;
+		transition: opacity .15s ease, translate .15s ease;
+	}
+	.imp-d-nav__sub a {
+		display: block;
+		padding: 7px 18px;
+		font: 500 14px/1.4 var(--imp-font);
+		color: var(--imp-white);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	.imp-d-nav__sub a:hover, .imp-d-nav__sub a:focus-visible { color: rgba(255, 255, 255, .55); }
+}

@@ -1,0 +1,40 @@
+/*
+ * Fixed gold "همیاری" tab (Figma Donate, Components 1181:6348).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-donate {
+	/* Physical offsets: logical ones follow the vertical writing-mode. */
+	position: fixed;
+	left: 0;
+	top: 62vh;
+	z-index: 40;
+	writing-mode: vertical-rl;
+	rotate: 180deg;
+	width: 49px;
+	padding: 12px 0;
+	min-height: 98px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--imp-gold);
+	color: var(--imp-blue);
+	font: 900 16px/1 var(--imp-font);
+	text-decoration: none;
+	border-radius: 6px 0 0 6px; /* ends up on the visible side after the 180° turn */
+	filter: drop-shadow(0 2px 1px rgba(0, 0, 0, .2));
+}
+:root:not([dir="rtl"]) .imp-donate { left: auto; right: 0; rotate: 0deg; }
+
+@media (min-width: 1024px) {
+	.imp-donate {
+		top: calc(298px + var(--wp-admin--admin-bar--height, 0px));
+		width: 59px;
+		min-height: 125px;
+		padding: 20px 0;
+		font-size: 24px;
+		border-radius: 10px 0 0 10px;
+		transition: width .2s ease;
+	}
+	.imp-donate:hover { width: 70px; } /* Figma Components: the tab grows on hover */
+}

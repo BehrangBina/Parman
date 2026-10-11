@@ -1,0 +1,73 @@
+/*
+ * Search: round button that opens into a long bar (Figma Search-Bar 526:1323, desktop 1171:5050).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-search {
+	position: fixed;
+	inset-block-start: calc(176px + var(--wp-admin--admin-bar--height, 0px));
+	inset-inline-start: 21px;
+	z-index: 20; /* above page content (inside .imp-top, which sits above <main>) */
+	display: flex;
+	align-items: center;
+	height: 37px;
+	width: 30px;
+	border-radius: 45px;
+	background: var(--imp-white);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+	overflow: hidden;
+	transition: width .25s ease;
+}
+.imp-search[data-state="open"] { width: calc(100vw - 42px); }
+/* Open state (Figma Search-Bar-Open): ✕ where the round button was, magnifier at the far end */
+.imp-search__form { flex: 1; min-width: 0; display: flex; align-items: center; margin: 0; }
+.imp-search__input {
+	flex: 1;
+	min-width: 0;
+	width: 100%;
+	border: 0 !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	padding-inline: 8px 4px !important;
+	font: 700 16px var(--imp-font);
+	color: var(--imp-blue);
+	outline: none;
+}
+.imp-search__input::placeholder { color: var(--imp-blue); opacity: .55; }
+.imp-search__input::-webkit-search-cancel-button { display: none; }
+.imp-search__toggle,
+.imp-search__submit {
+	flex: none;
+	width: 30px;
+	height: 37px;
+	padding: 10px 7px 10px 6px;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+.imp-search__toggle { order: -1; }
+.imp-search__icon-close { display: none; }
+.imp-search[data-state="open"] .imp-search__icon-open { display: none; }
+.imp-search[data-state="open"] .imp-search__icon-close { display: block; }
+.imp-search__icon-open, .imp-search__icon-close { width: 17px; height: 17px; }
+.imp-search[data-state="open"] .imp-search__toggle { padding: 9px 6px; }
+.imp-search[data-state="open"] .imp-search__icon-close { width: 19px; height: 19px; }
+.imp-search[data-state="closed"] .imp-search__form { visibility: hidden; }
+
+@media (min-width: 1024px) {
+	.imp-search {
+		inset-block-start: calc(296px + var(--wp-admin--admin-bar--height, 0px));
+		inset-inline-start: max(40px, 50vw - 602px); /* 118px from the right of the 1440 frame */
+		height: 52px;
+		width: 45px;
+		border-radius: 63px;
+		box-shadow: 0 1.4px 1.4px rgba(0, 0, 0, .2);
+	}
+	.imp-search[data-state="open"] { width: min(1196px, 100vw - 80px); }
+	.imp-search__toggle, .imp-search__submit { width: 45px; height: 52px; padding: 13px 11px; }
+	.imp-search[data-state="open"] .imp-search__toggle { padding: 11px 9px; }
+	.imp-search__icon-open { width: 22px; height: 22px; }
+	.imp-search[data-state="open"] .imp-search__icon-close { width: 29px; height: 29px; }
+	.imp-search__submit .imp-icon { width: 24px; height: 24px; }
+	.imp-search__input { font: 700 18px var(--imp-font); text-align: center; } /* Figma Search-Type-Info: 18 bold, centred */
+}

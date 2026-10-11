@@ -1,0 +1,45 @@
+/*
+ * News card (Figma Card 715:4482, desktop 1116:3695).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-card {
+	flex: 0 0 min(342px, 100% - 10px);
+	scroll-snap-align: start;
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	padding: 18px 18px 23px;
+	border-radius: var(--imp-radius);
+	background: var(--imp-white);
+	color: var(--imp-ink);
+	text-decoration: none;
+}
+.imp-card__media { display: block; height: 193px; border-radius: var(--imp-radius); overflow: hidden; }
+.imp-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.imp-card__date { font: 500 10px var(--imp-font); }
+.imp-card__title {
+	min-height: 52px;
+	font: 800 18px/1.4 var(--imp-font);
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.imp-card__excerpt {
+	font: 500 12px/1.3 var(--imp-font);
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+	.imp-card { padding: 20.5px 20.5px 26px; gap: 8px; border-radius: 11.4px; transition: box-shadow .2s ease; }
+	.imp-card:hover { box-shadow: 0 6px 18px rgba(16, 28, 61, .15); }
+	.imp-card:hover .imp-card__excerpt { -webkit-line-clamp: 6; } /* Figma: the card reveals more text on hover */
+	.imp-card__media { height: 219.5px; border-radius: 11.4px; }
+	.imp-card__date { font-size: 12px; }
+	.imp-card__title { min-height: 59px; font-size: 20px; }
+	.imp-card__excerpt { font-size: 14px; line-height: 1.35; }
+}

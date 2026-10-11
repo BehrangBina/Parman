@@ -1,0 +1,7 @@
+/*
+ * Akhbaar news list page (Figma 697:2647, desktop 1215:5585).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-newslist { display: flex; flex-direction: column; align-items: center; gap: 24px; margin-block-start: 30px; }
+.imp-newslist .imp-card { flex: none; width: min(342px, 100%); text-align: start; box-shadow: var(--imp-shadow); }

@@ -1,0 +1,79 @@
+/*
+ * Base: Neve overrides, resets, page frame, shared empty state, motion, debug.
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+/* Neve's own scroll-to-top square is replaced by the footer arrow (desktop design) */
+.scroll-to-top { display: none !important; }
+
+/* imp_dump() output (debug helper; only rendered with WP_DEBUG for administrators) */
+.imp-dump { position: relative; z-index: 999999; padding: 12px; background: #101c3d; color: #e9ecf3; font: 12px/1.5 monospace; white-space: pre-wrap; direction: ltr; text-align: left; }
+
+.imp-ui { display: block; }
+.imp-enabled .header,
+.imp-enabled .site-footer { display: none !important; }
+.imp-custom .neve-main { display: none; }
+.imp-custom .wrapper { min-height: 0; } /* Neve sets 100vh; it is empty on designed pages */
+.imp-enabled #comments { display: none !important; } /* no comment section in the mobile design */
+
+body.imp-enabled {
+	background: var(--imp-bg);
+	font-family: var(--imp-font);
+	color: var(--imp-ink);
+}
+body.imp-scroll-lock { overflow: hidden; } /* set by assets/js/modules/scroll-lock.js (menu, reader) */
+
+.imp-enabled .neve-main {
+	background: var(--imp-bg);
+	font-family: var(--imp-font);
+	padding-block-start: 70px; /* logo overhangs the 123px bar by 46px */
+}
+.imp-enabled .neve-main :is(h1, h2, h3, h4, h5, h6, p, li, a, span) { font-family: var(--imp-font); }
+
+.imp-icon { display: block; width: 100%; height: 100%; }
+
+/* No blue tap-highlight box or Neve hover fill on our controls; keyboard focus keeps an outline. */
+.imp-ui, .imp-ui * { -webkit-tap-highlight-color: transparent; }
+/* Neve's `button:hover` turns text white with a blue fill; our buttons keep their own colours. */
+.imp-ui button,
+.imp-ui button:hover,
+.imp-ui button:focus,
+.imp-ui button:active { background: none; box-shadow: none; outline: none; }
+.imp-ui button:hover,
+.imp-ui button:focus,
+.imp-ui button:active { color: inherit; border-color: transparent; }
+.imp-ui .imp-info:is(:hover, :focus, :active) { color: var(--imp-blue); }
+.imp-ui .imp-btn--solid,
+.imp-ui .imp-btn--solid:hover,
+.imp-ui .imp-btn--solid:focus,
+.imp-ui .imp-btn--solid:active { background: var(--imp-blue); color: var(--imp-gold); box-shadow: var(--imp-shadow); }
+.imp-ui .imp-btn--gold,
+.imp-ui .imp-btn--gold:hover,
+.imp-ui .imp-btn--gold:focus,
+.imp-ui .imp-btn--gold:active { background: var(--imp-gold); color: var(--imp-blue); border: 0; box-shadow: 0 2px 2px rgba(0, 0, 0, .15); }
+.imp-ui .imp-search__toggle { background: none; }
+.imp-ui :is(button, a):focus-visible { outline: 2px solid var(--imp-gold); outline-offset: 2px; border-radius: 6px; }
+.imp-menu__list a, .imp-menu button { user-select: none; -webkit-user-select: none; }
+
+.imp-page {
+	position: relative;
+	z-index: 1;
+	padding: 109px 25px 40px; /* title at y=232 in Figma (123px header + 109) */
+	text-align: center;
+	color: var(--imp-blue);
+}
+
+.imp-empty { margin-block-start: 40px; font: 500 16px/1.6 var(--imp-font); }
+
+@media (min-width: 1024px) {
+	:root { --imp-header-h: 152px; --imp-d-col: min(1200px, 100vw - 80px); }
+
+	.imp-enabled .neve-main { padding-block-start: 110px; }
+	.imp-enabled .neve-main > .container,
+	.imp-enabled .neve-main .single-page-container { max-width: var(--imp-d-col); }
+}
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+	.imp-search, .imp-menu, .imp-sub-toggle { transition: none !important; }
+}

@@ -1,0 +1,27 @@
+/*
+ * "Back" link under the header (Figma Icon-Back 881:13552).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-back {
+	position: fixed;
+	top: calc(126px + var(--wp-admin--admin-bar--height, 0px));
+	left: 10px;
+	z-index: 20;
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	width: 64px;
+	height: 30px;
+	padding-inline: 10px 0;
+	direction: ltr;
+	background: var(--imp-bg);
+	color: var(--imp-blue);
+	font: 700 13.5px/1 "Roboto", var(--imp-font);
+	text-decoration: none;
+}
+.imp-back .imp-icon { flex: none; width: 18px; height: 18px; }
+
+@media (min-width: 1024px) {
+	.imp-back { top: calc(170px + var(--wp-admin--admin-bar--height, 0px)); left: max(40px, 50vw - 600px); }
+}

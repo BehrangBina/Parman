@@ -1,0 +1,50 @@
+/*
+ * Buttons: outline gold/blue, solid, gold (Figma Button components; hover fills from Components 1181:6348).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 24px;
+	border-radius: var(--imp-radius);
+	font: 700 16px/1.5 var(--imp-font);
+	text-decoration: none;
+	cursor: pointer;
+}
+.imp-btn--gold-outline {
+	height: 41px;
+	padding-inline: 11px;
+	border: 2.3px solid var(--imp-gold);
+	color: var(--imp-gold);
+	font-size: 15.6px;
+}
+.imp-btn--blue-outline {
+	border: 2px solid var(--imp-blue);
+	color: var(--imp-blue);
+	box-shadow: var(--imp-shadow);
+}
+.imp-btn--solid {
+	border: 0;
+	background: var(--imp-blue);
+	color: var(--imp-gold);
+	font-size: 14px;
+	box-shadow: var(--imp-shadow);
+}
+.imp-btn:hover, .imp-btn:focus-visible { filter: brightness(1.1); }
+
+.imp-btn--gold {
+	margin-block-start: 6px;
+	background: var(--imp-gold);
+	color: var(--imp-blue);
+	box-shadow: 0 2px 2px rgba(0, 0, 0, .15);
+}
+
+@media (min-width: 1024px) {
+	.imp-btn { border-radius: 20px; font-size: 20px; transition: background-color .15s ease, color .15s ease; }
+	.imp-btn--gold-outline { height: 64px; width: 200px; padding: 12px 24px; border-width: 3px; font-size: 20px; box-shadow: var(--imp-shadow); }
+	.imp-btn--gold-outline:hover { background: var(--imp-gold); color: var(--imp-blue); filter: none; }
+	.imp-btn--blue-outline { height: 64px; padding: 12px 48px; border-width: 3px; }
+	.imp-btn--blue-outline:hover { background: var(--imp-blue); color: var(--imp-white); filter: none; }
+}

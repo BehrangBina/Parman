@@ -1,0 +1,9 @@
+# Local secrets
+.env
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
