@@ -116,22 +116,22 @@ body.imp-docpage { overflow: hidden; }
 .imp-reader__cover .imp-reader__arrow .imp-icon * { stroke: var(--imp-gold); }
 
 .imp-reader__pages {
+	--imp-reader-pad: 36px;
 	position: absolute;
 	inset: 0;
 	display: flex;
 	flex-direction: column;
-	padding: 136px 24px 0;
+	padding: 136px var(--imp-reader-pad) 0;
 	background: var(--imp-bg);
 	border-bottom: 10px solid transparent;
 	border-image: var(--imp-gold-gradient) 1;
 }
-.imp-reader__label { position: absolute; top: 90px; left: 24px; font: 500 12px/1 var(--imp-font); color: var(--imp-form-icon); }
-.imp-reader__viewport { flex: 1; min-height: 0; overflow: hidden; }
+.imp-reader__label { position: absolute; top: 90px; left: var(--imp-reader-pad); font: 500 12px/1 var(--imp-font); color: var(--imp-form-icon); }
+.imp-reader__viewport { position: relative; flex: 1; min-height: 0; overflow: hidden; perspective: 1800px; }
 .imp-reader__flow {
 	height: 100%;
 	column-gap: 48px;
 	column-fill: auto;
-	transition: transform .35s cubic-bezier(.22, .61, .36, 1);
 	font: 400 13px/2 var(--imp-font);
 	color: var(--imp-blue);
 	text-align: start; /* Figma Maram-01/02: right-aligned, not justified */
@@ -163,8 +163,28 @@ body.imp-docpage { overflow: hidden; }
 .imp-reader__count { order: 1; }
 :root:not([dir="rtl"]) .imp-reader__arrow--prev { order: 0; }
 :root:not([dir="rtl"]) .imp-reader__arrow--next { order: 2; }
-@media (prefers-reduced-motion: reduce) { .imp-reader__flow { transition: none; } }
+/* Page turn: the folding copy of a page (assets/js/modules/reader.js) */
+.imp-reader__leaf {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background: var(--imp-bg);
+	transform-origin: right center; /* the spine: right in Persian */
+	backface-visibility: hidden;
+	box-shadow: 0 0 24px rgba(0, 0, 0, .12);
+	pointer-events: none;
+}
+:root:not([dir="rtl"]) .imp-reader__leaf { transform-origin: left center; }
+.imp-reader__leaf-shade {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to left, rgba(36, 63, 136, .22), rgba(36, 63, 136, 0) 60%);
+	opacity: 0;
+}
+:root:not([dir="rtl"]) .imp-reader__leaf-shade { background: linear-gradient(to right, rgba(36, 63, 136, .22), rgba(36, 63, 136, 0) 60%); }
 
 @media (min-width: 1024px) {
 	.imp-doc__read { font-size: 20px; } /* keeps the previous desktop size (was inherited from .imp-btn) */
+	/* Keep a comfortable line length: the text column is at most 760px wide, centred */
+	.imp-reader__pages { --imp-reader-pad: max(64px, calc((100% - 760px) / 2)); }
 }
