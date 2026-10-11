@@ -12,8 +12,9 @@ import { init as backToTop } from '@imp/back-to-top';
 import { init as dialog } from '@imp/dialog';
 import { init as reader } from '@imp/reader';
 import { init as newsCarousel } from '@imp/news-carousel';
+import { init as carousel } from '@imp/carousel';
 
-const features = { mobileMenu, search, desktopNav, backLink, backToTop, dialog, reader, newsCarousel };
+const features = { mobileMenu, search, desktopNav, backLink, backToTop, dialog, reader, newsCarousel, carousel };
 
 Object.entries( features ).forEach( ( [ name, init ] ) => {
 	// One failing feature must not stop the others.

@@ -56,6 +56,7 @@ final class Assets {
 		'dialog',
 		'reader',
 		'news-carousel',
+		'carousel',
 	);
 
 	/**

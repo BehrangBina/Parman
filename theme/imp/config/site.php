@@ -18,6 +18,7 @@ return array(
 	'pages'      => array(
 		'donate'          => 'donate',
 		'about'           => 'about-us',
+		'contact'         => 'bcd31-contact-us', // live slug
 		'constitution'    => 'party-constitution',
 		'affidavit'       => 'affidavit',
 		'motto'           => 'partys-motto',
@@ -95,6 +96,7 @@ return array(
 	// Keys: "front", a page slug (decoded), or "category:<slug>".
 	'routes'     => array(
 		'front'               => 'home',
+		'about-us'            => 'about',
 		'donate'              => 'donate',
 		'bcd31-contact-us'    => 'contact', // live slug
 		'contact-us'          => 'contact',

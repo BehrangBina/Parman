@@ -1,0 +1,232 @@
+/*
+ * About page (Figma: mobile About + Dabir/Sokhangoo overlays, desktop About 1153:292).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+/* Intro: the page text in a white card that scrolls inside itself */
+.imp-about__intro { padding-block-end: 32px; }
+.imp-about__card { margin: 28px -25px 0; padding: 28px 22px; background: var(--imp-white); }
+.imp-about__text {
+	max-height: 300px;
+	padding-inline-end: 10px;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--imp-blue-grey) transparent;
+	font: 400 14px/1.9 var(--imp-font);
+	color: var(--imp-blue);
+	text-align: start;
+}
+.imp-about__text :is(h2, h3, h4, strong:only-child) { display: block; margin: 0 0 8px; font: 800 15px/1.7 var(--imp-font); text-align: center; }
+.imp-about__text p { margin: 0 0 12px; }
+.imp-about__text > :last-child { margin-block-end: 0; }
+
+/* "اعضای حزب": title on the light page, then the blue band with the lion pattern */
+.imp-about__members { position: relative; z-index: 1; }
+.imp-about__band {
+	position: relative;
+	margin-block-start: 24px;
+	padding: 8px 0 40px;
+	background: var(--imp-blue);
+	overflow: hidden;
+}
+.imp-about__band::before {
+	content: "";
+	position: absolute;
+	inset: 40px -240px auto;
+	height: 900px;
+	background: rgba(255, 255, 255, .05);
+	-webkit-mask: url("../../img/lion.svg") center top / contain no-repeat;
+	mask: url("../../img/lion.svg") center top / contain no-repeat;
+	pointer-events: none;
+}
+
+.imp-group { position: relative; padding: 28px 16px 26px; text-align: center; }
+.imp-group + .imp-group { border-top: 1px dashed rgba(255, 255, 255, .35); }
+.imp-group .imp-otitle__text { font: 700 16px/1.5 var(--imp-font); color: var(--imp-white); }
+.imp-group .imp-otitle__orn { display: none; } /* phone: plain titles; ornaments on desktop */
+
+/* Full cards (desktop grid and the phone overlays) */
+.imp-group__cards { display: none; }
+.imp-person { list-style: none; }
+.imp-person--card {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: min(345px, 100%);
+	height: 193px;
+	padding: 15px 16px;
+	border-radius: 15px;
+	background: var(--imp-white);
+	box-shadow: var(--imp-shadow);
+	direction: ltr; /* Figma: photo on the left, text on the right */
+}
+.imp-person__photo {
+	position: relative;
+	flex: none;
+	display: grid;
+	place-items: end center;
+	overflow: hidden;
+	background: linear-gradient(180deg, var(--imp-white) 0%, var(--imp-blue-grey) 100%);
+}
+.imp-person__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.imp-person__photo--empty { place-items: center; }
+.imp-person__photo--empty .imp-icon { width: 46%; height: auto; opacity: .55; }
+.imp-person--card .imp-person__photo { width: 134px; height: 162px; border-radius: 12px; }
+.imp-person__text { flex: 1; min-width: 0; direction: rtl; text-align: center; }
+.imp-person__name { margin: 0; font: 800 18px/1.4 var(--imp-font); color: var(--imp-blue); }
+.imp-person__role { margin: 2px 0 0; font: 500 14px/1.4 var(--imp-font); color: var(--imp-blue); }
+.imp-person__social { display: flex; justify-content: center; gap: 18px; margin: 14px 0 0; padding: 0; list-style: none; direction: ltr; }
+.imp-person__social a { display: block; width: 23px; height: 23px; }
+
+/* Phone: big round photos with a gold ring */
+.imp-group__circles { display: flex; justify-content: center; gap: 36px; margin: 18px 0 0; padding: 0; }
+.imp-person--circle .imp-person__photo { width: 76px; height: 76px; margin: 0 auto; border: 3px solid var(--imp-gold); border-radius: 50%; }
+.imp-person--circle .imp-person__name { margin-block-start: 10px; font: 700 13px/1.4 var(--imp-font); color: var(--imp-white); }
+
+/* Phone: small cards in a carousel, gold triangle arrows */
+.imp-group__carousel { display: flex; align-items: center; gap: 4px; margin-block-start: 16px; direction: ltr; }
+.imp-group__track {
+	display: flex;
+	flex: 1;
+	gap: 10px;
+	margin: 0;
+	padding: 4px 2px;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	overscroll-behavior-x: contain;
+	direction: rtl;
+}
+.imp-group__track::-webkit-scrollbar { display: none; }
+/* Fewer cards than fit: centre them (auto margins keep a scrolling row fully reachable) */
+.imp-group__track > :first-child { margin-inline-start: auto; }
+.imp-group__track > :last-child { margin-inline-end: auto; }
+.imp-group__arrow[hidden] { display: block !important; visibility: hidden; }
+.imp-person--mini {
+	flex: 0 0 calc((100% - 20px) / 3);
+	scroll-snap-align: start;
+	padding: 14px 6px 12px;
+	border-radius: 8px;
+	background: var(--imp-white);
+	box-shadow: var(--imp-shadow);
+}
+.imp-person--mini .imp-person__photo { width: 58px; height: 58px; margin: 0 auto; border: 2px solid var(--imp-gold); border-radius: 50%; }
+.imp-person--mini .imp-person__name { margin-block-start: 8px; font: 700 11px/1.4 var(--imp-font); }
+.imp-person--mini .imp-person__role { font-size: 10px; }
+.imp-group__arrow {
+	flex: none;
+	width: 18px;
+	height: 28px;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+.imp-group__arrow::before { content: ""; display: block; margin: auto; border-block: 7px solid transparent; border-inline-end: 9px solid var(--imp-gold); width: 0; height: 0; }
+.imp-group__arrow--right::before { border-inline-end: 0; border-inline-start: 9px solid var(--imp-gold); }
+.imp-group__all {
+	display: inline-block;
+	margin-block-start: 16px;
+	padding: 5px 16px;
+	border-radius: 4px;
+	background: var(--imp-gold);
+	box-shadow: var(--imp-shadow);
+	font: 700 11px/1.4 var(--imp-font);
+	color: var(--imp-blue);
+	text-decoration: none;
+}
+
+/* Closing verse */
+.imp-about__verse { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 40px 16px 0; direction: ltr; }
+.imp-about__verse p { margin: 0; direction: rtl; font: 700 18px/1.6 var(--imp-font); color: var(--imp-blue); text-align: center; }
+
+/* "مشاهده همه" overlay (Figma Dabir / Sokhangoo) */
+.imp-people-dialog {
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: var(--imp-blue);
+	color: var(--imp-white);
+	overflow-y: auto;
+}
+.imp-people-dialog::backdrop { background: var(--imp-blue); }
+.imp-people-dialog[open] { animation: imp-pop .2s ease-out; }
+.imp-people-dialog__inner {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100%;
+	padding: 112px 24px 28px;
+	text-align: center;
+}
+.imp-people-dialog__inner::before {
+	content: "";
+	position: absolute;
+	inset: 60px -200px auto;
+	height: 820px;
+	background: rgba(255, 255, 255, .05);
+	-webkit-mask: url("../../img/lion.svg") center top / contain no-repeat;
+	mask: url("../../img/lion.svg") center top / contain no-repeat;
+	pointer-events: none;
+}
+.imp-people-dialog__inner > * { position: relative; }
+.imp-people-dialog__close {
+	position: absolute !important;
+	top: 44px;
+	left: 20px; /* Figma: top-left */
+	width: 34px;
+	height: 34px;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+.imp-people-dialog__close .imp-icon [fill="#243F88"] { fill: var(--imp-gold); }
+.imp-people-dialog .imp-otitle__text { font: 700 16px/1.5 var(--imp-font); color: var(--imp-white); }
+.imp-people-dialog__cards { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; margin: 26px 0 0; padding: 0; }
+.imp-people-dialog__contact { margin-block-start: 28px; font: 700 13px/1.4 var(--imp-font); color: var(--imp-white); text-decoration: underline; text-underline-offset: 4px; }
+.imp-people-dialog__follow { margin-block-start: auto; padding-block-start: 56px; }
+.imp-people-dialog__follow > p:first-child { margin: 0 0 10px; font: 700 12px/1 var(--imp-font-slab); color: var(--imp-white); }
+.imp-people-dialog .imp-social { gap: 12px; }
+.imp-people-dialog .imp-social a { width: 30px; height: 30px; }
+.imp-people-dialog .imp-social .imp-icon [fill="#243F88"],
+.imp-people-dialog .imp-social .imp-icon [fill="#243f88"] { fill: var(--imp-gold); }
+.imp-people-dialog__copy { margin: 14px 0 0; font: 700 7px var(--imp-font-slab); color: var(--imp-white); direction: ltr; }
+
+@media (min-width: 1024px) {
+	.imp-about__intro { width: var(--imp-d-col); margin-inline: auto; padding-inline: 0; }
+	.imp-about__card { margin: 36px auto 0; width: min(900px, 100%); padding: 36px 48px; border-radius: 15px; box-shadow: var(--imp-shadow); }
+	.imp-about__text { max-height: 420px; font-size: 16px; }
+
+	.imp-about__members > .imp-otitle { display: none; } /* Figma desktop: the groups start straight away */
+	.imp-about__band { margin-block-start: 0; padding-block: 40px 80px; }
+	.imp-about__band::before { inset: 0 0 auto; height: 1100px; }
+
+	.imp-group { padding-block: 48px 0; }
+	.imp-group + .imp-group { border-top: 0; }
+	.imp-group .imp-otitle__orn { display: block; }
+	.imp-group .imp-otitle__text { font-size: 22px; }
+
+	.imp-group__cards {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 32px;
+		width: min(1174px, 100%); /* at most 3 cards per row */
+		margin: 32px auto 0;
+		padding: 0;
+	}
+	.imp-group__cards .imp-person--card { width: 370px; height: 210px; }
+	.imp-group__cards .imp-person--card .imp-person__photo { width: 148px; height: 178px; }
+	.imp-group__circles,
+	.imp-group__carousel,
+	.imp-group__all { display: none; }
+
+	.imp-about__verse { padding-block-start: 64px; }
+	.imp-about__verse p { font-size: 22px; }
+}

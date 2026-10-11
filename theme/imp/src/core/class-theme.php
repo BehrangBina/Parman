@@ -24,6 +24,7 @@ final class Theme {
 		Layout::class,
 		\IMP\Routing\Page_Router::class,
 		\IMP\Admin\Issue_Post_Type::class,
+		\IMP\Admin\Person_Post_Type::class,
 		\IMP\Admin\Pdf_Meta_Field::class,
 		\IMP\Services\Pdf_Download::class,
 		\IMP\Services\Contact_Mailer::class,

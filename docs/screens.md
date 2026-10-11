@@ -41,7 +41,7 @@ References saved in `docs/figma/` (overview, Home, Components with hover/dropdow
 |---|---|---|
 | Header + dropdowns + search + footer + Donate (Components 1181:6348) | 1171:5178 | ✅ done |
 | Home | 1112:5062 | ✅ done |
-| About (people sections) | 1153:292 | todo (+ admin "people" section, + mobile About) |
+| About (people sections) | 1153:292 | `templates/pages/about.php` + `pages/about.css`; people & groups in admin **اعضای حزب** (`src/admin/class-person-post-type.php`); mobile: round photos / carousels + Dabir/Sokhangoo overlays; local data: `tools/seed-people.php` | ✅ done (photos pending) |
 | Hamyari / Overlay-MembershipFee | 1181:5330 / 1181:6254 | todo |
 | Hamvandi (form) | 1181:5631 | todo |
 | Maramname / Asasname / Sogandname + *-Content | 1181:6630, 1181:10104, 1215:994, 1181:9241, 1181:10634, 1215:1524 | todo |
