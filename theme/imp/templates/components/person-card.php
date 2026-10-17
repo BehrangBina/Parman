@@ -13,8 +13,9 @@ defined( 'ABSPATH' ) || exit;
 $variant = isset( $args['variant'] ) ? $args['variant'] : 'card';
 $links   = array_filter(
 	array(
-		'instagram' => array( 'Instagram', $args['instagram'] ),
-		'x'         => array( 'X', $args['x'] ),
+		// Figma card: outline icons (Lucide "instagram", ISC; X mark, Simple Icons, CC0).
+		'instagram-line' => array( 'Instagram', $args['instagram'] ),
+		'x-line'         => array( 'X', $args['x'] ),
 	),
 	function ( $link ) {
 		return '' !== $link[1];

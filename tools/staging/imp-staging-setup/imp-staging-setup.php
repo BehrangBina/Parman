@@ -134,17 +134,7 @@ function imp_staging_setup_run() {
 			)
 		);
 		if ( $post['image'] && ! get_post_thumbnail_id( $id ) ) {
-			if ( ! isset( $images[ $post['image'] ] ) ) {
-				$upload = wp_upload_bits( preg_replace( '/^\d+-/', '', $post['image'] ), null, (string) file_get_contents( __DIR__ . '/content/images/' . $post['image'] ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-				if ( empty( $upload['error'] ) ) {
-					$attachment = wp_insert_attachment( array( 'post_mime_type' => wp_check_filetype( $upload['file'] )['type'], 'post_title' => $post['title'], 'post_status' => 'inherit' ), $upload['file'], $id );
-					wp_update_attachment_metadata( $attachment, wp_generate_attachment_metadata( $attachment, $upload['file'] ) );
-					$images[ $post['image'] ] = $attachment;
-				}
-			}
-			if ( isset( $images[ $post['image'] ] ) ) {
-				set_post_thumbnail( $id, $images[ $post['image'] ] );
-			}
+			imp_staging_setup_thumbnail( $id, $post['image'], $post['title'], $images );
 		}
 	}
 	$log[] = 'خبرها و بیانیه‌ها: ' . count( $data['posts'] ) . ' (عکس: ' . count( $images ) . ')';
@@ -187,8 +177,11 @@ function imp_staging_setup_run() {
 			update_post_meta( $id, $meta_key, sanitize_text_field( $person['meta'][ $key ] ?? '' ) );
 		}
 		wp_set_object_terms( $id, $person['groups'], $taxonomy );
+		if ( ! empty( $person['photo'] ) && ! get_post_thumbnail_id( $id ) ) {
+			imp_staging_setup_thumbnail( $id, $person['photo'], $person['name'], $images );
+		}
 	}
-	$log[] = 'اعضای حزب: ' . count( $data['people'] );
+	$log[] = 'اعضای حزب: ' . count( $data['people'] ) . ' (عکس‌ها تا اینجا: ' . count( $images ) . ')';
 
 	$locations = get_theme_mod( 'nav_menu_locations', array() );
 	foreach ( $data['menus'] as $menu ) {
@@ -249,4 +242,25 @@ function imp_staging_setup_run() {
 	set_transient( 'imp_staging_setup_log', $log, 300 );
 	wp_safe_redirect( admin_url( 'tools.php?page=imp-staging-setup' ) );
 	exit;
+}
+
+/**
+ * Upload a bundled image (content/images/) once and set it as the post's featured image.
+ *
+ * @param int    $post_id Post to attach to.
+ * @param string $file    File name in content/images/.
+ * @param string $title   Attachment title.
+ * @param array  $images  Already uploaded: file => attachment ID (by reference).
+ */
+function imp_staging_setup_thumbnail( $post_id, $file, $title, array &$images ) {
+	if ( ! isset( $images[ $file ] ) ) {
+		$upload = wp_upload_bits( preg_replace( '/^(person-)?\d+-/', '', $file ), null, (string) file_get_contents( __DIR__ . '/content/images/' . $file ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( ! empty( $upload['error'] ) ) {
+			return;
+		}
+		$attachment = wp_insert_attachment( array( 'post_mime_type' => wp_check_filetype( $upload['file'] )['type'], 'post_title' => $title, 'post_status' => 'inherit' ), $upload['file'], $post_id );
+		wp_update_attachment_metadata( $attachment, wp_generate_attachment_metadata( $attachment, $upload['file'] ) );
+		$images[ $file ] = $attachment;
+	}
+	set_post_thumbnail( $post_id, $images[ $file ] );
 }

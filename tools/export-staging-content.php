@@ -99,8 +99,15 @@ foreach ( get_posts( array( 'post_type' => People::POST_TYPE, 'numberposts' => -
 	foreach ( People::META_FIELDS as $key => $meta_key ) {
 		$meta[ $key ] = (string) get_post_meta( $person->ID, $meta_key, true );
 	}
+	$photo = '';
+	$thumb = get_post_thumbnail_id( $person );
+	if ( $thumb ) {
+		$photo = 'person-' . $thumb . '-' . basename( get_attached_file( $thumb ) );
+		copy( get_attached_file( $thumb ), $out . '/images/' . $photo );
+	}
 	$content['people'][] = array(
 		'name'   => $person->post_title,
+		'photo'  => $photo,
 		'order'  => $person->menu_order,
 		'meta'   => $meta,
 		'groups' => wp_get_object_terms( $person->ID, People::TAXONOMY, array( 'fields' => 'names' ) ),

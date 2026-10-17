@@ -97,7 +97,7 @@
             "categories": [
                 "news-party"
             ],
-            "image": "46-news1.png"
+            "image": "144-news1.png"
         },
         {
             "title": "بیانیه پارمان پادشاهی ایرانیان درباره اعدام زندانیان سیاسی",
@@ -209,6 +209,7 @@
     "people": [
         {
             "name": "مهندس امین قادری",
+            "photo": "",
             "order": 7,
             "meta": {
                 "role": "",
@@ -221,6 +222,7 @@
         },
         {
             "name": "مهندس عباس لسانی",
+            "photo": "person-175-Lesani.png",
             "order": 6,
             "meta": {
                 "role": "",
@@ -233,6 +235,7 @@
         },
         {
             "name": "دکتر بهمن شاهنگیان",
+            "photo": "",
             "order": 5,
             "meta": {
                 "role": "",
@@ -245,6 +248,7 @@
         },
         {
             "name": "دکتر یحیی نوروزی",
+            "photo": "",
             "order": 4,
             "meta": {
                 "role": "",
@@ -257,6 +261,7 @@
         },
         {
             "name": "مهندس رضا پایگانی",
+            "photo": "person-176-Paygani.png",
             "order": 3,
             "meta": {
                 "role": "",
@@ -269,6 +274,7 @@
         },
         {
             "name": "مهندس مینا چنگیزی",
+            "photo": "person-174-Chengizi.png",
             "order": 2,
             "meta": {
                 "role": "",
@@ -281,6 +287,7 @@
         },
         {
             "name": "کوین کوروش آریامهر",
+            "photo": "",
             "order": 1,
             "meta": {
                 "role": "",
@@ -293,6 +300,7 @@
         },
         {
             "name": "امید رکنی",
+            "photo": "person-178-OmidRokni.png",
             "order": 2,
             "meta": {
                 "role": "سخنگو",
@@ -305,6 +313,7 @@
         },
         {
             "name": "آیسان قاسم پور",
+            "photo": "person-177-Aysan.png",
             "order": 1,
             "meta": {
                 "role": "سخنگو",
@@ -317,6 +326,7 @@
         },
         {
             "name": "میترا سالار",
+            "photo": "person-173-MitraSalar.png",
             "order": 1,
             "meta": {
                 "role": "دبیرخانه",
@@ -329,6 +339,7 @@
         },
         {
             "name": "دکتر مسعود زمانی",
+            "photo": "person-180-Masood-Zamani.png",
             "order": 2,
             "meta": {
                 "role": "دبیر دوم",
@@ -341,6 +352,7 @@
         },
         {
             "name": "دکتر بابک سینا",
+            "photo": "person-179-Dr-SinaBabak.png",
             "order": 1,
             "meta": {
                 "role": "دبیر نخست",
@@ -481,7 +493,7 @@
         },
         {
             "name": "Main",
-            "location": "primary",
+            "location": "imp-mobile",
             "items": [
                 {
                     "title": "درباره ما",
