@@ -52,6 +52,12 @@ storage, deactivate the digest snippet — and delete the copy afterwards (it ho
 2. **Upload** the `imp` theme without activating; check it with Appearance → Customize → Live Preview.
 3. **Menus & content** — assign "Desktop menu (IMP)" and "Mobile menu (IMP)"; fill the
    "PDF file" box (`_imp_pdf`) on the document pages and magazine issues.
+   - **Fee popup:** create a page "هزینه هموندی" with the slug `membership-fee` and the fee text
+     (as in `tools/seed-real-content.php`; today it only exists inside /membership-form-guide/).
+   - **Motto reader:** paste `docs/content/maramname.html` into the page content of "مرامنامه حزب"
+     (Code editor), keeping the dFlip/PDF block if wanted — the reader uses the text, the PDF box
+     the download. Same for the constitution with `docs/content/asasname.html`. The affidavit page
+     already has its text.
 4. **Activate** the theme.
 5. **Form #3** — apply the Figma changes by hand in the Fluent editor (checklist to be written):
    reorder/relabel to Figma, remove `file-upload`, `input_radio_2`, `description`,

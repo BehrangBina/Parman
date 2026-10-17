@@ -32,7 +32,7 @@ return array(
 		'media'               => 'https://www.youtube.com/@IranianMonarchyParty',
 		'donorbox_membership' => 'https://donorbox.org/membership-930550',
 		'donorbox_donation'   => 'https://donorbox.org/donation-930545',
-		'contact_email'       => 'padeshahiparty@gmail.com',
+		'contact_email'       => 'office@iranianmonarchy.info', // as on the live contact page
 	),
 
 	// Footer / contact page icons, in display order (Figma: Instagram … Telegram, left to right).

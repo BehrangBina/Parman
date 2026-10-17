@@ -81,11 +81,9 @@ defined( 'ABSPATH' ) || exit;
 		</section>
 	<?php endif; ?>
 
-	<?php // Figma: closing verse between ornaments (1008:1941). ?>
-	<div class="imp-about__verse">
-		<img class="imp-otitle__orn" src="<?php echo esc_url( imp_asset( 'img/ornament.svg' ) ); ?>" alt="" aria-hidden="true">
-		<p>به مردی و فرهنگ و فرزانگی<br>ز گیتی برآریم آوازگی</p>
-		<img class="imp-otitle__orn imp-otitle__orn--flip" src="<?php echo esc_url( imp_asset( 'img/ornament.svg' ) ); ?>" alt="" aria-hidden="true">
+	<?php // Figma: closing verse with ornaments (1008:1941), exported artwork Title-Ending. ?>
+	<div class="imp-about__verse notranslate">
+		<img src="<?php echo esc_url( imp_asset( 'img/verse.svg' ) ); ?>" width="395" height="76" alt="به مردی و فرهنگ و فرزانگی، ز گیتی برآریم آوازگی" loading="lazy">
 	</div>
 
 	<?php

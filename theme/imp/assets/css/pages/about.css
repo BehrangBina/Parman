@@ -137,8 +137,8 @@
 }
 
 /* Closing verse */
-.imp-about__verse { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 40px 16px 0; direction: ltr; }
-.imp-about__verse p { margin: 0; direction: rtl; font: 700 18px/1.6 var(--imp-font); color: var(--imp-blue); text-align: center; }
+.imp-about__verse { display: flex; justify-content: center; padding: 40px 16px 0; }
+.imp-about__verse img { display: block; width: min(320px, 100%); height: auto; }
 
 /* "مشاهده همه" overlay (Figma Dabir / Sokhangoo) */
 .imp-people-dialog {
@@ -228,5 +228,5 @@
 	.imp-group__all { display: none; }
 
 	.imp-about__verse { padding-block-start: 64px; }
-	.imp-about__verse p { font-size: 22px; }
+	.imp-about__verse img { width: 395px; }
 }
