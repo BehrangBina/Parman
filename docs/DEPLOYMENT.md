@@ -21,9 +21,29 @@ Only `theme/imp` is deployed. `tools/`, `docs/`, Docker files and `.env` never g
 
 ## 3. Rehearsal on staging
 
-- Use IONOS staging if the plan includes it; otherwise clone the site with UpdraftPlus to a
-  password-protected, no-index subdomain (e.g. `staging.iranianmonarchy.info`).
-- Run the complete release (section 4) there first, including a test submission, emails and digest.
+**Test site (set up 2026-10-17):** https://imp.iranianmonarchy.info/wordpress/ — a separate, empty
+WordPress (not a copy of the live site) with our theme and the localhost test content. It holds no
+real personal data.
+
+How it was built (repeatable):
+1. Plugins → Upload `dist/imp-staging-guard.zip` and activate **first**: blocks every outgoing email,
+   hides the site from search engines, shows a red "TEST SITE" bar. Only acts on
+   `imp.iranianmonarchy.info` (does nothing anywhere else).
+2. Install the Neve theme and the Fluent Forms plugin (from wordpress.org), site language Persian.
+3. Themes → Upload the theme zip and activate it. Build it from `master`:
+   `git archive --format=zip --prefix=imp/ -o dist/imp-theme-<commit>.zip master:theme/imp`
+4. Plugins → Upload `dist/imp-staging-setup.zip`, activate, Tools → **IMP staging setup** → button.
+   It recreates pages, news (with images), issues, people, menus and form #3 from
+   `tools/staging/imp-staging-setup/content/` — refresh that folder from localhost with
+   `tools/export-staging-content.php` (see its header), then rebuild the zip.
+
+To update the theme there: build a new zip and upload it (WordPress offers "Replace current with
+uploaded").
+
+A **full rehearsal** with a copy of the live site (IONOS clone or WPvivid) is optional. If done: guard
+first (as a must-use plugin, before anyone opens the copy), password-protect the folder, deactivate
+Super Page Cache (Cloudflare key), Optimole, Hyve and Feedzy, set UpdraftPlus to manual with no remote
+storage, deactivate the digest snippet — and delete the copy afterwards (it holds members' personal data).
 
 ## 4. Release day on production (≈1 hour, quiet time)
 
