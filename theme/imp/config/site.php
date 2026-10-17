@@ -101,6 +101,7 @@ return array(
 		'bcd31-contact-us'    => 'contact', // live slug
 		'contact-us'          => 'contact',
 		'category:statements' => 'statements',
+		'single:post'         => 'article', // one news story or statement
 		'news'                => 'news',
 		'نشریه-ایرانگرا'      => 'magazine', // live slug (Persian)
 		'irangara'            => 'magazine',

@@ -140,3 +140,17 @@
 	font: 700 15px/1.6 var(--imp-font);
 	color: var(--imp-blue);
 }
+
+@media (min-width: 1024px) {
+	/* Figma desktop Hamvandi (1181:5631): the form in one centred column, 783px */
+	.imp-enabled .neve-main .nv-content-wrap > p:has(+ .fluentform),
+	.imp-enabled .neve-main .nv-content-wrap > p:first-child:not(:only-child),
+	.imp-enabled .fluentform { width: min(783px, 100%); margin-inline: auto; }
+	.imp-enabled .neve-main .nv-content-wrap > p:has(+ .fluentform),
+	.imp-enabled .neve-main .nv-content-wrap > p:first-child:not(:only-child) { margin-block: 56px 48px; font-size: 16px; }
+	.imp-enabled .fluentform .ff-el-group { margin-block-end: 22px; }
+	.imp-enabled .fluentform .ff-el-input--label label { font-size: 15px; }
+	.imp-enabled .fluentform .ff-el-form-control { height: 44px; font-size: 15px; }
+	.imp-enabled .fluentform textarea.ff-el-form-control { min-height: 120px; }
+	.imp-enabled .fluentform .ff-btn-submit { min-width: 180px; }
+}

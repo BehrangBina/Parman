@@ -107,7 +107,7 @@ final class Page_Router {
 	}
 
 	/**
-	 * Route key for the request: "front", a (decoded) page slug, or "category:<slug>".
+	 * Route key for the request: "front", a (decoded) page slug, "category:<slug>" or "single:post".
 	 *
 	 * @return string
 	 */
@@ -120,6 +120,9 @@ final class Page_Router {
 		}
 		if ( is_category() ) {
 			return 'category:' . get_queried_object()->slug;
+		}
+		if ( is_singular( 'post' ) ) {
+			return 'single:post';
 		}
 		return '';
 	}

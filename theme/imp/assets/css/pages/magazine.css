@@ -37,3 +37,20 @@ a.imp-issue__view:active { background: var(--imp-blue-active); }
 .imp-issue__date::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--imp-gold); }
 .imp-issue__download { display: inline-flex; align-items: center; gap: 6px; padding: 10px 0; font: 700 14px/1 var(--imp-font); color: var(--imp-blue); text-decoration: none; }
 .imp-issue__download .imp-icon { width: 18px; height: 18px; }
+
+@media (min-width: 1024px) {
+	/* Figma desktop Nashriye (1215:4401): intro and issue cards in one centred column, 784px */
+	.imp-magazine__intro { width: min(784px, 100%); margin: 40px auto 0; }
+	.imp-magazine__intro p { font-size: 16px; }
+	.imp-issues { width: min(784px, 100%); gap: 88px; margin-block-start: 56px; }
+	.imp-issue { border-radius: 12px; transition: box-shadow .2s ease; }
+	.imp-issue:hover { box-shadow: 0 8px 22px rgba(16, 28, 61, .2); }
+	.imp-issue__view { padding-block-end: 34px; }
+	.imp-issue__top { padding: 26px 32px 0; }
+	.imp-issue__title { font-size: 34px; }
+	.imp-issue__year { font-size: 20px; }
+	.imp-issue__desc { margin-block-start: 40px; padding-inline: 32px; font-size: 15px; }
+	.imp-issue__bar { min-height: 64px; padding-inline: 32px; }
+	.imp-issue__date, .imp-issue__download { font-size: 16px; }
+	.imp-issue__download:hover { color: var(--imp-blue-hover); }
+}

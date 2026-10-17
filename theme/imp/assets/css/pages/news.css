@@ -9,8 +9,6 @@
 .imp-newspage__divider { display: none; } /* desktop only */
 
 @media (min-width: 1024px) {
-	.imp-newspage { padding-block-start: 253px; } /* Figma: title at y≈417 */
-
 	/* Figma desktop: stories sit on the page, no card box */
 	.imp-newslist .imp-card,
 	.imp-newslist .imp-card:hover { padding: 0; gap: 6px; border-radius: 0; background: none; box-shadow: none; }

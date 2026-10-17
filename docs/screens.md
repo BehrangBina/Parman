@@ -41,13 +41,15 @@ References saved in `docs/figma/` (overview, Home, Components with hover/dropdow
 |---|---|---|
 | Header + dropdowns + search + footer + Donate (Components 1181:6348) | 1171:5178 | ✅ done |
 | Home | 1112:5062 | ✅ done |
-| About (people sections) | 1153:292 | `templates/pages/about.php` + `pages/about.css`; people & groups in admin **اعضای حزب** (`src/admin/class-person-post-type.php`); mobile: round photos / carousels + Dabir/Sokhangoo overlays; local data: `tools/seed-people.php` | ✅ done (photos pending) |
-| Hamyari / Overlay-MembershipFee | 1181:5330 / 1181:6254 | todo |
-| Hamvandi (form) | 1181:5631 | todo |
-| Maramname / Asasname / Sogandname + *-Content | 1181:6630, 1181:10104, 1215:994, 1181:9241, 1181:10634, 1215:1524 | todo |
-| Nashriye | 1215:4401 | todo |
-| News | 1215:5585 | todo |
-| Full-News (single post, also mobile) | 1215:6609 | todo |
-| Bayanie | 1215:6745 | todo |
-| Contact | 1225:9182 | todo |
-| Generic page style (pages without a design) | — | todo |
+| About (people sections) | 1153:292 | `templates/pages/about.php` + `pages/about.css`; people & groups in admin **اعضای حزب** (`src/admin/class-person-post-type.php`); mobile: round photos / carousels + Dabir/Sokhangoo overlays; local data: `tools/seed-people.php` | ✅ done (8/12 photos; 4 are placeholders in the design) |
+| Hamyari / Overlay-MembershipFee | 1181:5330 / 1181:6254 | ✅ built from the overview image (no detailed export): centred ~590px column |
+| Hamvandi (form) | 1181:5631 | ✅ built from the overview: form in a centred 783px column |
+| Maramname / Asasname / Sogandname + *-Content | 1181:6630, 1181:10104, 1215:994, 1181:9241, 1181:10634, 1215:1524 | ✅ built from the overview: page under the header on blue; reader = light ~782px card (no gold corner flourishes yet — need the export) |
+| Nashriye | 1215:4401 | ✅ built from the overview: intro + issue cards in a 784px column |
+| News | 1215:5585 | ✅ done (measured from the exported frame) |
+| Full-News (single post, also mobile) | 1215:6609 | ✅ built from the overview: `templates/pages/article.php` (route `single:post`); picture left, headline right, text below; no mobile design yet |
+| Bayanie | 1215:6745 | ✅ built from the overview: gold cards 794×171 in one centred column |
+| Contact | 1225:9182 | ✅ built from the overview: form card ~590px, centred |
+| Generic page style (pages without a design) | — | partly: page titles at the same height as designed pages; content otherwise Neve |
+
+Pages marked "built from the overview" follow `docs/figma/desktop-overview.png` (small) and the existing desktop pages; fine-tune when detailed exports are available.

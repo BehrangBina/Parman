@@ -1,0 +1,29 @@
+/*
+ * One news story or statement (Figma desktop Full-News 1215:6609 — overview only).
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-article__body { margin-block-start: 28px; text-align: start; }
+.imp-article__head { display: flex; flex-direction: column; gap: 14px; }
+.imp-article__media { margin: 0; overflow: hidden; border-radius: var(--imp-radius); box-shadow: var(--imp-shadow); }
+.imp-article__media img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+.imp-article__date { font: 500 12px/1 var(--imp-font); color: var(--imp-ink); }
+.imp-article__title { margin: 8px 0 0; font: 900 22px/1.45 var(--imp-font); color: var(--imp-blue); }
+.imp-article__text { margin-block-start: 20px; font: 400 15px/2 var(--imp-font); color: var(--imp-ink); }
+.imp-article__text :is(p, ul, ol) { margin: 0 0 14px; }
+.imp-article__text :is(h2, h3, h4) { margin: 22px 0 10px; font: 800 17px/1.6 var(--imp-font); color: var(--imp-blue); }
+.imp-article__text a { color: var(--imp-blue); text-decoration: underline; }
+.imp-article__text img { max-width: 100%; height: auto; border-radius: var(--imp-radius); }
+.imp-article__text figure { margin: 18px 0; }
+
+@media (min-width: 1024px) {
+	/* Figma overview: picture (≈485px) on the left, headline on the right, text below */
+	.imp-article__body { width: min(1157px, 100%); margin: 72px auto 0; }
+	.imp-article__head { display: grid; grid-template-columns: 1fr 485px; align-items: start; gap: 56px; }
+	.imp-article__head--text { grid-template-columns: 1fr; }
+	.imp-article__media { order: 2; } /* order 2 = the left in RTL */
+	.imp-article__meta { padding-block-start: 8px; }
+	.imp-article__date { font-size: 14px; }
+	.imp-article__title { margin-block-start: 14px; font-size: 32px; }
+	.imp-article__text { width: min(860px, 100%); margin: 48px auto 0; font-size: 17px; }
+}

@@ -68,7 +68,9 @@ body.imp-scroll-lock { overflow: hidden; } /* set by assets/js/modules/scroll-lo
 @media (min-width: 1024px) {
 	:root { --imp-header-h: 152px; --imp-d-col: min(1200px, 100vw - 80px); }
 
-	.imp-enabled .neve-main { padding-block-start: 110px; }
+	/* Designed pages: title at y≈417 like Figma desktop News (1215:5585); content below the fixed header */
+	.imp-page { padding-block-start: 253px; padding-inline: 0; }
+	.imp-enabled .neve-main { padding-block-start: 210px; } /* regular pages: title at the same height */
 	.imp-enabled .neve-main > .container,
 	.imp-enabled .neve-main .single-page-container { max-width: var(--imp-d-col); }
 }

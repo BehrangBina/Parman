@@ -184,7 +184,30 @@ body.imp-docpage { overflow: hidden; }
 :root:not([dir="rtl"]) .imp-reader__leaf-shade { background: linear-gradient(to right, rgba(36, 63, 136, .22), rgba(36, 63, 136, 0) 60%); }
 
 @media (min-width: 1024px) {
-	.imp-doc__read { font-size: 20px; } /* keeps the previous desktop size (was inherited from .imp-btn) */
-	/* Keep a comfortable line length: the text column is at most 760px wide, centred */
-	.imp-reader__pages { --imp-reader-pad: max(64px, calc((100% - 760px) / 2)); }
+	/* Figma desktop Maramname (1181:6630): the page sits under the site header, all on blue */
+	.imp-doc,
+	.imp-reader { inset-block-start: calc(var(--wp-admin--admin-bar--height, 0px) + var(--imp-header-h)); z-index: 9; background: var(--imp-blue); }
+	.imp-doc__top { height: auto; padding-block: 72px 0; }
+	.imp-doc__top .imp-otitle__text { color: var(--imp-white); font-size: 26px; }
+	.imp-doc__close { display: none; } /* the header and Back link do this on desktop */
+	.imp-doc__stage { padding-block: 48px 80px; background: transparent; overflow: visible; }
+	.imp-doc__stage::before { inset: -40px 0 auto; height: 620px; }
+	.imp-doc__thumb { width: 190px; height: 268px; margin-block-start: 16px; transition: transform .2s ease, box-shadow .2s ease; }
+	.imp-doc__thumb:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0, 0, 0, .3); }
+	.imp-doc__read { width: 300px; height: 44px; font-size: 20px; } /* 20px: the previous desktop size (was inherited from .imp-btn) */
+
+	/* Reader (Figma desktop Read/Maram): the pages are a light card ~780px wide on the blue background */
+	.imp-reader__pages {
+		--imp-reader-pad: 64px;
+		inset: 32px auto 32px 50%;
+		width: min(782px, 100% - 80px);
+		translate: -50% 0;
+		padding-block-start: 96px;
+		border-radius: 14px;
+		box-shadow: 0 12px 40px rgba(0, 0, 0, .35);
+		overflow: hidden;
+	}
+	.imp-reader__pages .imp-reader__close { top: 28px; }
+	.imp-reader__label { top: 44px; }
+	.imp-reader__flow { font-size: 15px; }
 }

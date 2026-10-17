@@ -5,3 +5,9 @@
 
 .imp-statements { padding-inline: 26px; }
 .imp-slist { display: flex; flex-direction: column; gap: 20px; margin: 30px 0 0; padding: 0; list-style: none; }
+
+@media (min-width: 1024px) {
+	/* Figma desktop Bayanie (1215:6745): the cards in one centred column, 794px wide */
+	.imp-statements { padding-inline: 0; }
+	.imp-slist { width: min(794px, 100%); gap: 31px; margin: 64px auto 0; }
+}

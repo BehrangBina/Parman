@@ -42,3 +42,15 @@
 	text-decoration: underline;
 	text-underline-offset: 4px;
 }
+
+@media (min-width: 1024px) {
+	/* Figma desktop Hamyari (1181:5330): the same blocks in a centred ~590px column */
+	.imp-block { width: min(590px, 100%); margin-inline: auto; margin-block-start: 64px; }
+	.imp-block--spaced { margin-block-start: 88px; }
+	.imp-block__icon { width: 36px; height: 36px; }
+	.imp-block__title { font-size: 22px; }
+	.imp-block__text { font-size: 17px; line-height: 1.8; }
+	.imp-info { font-size: 13px; }
+	.imp-textlink { font-size: 17px; }
+	.imp-textlink:hover { color: var(--imp-blue-hover); text-decoration-thickness: 2px; }
+}

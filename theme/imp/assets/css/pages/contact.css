@@ -17,3 +17,10 @@
 	text-underline-offset: 3px;
 }
 .imp-contact-page__email .imp-icon { flex: none; width: 28px; height: 28px; }
+
+@media (min-width: 1024px) {
+	/* Figma desktop Contact (1225:9182): the form in a centred white card ~590px wide */
+	.imp-contact-page .imp-contact__card { width: min(590px, 100%); margin-block-start: 64px; }
+	.imp-contact-page__email { margin-block-start: 40px; font-size: 18px; }
+	.imp-contact-page__email:hover { color: var(--imp-blue-hover); }
+}
