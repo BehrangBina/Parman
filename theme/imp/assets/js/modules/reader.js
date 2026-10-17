@@ -16,6 +16,14 @@ const reducedMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' );
 const PERSIAN_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
 const toPersianDigits = ( number ) => String( number ).replace( /\d/g, ( digit ) => PERSIAN_DIGITS[ digit ] );
 
+// The counter is written after a translation has run, so it brings its own words (see language.js).
+const COUNTER = {
+	fa: { turn: 'ورق بزن', page: ( n, total ) => `صفحه ${ toPersianDigits( n ) } از ${ toPersianDigits( total ) }` },
+	en: { turn: 'Turn the page', page: ( n, total ) => `Page ${ n } of ${ total }` },
+	de: { turn: 'Umblättern', page: ( n, total ) => `Seite ${ n } von ${ total }` },
+};
+const counterWords = () => COUNTER[ ( document.documentElement.lang || 'fa' ).slice( 0, 2 ) ] || COUNTER.fa;
+
 export function init() {
 	document.querySelectorAll( '[data-imp-reader]' ).forEach( setUpReader );
 }
@@ -30,7 +38,8 @@ function setUpReader( reader ) {
 	const flow = reader.querySelector( '[data-imp-reader-flow]' );
 	const count = reader.querySelector( '[data-imp-reader-count]' );
 	const nextOnPages = pages.querySelector( '[data-imp-reader-next]' );
-	const isRtl = getComputedStyle( reader ).direction === 'rtl';
+	// Direction can change while the page is open (translation to English/German, see language.js).
+	let isRtl = getComputedStyle( reader ).direction === 'rtl';
 	let page = 0;
 	let total = 1;
 	let step = 0;
@@ -52,12 +61,13 @@ function setUpReader( reader ) {
 	const render = () => {
 		flow.style.transform = offset( page );
 		// Figma Maram-01: "ورق بزن" (turn the page) on the first page, then "صفحه n از N".
+		const words = counterWords();
 		if ( total < 2 ) {
 			count.textContent = '';
 		} else if ( page === 0 ) {
-			count.textContent = 'ورق بزن';
+			count.textContent = words.turn;
 		} else {
-			count.textContent = `صفحه ${ toPersianDigits( page + 1 ) } از ${ toPersianDigits( total ) }`;
+			count.textContent = words.page( page + 1, total );
 		}
 		nextOnPages.disabled = page >= total - 1;
 	};
@@ -70,6 +80,7 @@ function setUpReader( reader ) {
 		cover.hidden = true;
 		pages.hidden = false;
 		layout();
+		window.dispatchEvent( new CustomEvent( 'imp:content-shown' ) ); // translate it if the page is translated
 	};
 
 	// +1 = forward, -1 = back; from the cover forward opens the pages, from page 1 back returns to it.
@@ -190,6 +201,20 @@ function setUpReader( reader ) {
 			layout();
 		}
 	} );
+
+	// A translation changes the text length (new page breaks) and maybe the direction.
+	let relayoutTimer = 0;
+	const relayoutSoon = () => {
+		clearTimeout( relayoutTimer );
+		relayoutTimer = setTimeout( () => {
+			isRtl = getComputedStyle( reader ).direction === 'rtl';
+			if ( ! pages.hidden ) {
+				layout();
+			}
+		}, 250 );
+	};
+	window.addEventListener( 'imp:direction', relayoutSoon );
+	new MutationObserver( relayoutSoon ).observe( flow, { childList: true, subtree: true, characterData: true } );
 	document.fonts?.ready.then( () => {
 		if ( ! pages.hidden ) {
 			layout();

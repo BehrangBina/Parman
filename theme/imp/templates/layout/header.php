@@ -21,12 +21,12 @@ $home_url  = home_url( '/' );
 <div class="imp-ui imp-top">
 	<?php // Figma: Mobile NavBar (881:13007). ?>
 	<header class="imp-header" role="banner">
-		<div class="imp-header__date" aria-label="<?php esc_attr_e( 'Today', 'imp' ); ?>">
+		<div class="imp-header__date notranslate" aria-label="<?php esc_attr_e( 'Today', 'imp' ); ?>">
 			<span><?php echo esc_html( $args['date']['day'] . ' ' . $args['date']['month'] ); ?></span>
 			<span><?php echo esc_html( $args['date']['year'] ); ?></span>
 		</div>
 
-		<a class="imp-header__logo" href="<?php echo esc_url( $home_url ); ?>" rel="home">
+		<a class="imp-header__logo notranslate" href="<?php echo esc_url( $home_url ); ?>" rel="home">
 			<img src="<?php echo esc_url( imp_asset( 'img/logo.svg' ) ); ?>" width="152" height="110" alt="<?php echo esc_attr( $site_name ); ?>">
 		</a>
 
@@ -38,7 +38,8 @@ $home_url  = home_url( '/' );
 
 	<?php // Figma: Desktop NAVBAR-FINAL (1171:5178). ?>
 	<header class="imp-d-header" aria-label="<?php esc_attr_e( 'Site header', 'imp' ); ?>">
-		<span class="imp-d-header__date"><?php echo esc_html( $args['date']['day'] . ' ' . $args['date']['month'] . ' ' . $args['date']['year'] ); ?></span>
+		<span class="imp-d-header__date notranslate"><?php echo esc_html( $args['date']['day'] . ' ' . $args['date']['month'] . ' ' . $args['date']['year'] ); ?></span>
+		<?php imp_component( 'language-switcher', array( 'class' => 'imp-lang--desktop' ) ); ?>
 		<nav class="imp-d-header__nav" aria-label="<?php esc_attr_e( 'Main menu', 'imp' ); ?>">
 			<?php
 			imp_component(
@@ -49,7 +50,7 @@ $home_url  = home_url( '/' );
 				)
 			);
 			?>
-			<a class="imp-d-header__logo" href="<?php echo esc_url( $home_url ); ?>" rel="home">
+			<a class="imp-d-header__logo notranslate" href="<?php echo esc_url( $home_url ); ?>" rel="home">
 				<img src="<?php echo esc_url( imp_asset( 'img/logo.svg' ) ); ?>" width="182" height="131" alt="<?php echo esc_attr( $site_name ); ?>">
 			</a>
 			<?php
@@ -89,6 +90,7 @@ $home_url  = home_url( '/' );
 		<?php // Chevron for the submenu toggles that assets/js/modules/mobile-menu.js adds. ?>
 		<template id="imp-tpl-chevron"><?php imp_icon( 'chevron' ); ?></template>
 		<?php echo $args['mobile_menu']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- core wp_nav_menu() output. ?>
+		<?php imp_component( 'language-switcher', array( 'class' => 'imp-lang--menu' ) ); ?>
 	</nav>
 
 	<?php // Figma: Donate tab (Components 1181:6348). ?>

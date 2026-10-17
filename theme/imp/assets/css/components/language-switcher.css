@@ -1,0 +1,34 @@
+/*
+ * Language flags (GTranslate, as on the live site): inside the burger menu on phones,
+ * above the date in the desktop header.
+ * Mobile-first: base rules for phones, then the ≥1024px desktop rules.
+ */
+
+.imp-lang { direction: ltr; }
+.imp-lang :is(.gt_container, .gtranslate_wrapper) { display: flex; justify-content: center; gap: 10px; }
+.imp-lang a.glink { display: inline-flex; line-height: 0; border-radius: 4px; transition: opacity .15s ease; }
+.imp-lang a.glink img { width: 28px; height: auto; margin: 0 !important; }
+.imp-lang a.glink.gt-current-lang { outline: 2px solid var(--imp-gold); outline-offset: 2px; }
+.imp-lang a.glink:not(.gt-current-lang) { opacity: .75; }
+.imp-lang a.glink:hover { opacity: 1; }
+
+/* Phone: centred under the menu items */
+.imp-lang--menu { position: relative; z-index: 1; margin-block-start: 28px; }
+.imp-lang--desktop { display: none; }
+
+@media (min-width: 1024px) {
+	.imp-lang--desktop {
+		display: block;
+		position: absolute;
+		top: 28px;
+		left: max(40px, 50vw - 599px); /* same column as the date below it */
+	}
+	.imp-lang--desktop a.glink img { width: 24px; }
+}
+
+/* Translated to English/German: language.js sets dir="ltr"; Neve's RTL stylesheet fixes the body to rtl */
+:root[dir="ltr"] body { direction: ltr; }
+
+/* Google Translate's own top bar and tooltip would push the fixed header down */
+body { top: 0 !important; }
+.skiptranslate iframe, #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }

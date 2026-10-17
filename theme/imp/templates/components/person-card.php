@@ -30,7 +30,7 @@ $links   = array_filter(
 		<?php endif; ?>
 	</div>
 	<div class="imp-person__text">
-		<p class="imp-person__name"><?php echo esc_html( $args['name'] ); ?></p>
+		<p class="imp-person__name notranslate"><?php echo esc_html( $args['name'] ); ?></p>
 		<?php if ( 'circle' !== $variant && '' !== $args['role'] ) : ?>
 			<p class="imp-person__role"><?php echo esc_html( $args['role'] ); ?></p>
 		<?php endif; ?>

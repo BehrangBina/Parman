@@ -115,7 +115,7 @@ $text = $args['text'];
 						<span class="screen-reader-text"><?php esc_html_e( 'Previous page', 'imp' ); ?></span>
 						<?php imp_icon( 'arrow-slider' ); ?>
 					</button>
-					<span class="imp-reader__count" data-imp-reader-count aria-live="polite"></span>
+					<span class="imp-reader__count notranslate" data-imp-reader-count aria-live="polite"></span>
 					<button class="imp-reader__arrow imp-reader__arrow--next" type="button" data-imp-reader-next>
 						<span class="screen-reader-text"><?php esc_html_e( 'Next page', 'imp' ); ?></span>
 						<?php imp_icon( 'arrow-slider' ); ?>

@@ -39,6 +39,7 @@ final class Assets {
 		'dialog',
 		'fluent-forms',
 		'footer',
+		'language-switcher',
 	);
 
 	/**
@@ -57,6 +58,7 @@ final class Assets {
 		'reader',
 		'news-carousel',
 		'carousel',
+		'language',
 	);
 
 	/**

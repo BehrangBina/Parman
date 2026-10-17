@@ -56,6 +56,19 @@ showing a broken layout. Neve's own `<main>` is hidden on designed pages (`imp-c
 `templates/components/my-thing.php`, render with `imp_component( 'my-thing', array( … ) )`;
 styles in `assets/css/components/my-thing.css` and add `'my-thing'` to `Assets::COMPONENTS`.
 
+## Languages (فارسی / English / Deutsch)
+
+The **GTranslate** plugin (free, same settings as the live site: source Persian, English + German,
+3D flags) translates in the visitor's browser — there are no `/en/` pages.
+
+* `templates/components/language-switcher.php` puts the flags in the desktop header (above the date)
+  and in the phone menu; it renders nothing when GTranslate is not active.
+* `assets/js/modules/language.js` turns the page left-to-right for English/German (Google Translate
+  only swaps the text) and fires `imp:direction`; content revealed later (the document reader)
+  fires `imp:content-shown` and is translated then.
+* Add the class **`notranslate`** to anything that must stay as it is (logo, Imperial date,
+  people's names, the reader's page counter).
+
 ## Coding standards
 
 * **WordPress Coding Standards** (PHP: `snake_case`, `Class_Name`, tabs; JS: WordPress style).
